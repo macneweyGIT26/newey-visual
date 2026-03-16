@@ -26,7 +26,7 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-200 mb-1">Executive / Minard Layer</h2>
           <div className="w-12 h-px bg-amber-500/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. <span className="text-violet-400">Violet</span> traces system work. <span className="text-cyan-400">Cyan</span> traces work output. <span className="text-amber-400">Amber</span> traces personal. <span className="text-red-400">Red</span> flashes where paths die.
+            Particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. <span style={{color:'#A66BFF'}}>Violet</span> traces system work. <span style={{color:'#34D1E7'}}>Cyan</span> traces work output. <span style={{color:'#FF9A3C'}}>Amber</span> traces personal. <span style={{color:'#FF4D4D'}}>Red</span> flashes where paths die.
           </p>
         </div>
 
@@ -35,16 +35,16 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-200 mb-1">Operations / Street Layer</h2>
           <div className="w-12 h-px bg-cyan-400/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Token traffic shoots across 3 domain lanes — <span className="text-violet-400">violet</span> for system, <span className="text-cyan-400">cyan</span> for work, <span className="text-amber-400">amber</span> for personal. Glowing dots jump lanes at cross-streets. Substations pulse at intersections. Balls bleed into Reason above and Memory below.
+            Token traffic shoots across 3 domain lanes — <span style={{color:'#A66BFF'}}>violet</span> for system, <span style={{color:'#34D1E7'}}>cyan</span> for work, <span style={{color:'#FF9A3C'}}>amber</span> for personal. Glowing dots jump lanes at cross-streets. Substations pulse at intersections. Balls bleed into Reason above and Memory below.
           </p>
         </div>
 
         <div className="mb-20">
-          <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-violet-400/60 mb-3">Memory</p>
+          <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-emerald-400/60 mb-3">Memory</p>
           <h2 className="text-xl font-light text-stone-200 mb-1">Ambient / Refik Layer</h2>
-          <div className="w-12 h-px bg-violet-400/30 mb-6" />
+          <div className="w-12 h-px bg-emerald-400/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Pastel orbs drift slowly, clustering toward two wandering centers then repelling when too close. <span className="text-violet-400">Violet</span> threads form between nearby memories. <span className="text-yellow-400">Gold</span> ripples mark synthesis moments. The void breathes.
+            Pastel orbs drift slowly, clustering toward two wandering centers then repelling when too close. <span style={{color:'#A66BFF'}}>Violet</span> threads form between nearby memories. <span style={{color:'#2BE6A6'}}>Emerald</span> ripples mark synthesis moments. The void breathes.
           </p>
         </div>
 
@@ -53,30 +53,45 @@ export default function GuidePage() {
           <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-6">Color System</p>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{background:'rgb(168,85,247)'}} />
-              <span className="text-sm text-violet-400 w-20">Violet</span>
-              <span className="text-sm text-stone-500">System — infrastructure, maintenance, governance</span>
+              <span className="w-3 h-3 rounded-full" style={{background:'#A66BFF'}} />
+              <span className="text-sm font-mono text-stone-400">SYSTEM</span>
+              <span className="text-xs text-stone-600">#A66BFF · Infrastructure, maintenance, governance</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{background:'rgb(34,211,238)'}} />
-              <span className="text-sm text-cyan-400 w-20">Cyan</span>
-              <span className="text-sm text-stone-500">Work — projects, analysis, deliverables</span>
+              <span className="w-3 h-3 rounded-full" style={{background:'#34D1E7'}} />
+              <span className="text-sm font-mono text-stone-400">WORK</span>
+              <span className="text-xs text-stone-600">#34D1E7 · Projects, analysis, deliverables</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{background:'rgb(251,146,60)'}} />
-              <span className="text-sm text-amber-400 w-20">Amber</span>
-              <span className="text-sm text-stone-500">Personal — family, grocery, private</span>
+              <span className="w-3 h-3 rounded-full" style={{background:'#FF9A3C'}} />
+              <span className="text-sm font-mono text-stone-400">PERSONAL</span>
+              <span className="text-xs text-stone-600">#FF9A3C · Family, grocery, private</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{background:'rgb(250,204,21)'}} />
-              <span className="text-sm text-yellow-400 w-20">Gold</span>
-              <span className="text-sm text-stone-500">Synthesis — high-value output, convergence</span>
+              <span className="w-3 h-3 rounded-full" style={{background:'#2BE6A6'}} />
+              <span className="text-sm font-mono text-stone-400">SYNTHESIS</span>
+              <span className="text-xs text-stone-600">#2BE6A6 · High-value output, convergence</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{background:'rgb(239,68,68)'}} />
-              <span className="text-sm text-red-400 w-20">Red</span>
-              <span className="text-sm text-stone-500">Attrition — dead paths, pruned routes, failure</span>
+              <span className="w-3 h-3 rounded-full" style={{background:'#FF4D4D'}} />
+              <span className="text-sm font-mono text-stone-400">ATTRITION</span>
+              <span className="text-xs text-stone-600">#FF4D4D · Dead paths, pruned routes, failure</span>
             </div>
+          </div>
+        </div>
+
+        {/* Brightness Hierarchy */}
+        <div className="mb-16 pt-6 border-t border-white/5">
+          <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-4">Brightness Hierarchy</p>
+          <p className="text-xs text-stone-500 mb-4 leading-relaxed">
+            Brightness communicates importance. Higher opacity = higher priority signal.
+          </p>
+          <div className="space-y-2 text-xs text-stone-600">
+            <div>💫 Token glow — synthesis pulses, breakthrough sweeps (highest)</div>
+            <div>🔵 Work lanes — 0.12 opacity (primary activity)</div>
+            <div>🟠 Personal lanes — 0.08 opacity (secondary activity)</div>
+            <div>🟣 System grid — 0.05 opacity (infrastructure, implicit)</div>
+            <div>🔴 Attrition flashes — signal where work dies</div>
           </div>
         </div>
 
