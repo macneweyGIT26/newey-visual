@@ -103,7 +103,7 @@ export default function A4Canvas() {
         ctx.lineTo(x2,flowMidY+bw2/2)
         ctx.bezierCurveTo(x1+(x2-x1)*0.5,flowMidY+bw2/2,x1+(x2-x1)*0.5,flowMidY+bw1/2,x1,flowMidY+bw1/2)
         ctx.closePath()
-        ctx.fillStyle=`rgba(${COLORS.PERSONAL},0.12)`;ctx.fill()
+        ctx.fillStyle=`rgba(${COLORS.PERSONAL},0.018)`;ctx.fill()
       })
 
       ctx.font='9px -apple-system, sans-serif';ctx.textAlign='center'
