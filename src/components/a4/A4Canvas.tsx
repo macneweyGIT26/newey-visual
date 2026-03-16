@@ -315,19 +315,24 @@ export default function A4Canvas() {
       // Colors
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
       const allLegs = [
+        {c:'255,255,255', l:'tokens'},
         {c:COLORS.SYSTEM, l:'system'},
         {c:COLORS.WORK, l:'work'},
         {c:COLORS.PERSONAL, l:'personal'},
         {c:COLORS.SYNTHESIS, l:'synthesis'},
-        {c:COLORS.ATTRITION, l:'attrition'},
       ]
       const legStartX = 15
       allLegs.forEach((lg,i) => {
-        const lx = legStartX + i * 85
-        const brightMult=i===3?1.2:i===1?0.9:i===2?0.7:0.5
+        const lx = legStartX + i * 75
+        let brightMult = 0.5
+        if(i===0) brightMult=0.9 // tokens bright
+        else if(i===4) brightMult=1.2 // synthesis brightest
+        else if(i===2) brightMult=0.9 // work bright
+        else if(i===3) brightMult=0.7 // personal medium
+        
         ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
         ctx.fillStyle = `rgba(${lg.c},${0.6*brightMult})`; ctx.fill()
-        ctx.fillStyle = `rgba(255,255,255,${0.15+i*0.04})`
+        ctx.fillStyle = `rgba(255,255,255,${0.15+i*0.03})`
         ctx.fillText(lg.l, lx + 8, legY + 3)
       })
 
