@@ -322,28 +322,18 @@ export default function A4Canvas() {
       ctx.beginPath();ctx.moveTo(0,S.sY);ctx.lineTo(w,S.sY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soY);ctx.lineTo(w,S.soY);ctx.stroke()
 
-      // ═══ TOKEN BURN METER (top right) ═══
+      // Token Burn meter — simple rect (no roundedRect to avoid path issues)
       const mX=w-235,mY=8,mW=220,mH=42
       const burnLoad=0.55+Math.sin(t*0.001)*0.15
-      ctx.save()
-      roundedRect(mX,mY,mW,mH,10)
-      ctx.fillStyle='rgba(5,10,20,0.5)';ctx.fill()
-      ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;ctx.stroke()
-
+      ctx.fillStyle='rgba(5,10,20,0.5)';ctx.fillRect(mX,mY,mW,mH)
       ctx.fillStyle='rgba(238,246,255,0.7)'
-      ctx.font='600 11px -apple-system, sans-serif'
-      ctx.textAlign='left'
+      ctx.font='600 11px -apple-system, sans-serif';ctx.textAlign='left'
       ctx.fillText('Token Burn',mX+12,mY+15)
-
-      roundedRect(mX+12,mY+24,mW-24,8,4)
-      ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fill()
-
+      ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(mX+12,mY+24,mW-24,8)
       const fillW=(mW-24)*burnLoad
       const barGrad=ctx.createLinearGradient(mX+12,0,mX+12+fillW,0)
       barGrad.addColorStop(0,`rgb(${COLORS.WORK})`);barGrad.addColorStop(0.55,`rgb(${COLORS.PERSONAL})`);barGrad.addColorStop(1,`rgb(${COLORS.SYNTHESIS})`)
-      roundedRect(mX+12,mY+24,fillW,8,4)
-      ctx.fillStyle=barGrad;ctx.fill()
-      ctx.restore()
+      ctx.fillStyle=barGrad;ctx.fillRect(mX+12,mY+24,fillW,8)
 
       // Data timestamp below meter
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
