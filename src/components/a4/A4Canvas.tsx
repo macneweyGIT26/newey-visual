@@ -93,13 +93,7 @@ export default function A4Canvas() {
       const BAND_W=[140,110,70,45,20]
 
       // ═══ REASON ═══
-      // Warm amber background wash
-      const reasonGrad=ctx.createLinearGradient(0,0,0,S.rH)
-      reasonGrad.addColorStop(0,`rgba(${COLORS.PERSONAL},0.03)`)
-      reasonGrad.addColorStop(0.5,`rgba(${COLORS.PERSONAL},0.05)`)
-      reasonGrad.addColorStop(1,`rgba(${COLORS.PERSONAL},0.01)`)
-      ctx.fillStyle=reasonGrad;ctx.fillRect(0,0,w,S.rH)
-
+      // Amber/orange Sankey flow band (narrowing funnel)
       STG_X.forEach((sx,i)=>{
         if(i>=STG_X.length-1)return
         const x1=w*sx,x2=w*STG_X[i+1],bw1=BAND_W[i],bw2=BAND_W[i+1]
@@ -109,7 +103,7 @@ export default function A4Canvas() {
         ctx.lineTo(x2,flowMidY+bw2/2)
         ctx.bezierCurveTo(x1+(x2-x1)*0.5,flowMidY+bw2/2,x1+(x2-x1)*0.5,flowMidY+bw1/2,x1,flowMidY+bw1/2)
         ctx.closePath()
-        ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.012)`;ctx.fill()
+        ctx.fillStyle=`rgba(${COLORS.PERSONAL},0.12)`;ctx.fill()
       })
 
       ctx.font='9px -apple-system, sans-serif';ctx.textAlign='center'
