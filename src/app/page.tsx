@@ -22,9 +22,12 @@ export default function Home() {
               <span className="text-stone-300">·</span>
               <span>Soul</span>
             </div>
-            <a href="/dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">
-              Dark Mode →
-            </a>
+            <nav className="flex gap-2">
+              <a href="/" className="text-[10px] text-amber-600 font-bold border border-stone-300 px-3 py-1 rounded">Light</a>
+              <a href="/dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Dark</a>
+              <a href="/interpret-light" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Workbench</a>
+              <a href="/interpret-dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Workbench Dark</a>
+            </nav>
           </div>
         </div>
       </header>

@@ -15,13 +15,12 @@ export default function DarkPage() {
             </h1>
             <p className="text-xs text-stone-600 mt-0.5">Visual System — Dark Mode</p>
           </div>
-          <div className="flex gap-6 text-[10px] text-stone-500 tracking-wider uppercase">
-            <span>Reason</span>
-            <span className="text-stone-700">·</span>
-            <span>Motion</span>
-            <span className="text-stone-700">·</span>
-            <span>Soul</span>
-          </div>
+          <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
+            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors">Light</a>
+            <a href="/dark" className="text-amber-500 font-bold">Dark</a>
+            <a href="/interpret-light" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench</a>
+            <a href="/interpret-dark" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench Dark</a>
+          </nav>
         </div>
       </header>
       <MinardDark />
