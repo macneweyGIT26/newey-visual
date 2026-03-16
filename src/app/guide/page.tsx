@@ -29,7 +29,6 @@ export default function GuidePage() {
 
           <div className="space-y-8">
 
-            {/* Reason */}
             <div>
               <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-2">Layer 1</p>
               <h3 className="text-lg font-light text-stone-200 mb-2">Reason</h3>
@@ -39,23 +38,21 @@ export default function GuidePage() {
               </p>
             </div>
 
-            {/* Motion */}
             <div>
               <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-2">Layer 2</p>
               <h3 className="text-lg font-light text-stone-200 mb-2">Motion</h3>
               <p className="text-xs text-stone-600 mb-3">Execution · Token Burn · Agents & Tools</p>
               <p className="text-sm leading-relaxed text-stone-400">
-                Token traffic shoots across 3 domain lanes — <span style={{color:'#A66BFF'}}>violet</span> for system, <span style={{color:'#34D1E7'}}>cyan</span> for work, <span style={{color:'#FF9A3C'}}>amber</span> for personal. Glowing dots jump lanes at cross-streets. Substations pulse at intersections. <strong>Tokens burn only in Motion.</strong> Reason and Soul consume the results.
+                Colored dots drift across 3 domain lanes — <span style={{color:'#A66BFF'}}>violet</span> for system, <span style={{color:'#34D1E7'}}>cyan</span> for work, <span style={{color:'#FF9A3C'}}>amber</span> for personal. Substations pulse at intersections. <strong>Tokens burn only in Motion.</strong> White appears as subtle support: intersection pulses, lane shimmer, and faint current streaks around active traffic. White = electricity. Color = work.
               </p>
             </div>
 
-            {/* Soul */}
             <div>
               <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-2">Layer 3</p>
-              <h3 className="text-lg font-light text-stone-200 mb-2">Soul</h3>
+              <h3 className="text-lg font-light text-stone-200 mb-2">Memory</h3>
               <p className="text-xs text-stone-600 mb-3">Identity · Memory · Pattern</p>
               <p className="text-sm leading-relaxed text-stone-400">
-                Pastel orbs drift slowly, clustering toward wandering centers then repelling when too close. <span style={{color:'#A66BFF'}}>Violet</span> threads form between nearby memories. <span style={{color:'#2BE6A6'}}>Emerald</span> ripples mark synthesis moments. The void breathes.
+                Pastel orbs drift slowly, clustering toward wandering centers then repelling when too close. <span style={{color:'#A66BFF'}}>Violet</span> threads form between nearby memories. <span style={{color:'#FF5FA2'}}>Rose</span> ripples mark synthesis moments. The void breathes.
               </p>
             </div>
 
@@ -67,24 +64,22 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-100 mb-6">Layer Crossings</h2>
           <p className="text-sm text-stone-400 mb-6">The dots that cross layers are the interesting work. Four crossing types:</p>
           
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <p className="text-sm font-mono text-stone-300 mb-1">Motion → Reason</p>
-                <p className="text-xs text-stone-600">Escalation. Work needs judgment. Queries the reasoning layer.</p>
-              </div>
-              <div>
-                <p className="text-sm font-mono text-stone-300 mb-1">Reason → Motion</p>
-                <p className="text-xs text-stone-600">Decision. Reasoning outputs a go/no-go. Motion executes.</p>
-              </div>
-              <div>
-                <p className="text-sm font-mono text-stone-300 mb-1">Motion → Soul</p>
-                <p className="text-xs text-stone-600">Completion. Work finishes. Results persist as memory.</p>
-              </div>
-              <div>
-                <p className="text-sm font-mono text-stone-300 mb-1">Soul → Reason</p>
-                <p className="text-xs text-stone-600">Recall. Memory patterns inform future reasoning.</p>
-              </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <p className="text-sm font-mono text-stone-300 mb-1">Motion → Reason</p>
+              <p className="text-xs text-stone-600">Escalation. Work needs judgment. Queries the reasoning layer.</p>
+            </div>
+            <div>
+              <p className="text-sm font-mono text-stone-300 mb-1">Reason → Motion</p>
+              <p className="text-xs text-stone-600">Decision. Reasoning outputs a go/no-go. Motion executes.</p>
+            </div>
+            <div>
+              <p className="text-sm font-mono text-stone-300 mb-1">Motion → Memory</p>
+              <p className="text-xs text-stone-600">Completion. Work finishes. Results persist as memory.</p>
+            </div>
+            <div>
+              <p className="text-sm font-mono text-stone-300 mb-1">Memory → Reason</p>
+              <p className="text-xs text-stone-600">Recall. Memory patterns inform future reasoning.</p>
             </div>
           </div>
         </div>
@@ -93,13 +88,13 @@ export default function GuidePage() {
         <div className="mb-20 pt-10 border-t border-white/5">
           <h2 className="text-xl font-light text-stone-100 mb-6">Synthesis</h2>
           <p className="text-sm text-stone-400 mb-4 leading-relaxed">
-            Synthesis happens when multiple streams converge. Not "better work"—<strong>convergence</strong>.
+            Synthesis happens when multiple streams converge. Not &quot;better work&quot;—<strong>convergence</strong>.
           </p>
           <p className="text-sm text-stone-400 mb-6 leading-relaxed">
-            Example: F1 data <span style={{color:'#34D1E7'}}>+</span> engine supplier insight <span style={{color:'#A66BFF'}}>+</span> contract interpretation <span style={{color:'#FF9A3C'}}>=</span> <span style={{color:'#2BE6A6'}}>emerald synthesis moment</span>
+            Example: F1 data <span style={{color:'#34D1E7'}}>+</span> engine supplier insight <span style={{color:'#A66BFF'}}>+</span> contract interpretation <span style={{color:'#FF9A3C'}}>=</span> <span style={{color:'#FF5FA2'}}>rose synthesis moment</span>
           </p>
           <p className="text-xs text-stone-500 italic">
-            Visually: colored dots merge → emerald burst → result drops to Soul as memory.
+            Visually: colored dots merge → rose burst → result drops to Memory as an orb.
           </p>
         </div>
 
@@ -130,9 +125,9 @@ export default function GuidePage() {
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <span className="w-4 h-4 rounded-full mt-1" style={{background:'#2BE6A6'}} />
+              <span className="w-4 h-4 rounded-full mt-1" style={{background:'#FF5FA2'}} />
               <div>
-                <p className="text-sm font-mono text-stone-300">#2BE6A6 — Synthesis</p>
+                <p className="text-sm font-mono text-stone-300">#FF5FA2 — Synthesis</p>
                 <p className="text-xs text-stone-600">Convergence of multiple streams</p>
               </div>
             </div>
@@ -141,6 +136,13 @@ export default function GuidePage() {
               <div>
                 <p className="text-sm font-mono text-stone-300">#FF4D4D — Attrition</p>
                 <p className="text-xs text-stone-600">Dead paths, pruned routes, failure</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="w-4 h-4 rounded-full mt-1 border border-white/20" style={{background:'rgba(255,255,255,0.3)'}} />
+              <div>
+                <p className="text-sm font-mono text-stone-300">White — Tokens (support only)</p>
+                <p className="text-xs text-stone-600">Compute energy. Intersection pulses, lane shimmer, current streaks. Never dominant.</p>
               </div>
             </div>
           </div>
@@ -154,19 +156,23 @@ export default function GuidePage() {
           <div className="space-y-2 text-sm text-stone-600">
             <div className="flex items-center gap-2">
               <span>💫</span>
-              <span>Synthesis glow & Work sweep — highest priority (breakthrough signals)</span>
+              <span>Synthesis pulse — rose convergence (rarest, brightest event)</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🔵</span>
-              <span>Work lanes — 0.12 opacity (primary execution)</span>
+              <span>Work lanes — 0.14 opacity (primary execution)</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🟠</span>
-              <span>Personal lanes — 0.08 opacity (secondary execution)</span>
+              <span>Personal lanes — 0.09 opacity (secondary execution)</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🟣</span>
-              <span>System grid — 0.05 opacity (infrastructure, implicit)</span>
+              <span>System grid — 0.06 opacity (infrastructure, implicit)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>⚡</span>
+              <span>Token signals — white shimmer/pulses (compute energy, never dominant)</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🔴</span>
@@ -188,16 +194,16 @@ export default function GuidePage() {
             <div><strong>City:</strong> streets / planning / institutions</div>
           </div>
           <p className="text-xs text-stone-500 italic mt-4">
-            That's why it feels right. It's not decoration—it's architecture.
+            That&apos;s why it feels right. It&apos;s not decoration—it&apos;s architecture.
           </p>
         </div>
 
         <div className="pt-10 border-t border-white/5">
           <p className="text-[10px] text-stone-700 tracking-wider">
-            Reasoning = thinking · Motion = execution · Soul = learning
+            Reasoning = thinking · Motion = execution · Memory = learning
           </p>
           <p className="text-[10px] text-stone-700 mt-1">
-            Newey 2.0 Visual System — A4v2 — March 2026
+            Newey 2.0 Visual System — A4v3 — March 2026
           </p>
         </div>
 

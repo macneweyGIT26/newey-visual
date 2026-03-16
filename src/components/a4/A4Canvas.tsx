@@ -2,27 +2,22 @@
 import { useEffect, useRef } from 'react'
 import liveData from '@/data/live.json'
 
-// A4v2 — COGNITIVE ARCHITECTURE VISUALIZATION
-// Reasoning: thinking/routing/judgment
-// Motion: execution/token burn/agents (ONLY place tokens burn)
-// Soul: memory/identity/learning
+// A4v3 — COGNITIVE ARCHITECTURE VISUALIZATION
+// Token redesign: white = electricity (support), color = work (primary)
+// Synthesis: rose/magenta #FF5FA2 (convergence, distinct from work)
+// Colored lane motion: minimal drifting particles per domain
 //
-// Synthesis = convergence: multiple streams meet, emerald burst
 // Crossings:
 //   Motion → Reason = escalation (needs judgment)
 //   Reason → Motion = decision (go/no-go)
 //   Motion → Soul = completion (work persists as memory)
 //   Soul → Reason = recall (pattern recognition)
-//
-// Colors: Violet (system), Cyan (work), Amber (personal)
-// Synthesis (emerald), Attrition (red)
-// Brightness: glow > synthesis > work > personal > system grid
 
 const COLORS = {
   SYSTEM: '166,107,255',
   WORK: '52,209,231',
   PERSONAL: '255,154,60',
-  SYNTHESIS: '43,230,166',
+  SYNTHESIS: '255,95,162',  // rose/magenta #FF5FA2
   ATTRITION: '255,77,77',
   TOKEN: '255,255,255',
 }
@@ -38,13 +33,13 @@ const data = liveData as {
 const ORB_COLORS = data.projects.map(p => p.color)
 
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number;project:string }
-interface TrafficP { x:number;y:number;vx:number;vy:number;color:string;size:number;trail:{x:number;y:number}[];label:string }
+interface LaneDot { x:number;y:number;vx:number;color:string;size:number;alpha:number }
 interface Orb { x:number;y:number;vx:number;vy:number;r:number;color:string;alpha:number;phase:number;speed:number }
 
 export default function A4Canvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const flowRef = useRef<FlowP[]>([])
-  const trafficRef = useRef<TrafficP[]>([])
+  const laneDotsRef = useRef<LaneDot[]>([])
   const orbsRef = useRef<Orb[]>([])
   const frameRef = useRef(0)
   const initRef = useRef(false)
@@ -67,13 +62,13 @@ export default function A4Canvas() {
     const initAll=()=>{
       initRef.current=true
       const w=W(),h=H()
-      // Soul orbs — one per project entry, colored by project
+      // Memory orbs — one per project entry, colored by project
       data.projects.forEach(proj => {
         for(let i=0;i<Math.max(2,proj.entries);i++){
           orbsRef.current.push({
             x:Math.random()*w,y:h*0.67+Math.random()*h*0.33,
             vx:(Math.random()-0.5)*0.12,vy:(Math.random()-0.5)*0.1,
-            r:15+Math.random()*(20+proj.cost*0.8), // bigger orbs for bigger cost
+            r:15+Math.random()*(20+proj.cost*0.8),
             color:proj.color,
             alpha:0.04+Math.random()*0.1,phase:Math.random()*Math.PI*2,
             speed:0.002+Math.random()*0.005,
@@ -107,7 +102,7 @@ export default function A4Canvas() {
         ctx.lineTo(x2,flowMidY+bw2/2)
         ctx.bezierCurveTo(x1+(x2-x1)*0.5,flowMidY+bw2/2,x1+(x2-x1)*0.5,flowMidY+bw1/2,x1,flowMidY+bw1/2)
         ctx.closePath()
-        ctx.fillStyle='rgba(245,178,50,0.018)';ctx.fill()
+        ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.012)`;ctx.fill()
       })
 
       ctx.font='9px -apple-system, sans-serif';ctx.textAlign='center'
@@ -128,14 +123,11 @@ export default function A4Canvas() {
       // Flow particles — spawn rate proportional to real totalEntries
       const spawnRate = Math.max(2, Math.floor(8 - data.totalEntries/10))
       if(t%spawnRate===0){
-        // Pick a random project weighted by entries
         const totalE=data.projects.reduce((s,p)=>s+p.entries,0)
         let r=Math.random()*totalE,proj=data.projects[0]
         for(const p of data.projects){r-=p.entries;if(r<=0){proj=p;break}}
 
         const band=Math.random()
-        const isPrimary=proj.domain==='WORK'
-        const isSupervisory=proj.domain==='SYSTEM'
         flowRef.current.push({
           x:w*0.06,y:flowMidY+(band-0.5)*BAND_W[0],
           vx:0.3+Math.random()*0.4,vy:(Math.random()-0.5)*0.12,
@@ -170,8 +162,6 @@ export default function A4Canvas() {
       })
       if(t%60===0)flowRef.current=flowRef.current.filter(p=>p.alive)
 
-      // no per-section legend — unified legend at bottom
-
       // ═══ MOTION ═══
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.WORK},0.35)`;ctx.textAlign='left'
       ctx.fillText('EXECUTION / STREET LAYER',15,S.sY+18)
@@ -180,15 +170,15 @@ export default function A4Canvas() {
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('token burn · agents · tools',15,S.sY+52)
 
-      // Lanes: evenly spaced, TOKEN up, PERSONAL down
-      const laneFracs=[0.25,0.48,0.70,0.87]
-      const laneNames=['TOKEN','SYSTEM','WORK','PERSONAL'] as const
-      const laneColors={TOKEN:'255,255,255',SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
-      const laneAlpha={TOKEN:0.08,SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
+      // 3 domain lanes (no separate TOKEN lane — white is support only)
+      const laneFracs=[0.30,0.55,0.80]
+      const laneNames=['SYSTEM','WORK','PERSONAL'] as const
+      const laneColorMap={SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
+      const laneAlphaMap={SYSTEM:0.06,WORK:0.14,PERSONAL:0.09}
       laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        const c=laneColors[ln as keyof typeof laneColors]
-        const a=laneAlpha[ln as keyof typeof laneAlpha]||0.05
+        const c=laneColorMap[ln]
+        const a=laneAlphaMap[ln]
         ctx.strokeStyle=`rgba(${c},${a})`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
       })
@@ -196,69 +186,88 @@ export default function A4Canvas() {
       // Cross streets
       for(let x=w*0.1;x<w*0.95;x+=w*0.1){
         ctx.strokeStyle='rgba(255,255,255,0.015)';ctx.lineWidth=0.5
-        ctx.beginPath();ctx.moveTo(x,S.sY+45);ctx.lineTo(x,S.soY-5);ctx.stroke()
+        ctx.beginPath();ctx.moveTo(x,S.sY+55);ctx.lineTo(x,S.soY-5);ctx.stroke()
       }
 
-      // Traffic — spawn in TOKEN lane only
-      if(t%3===0&&trafficRef.current.length<80){
-        const tokenLy=S.sY+S.sH*laneFracs[0]
+      // ── COLORED LANE PARTICLES (minimal motion) ──
+      // Small colored dots drifting slowly along domain lanes
+      if(t%12===0&&laneDotsRef.current.length<60){
         const totalC=data.lanes.reduce((s,l)=>s+l.cost,0)
-        let r2=Math.random()*totalC,lane=data.lanes[0]
-        for(let i=0;i<data.lanes.length;i++){r2-=data.lanes[i].cost;if(r2<=0){lane=data.lanes[i];break}}
-
-        const speed=(lane.cost/totalC)*2.2+0.4
-
-        // Pick a recent entry for context
-        const recent=data.recentEntries[Math.floor(Math.random()*data.recentEntries.length)]
-
-        // Tokens: white with glow in TOKEN lane
-        trafficRef.current.push({
-          x:0,y:tokenLy+(Math.random()-0.5)*12,vx:speed,vy:(Math.random()-0.5)*0.1,
-          color:'255,255,255',size:1.5+Math.random(),trail:[],label:recent?.title||'',
+        let r2=Math.random()*totalC,lane=data.lanes[0],laneIdx=0
+        for(let i=0;i<data.lanes.length;i++){r2-=data.lanes[i].cost;if(r2<=0){lane=data.lanes[i];laneIdx=i;break}}
+        const domainName=lane.name as keyof typeof laneColorMap
+        const ly=S.sY+S.sH*laneFracs[laneIdx]
+        const c=laneColorMap[domainName]||COLORS.SYSTEM
+        laneDotsRef.current.push({
+          x:0,y:ly+(Math.random()-0.5)*18,
+          vx:0.15+Math.random()*0.35,
+          color:c,size:1.2+Math.random()*1.5,alpha:0.4+Math.random()*0.4,
         })
       }
 
-      trafficRef.current.forEach(dot=>{
-        dot.x+=dot.vx;dot.y+=dot.vy;dot.vy*=0.98
-        dot.trail.push({x:dot.x,y:dot.y});if(dot.trail.length>25)dot.trail.shift()
-
-        // Lane jumping + bleed into other zones
-        if(Math.random()<0.004){
-          const targets=[
-            ...laneFracs.map(f=>S.sY+S.sH*f),
-            flowMidY+(Math.random()-0.5)*60,
-            S.soY+Math.random()*S.soH*0.5,
-          ]
-          const target=targets[Math.floor(Math.random()*targets.length)]
-          dot.vy=(target-dot.y)*0.04
-          if(target<S.sY)dot.color=COLORS.SYNTHESIS
-          else if(target>S.soY)dot.color=ORB_COLORS[Math.floor(Math.random()*ORB_COLORS.length)]
-        }
-
-        dot.trail.forEach((tr,ti)=>{const a=(ti/dot.trail.length)*0.4
-        ctx.beginPath();ctx.arc(tr.x,tr.y,dot.size*0.4,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${dot.color},${a})`;ctx.fill()})
-
-        // White token with subtle glow
-        const g=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+5)
-        g.addColorStop(0,`rgba(${dot.color},0.5)`);g.addColorStop(1,`rgba(${dot.color},0)`)
-        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
+      laneDotsRef.current.forEach(dot=>{
+        dot.x+=dot.vx
+        // Draw colored dot
         ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${dot.color},0.9)`;ctx.fill()
+        ctx.fillStyle=`rgba(${dot.color},${dot.alpha})`;ctx.fill()
+        // Subtle glow
+        const dg=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+4)
+        dg.addColorStop(0,`rgba(${dot.color},${dot.alpha*0.3})`);dg.addColorStop(1,`rgba(${dot.color},0)`)
+        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+4,0,Math.PI*2);ctx.fillStyle=dg;ctx.fill()
       })
-      if(t%30===0)trafficRef.current=trafficRef.current.filter(d=>d.x<w+20)
+      if(t%30===0)laneDotsRef.current=laneDotsRef.current.filter(d=>d.x<w+10)
 
-      // Substations — one per lane
+      // ── TOKEN SIGNALS (white as support, not traffic) ──
+
+      // A. Intersection pulses — where cross streets meet lane lines
       laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        const c=laneColors[ln]
-        for(let x=w*0.14;x<w*0.92;x+=w*0.14){
+        for(let x=w*0.1;x<w*0.95;x+=w*0.1){
+          // Pulse when colored traffic is nearby
+          const hasTraffic=laneDotsRef.current.some(d=>Math.abs(d.x-x)<30&&Math.abs(d.y-ly)<25)
+          if(hasTraffic){
+            const pulse=Math.sin(t*0.02+x*0.005)*0.5+0.5
+            if(pulse>0.4){
+              const pg=ctx.createRadialGradient(x,ly,0,x,ly,8)
+              pg.addColorStop(0,`rgba(255,255,255,${0.15*pulse})`);pg.addColorStop(1,'rgba(255,255,255,0)')
+              ctx.beginPath();ctx.arc(x,ly,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill()
+            }
+          }
+          // Substation dot (colored)
+          const c=laneColorMap[ln]
           const load=Math.sin(t*0.005+x*0.01+ly*0.01)*0.5+0.5
-          if(load>0.3){const g=ctx.createRadialGradient(x,ly,0,x,ly,14)
-          g.addColorStop(0,`rgba(${c},${load*0.3})`);g.addColorStop(1,`rgba(${c},0)`)
-          ctx.beginPath();ctx.arc(x,ly,14,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()}
-          ctx.beginPath();ctx.arc(x,ly,2.5,0,Math.PI*2)
-          ctx.fillStyle=`rgba(${c},${0.15+load*0.4})`;ctx.fill()
+          if(load>0.3){
+            const sg=ctx.createRadialGradient(x,ly,0,x,ly,12)
+            sg.addColorStop(0,`rgba(${c},${load*0.25})`);sg.addColorStop(1,`rgba(${c},0)`)
+            ctx.beginPath();ctx.arc(x,ly,12,0,Math.PI*2);ctx.fillStyle=sg;ctx.fill()
+          }
+          ctx.beginPath();ctx.arc(x,ly,2,0,Math.PI*2)
+          ctx.fillStyle=`rgba(${c},${0.12+load*0.35})`;ctx.fill()
+        }
+      })
+
+      // B. Lane shimmer — faint white overlay on active lanes, intensity ∝ traffic density
+      laneNames.forEach((ln,i)=>{
+        const ly=S.sY+S.sH*laneFracs[i]
+        const trafficCount=laneDotsRef.current.filter(d=>Math.abs(d.y-ly)<25).length
+        if(trafficCount>0){
+          const shimmerAlpha=Math.min(0.04,trafficCount*0.008)
+          const shimmerPhase=Math.sin(t*0.003+i*2)*0.5+0.5
+          ctx.strokeStyle=`rgba(255,255,255,${shimmerAlpha*shimmerPhase})`
+          ctx.lineWidth=12
+          ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
+        }
+      })
+
+      // C. Current travel — subtle short white streaks along colored traffic direction
+      laneDotsRef.current.forEach(dot=>{
+        if(Math.random()<0.3){
+          ctx.beginPath()
+          ctx.moveTo(dot.x-6,dot.y)
+          ctx.lineTo(dot.x+2,dot.y)
+          ctx.strokeStyle=`rgba(255,255,255,${0.08+Math.random()*0.12})`
+          ctx.lineWidth=0.5
+          ctx.stroke()
         }
       })
 
@@ -293,11 +302,12 @@ export default function A4Canvas() {
         ctx.beginPath();ctx.arc(orb.x,orb.y,r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
       })
 
+      // Memory threads
       for(let i=0;i<orbs.length;i++){
         for(let j=i+1;j<Math.min(orbs.length,i+8);j++){
           const d=Math.hypot(orbs[i].x-orbs[j].x,orbs[i].y-orbs[j].y)
           if(d<100){ctx.beginPath();ctx.moveTo(orbs[i].x,orbs[i].y);ctx.lineTo(orbs[j].x,orbs[j].y)
-          ctx.strokeStyle=`rgba(168,85,247,${(1-d/100)*0.05})`;ctx.lineWidth=0.5;ctx.stroke()}
+          ctx.strokeStyle=`rgba(${COLORS.SYSTEM},${(1-d/100)*0.05})`;ctx.lineWidth=0.5;ctx.stroke()}
         }
       }
 
@@ -311,28 +321,21 @@ export default function A4Canvas() {
 
       // ═══ LEGEND (bottom) ═══
       const legY = h - 42
-      
-      // Colors
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
       const allLegs = [
-        {c:'255,255,255', l:'tokens'},
-        {c:COLORS.SYSTEM, l:'system'},
-        {c:COLORS.WORK, l:'work'},
-        {c:COLORS.PERSONAL, l:'personal'},
-        {c:COLORS.SYNTHESIS, l:'synthesis'},
+        {c:COLORS.SYSTEM, l:'system', b:0.5},
+        {c:COLORS.WORK, l:'work', b:0.9},
+        {c:COLORS.PERSONAL, l:'personal', b:0.7},
+        {c:COLORS.SYNTHESIS, l:'synthesis', b:1.2},
+        {c:COLORS.ATTRITION, l:'attrition', b:0.6},
+        {c:'255,255,255', l:'tokens (current)', b:0.4},
       ]
       const legStartX = 15
       allLegs.forEach((lg,i) => {
-        const lx = legStartX + i * 75
-        let brightMult = 0.5
-        if(i===0) brightMult=0.9 // tokens bright
-        else if(i===4) brightMult=1.2 // synthesis brightest
-        else if(i===2) brightMult=0.9 // work bright
-        else if(i===3) brightMult=0.7 // personal medium
-        
+        const lx = legStartX + i * 72
         ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
-        ctx.fillStyle = `rgba(${lg.c},${0.6*brightMult})`; ctx.fill()
-        ctx.fillStyle = `rgba(255,255,255,${0.15+i*0.03})`
+        ctx.fillStyle = `rgba(${lg.c},${0.6*lg.b})`; ctx.fill()
+        ctx.fillStyle = `rgba(255,255,255,${0.12+lg.b*0.08})`
         ctx.fillText(lg.l, lx + 8, legY + 3)
       })
 
@@ -342,22 +345,22 @@ export default function A4Canvas() {
       
       // Subtitle
       ctx.font='7px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.05)'
-      ctx.fillText('synthesis = convergence (multiple streams) · tokens burn in Motion only', w-12, h-8)
+      ctx.fillText('synthesis = convergence · white = compute energy · color = domain work', w-12, h-8)
 
       // Data timestamp
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
       ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,15)
 
-      // Synthesis pulse — high importance signal
-      if(t%800>760){const p=(t%800-760)/40,r=p*Math.max(w,h)*0.2
+      // Synthesis pulse — rose convergence signal (rare, distinct)
+      if(t%1000>970){const p=(t%1000-970)/30,r=p*Math.max(w,h)*0.15
       ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2)
-      ctx.strokeStyle=`rgba(${COLORS.SYNTHESIS},${0.12*(1-p)})`;ctx.lineWidth=1.5;ctx.stroke()}
+      ctx.strokeStyle=`rgba(${COLORS.SYNTHESIS},${0.15*(1-p)})`;ctx.lineWidth=2;ctx.stroke()}
 
-      // Work sweep — high-value work → breakthrough signal
-      if(t%450<40){const wx=(t%450)/40*w
-      const sg=ctx.createLinearGradient(wx-40,0,wx+40,0)
-      sg.addColorStop(0,`rgba(${COLORS.WORK},0)`);sg.addColorStop(0.5,`rgba(${COLORS.WORK},0.06)`);sg.addColorStop(1,`rgba(${COLORS.WORK},0)`)
-      ctx.fillStyle=sg;ctx.fillRect(wx-40,0,80,h)}
+      // Work sweep — cyan activity signal
+      if(t%500<35){const wx=(t%500)/35*w
+      const sg=ctx.createLinearGradient(wx-30,0,wx+30,0)
+      sg.addColorStop(0,`rgba(${COLORS.WORK},0)`);sg.addColorStop(0.5,`rgba(${COLORS.WORK},0.04)`);sg.addColorStop(1,`rgba(${COLORS.WORK},0)`)
+      ctx.fillStyle=sg;ctx.fillRect(wx-30,0,60,h)}
 
       animId=requestAnimationFrame(draw)
     }
