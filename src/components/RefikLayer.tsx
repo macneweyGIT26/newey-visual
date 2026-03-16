@@ -55,7 +55,7 @@ export default function RefikLayer() {
           vy: (Math.random() - 0.5) * 0.15,
           r: 30 + Math.random() * 80,
           color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
-          baseAlpha: 0.03 + Math.random() * 0.06,
+          baseAlpha: 0.06 + Math.random() * 0.1,
           phase: Math.random() * Math.PI * 2,
           phaseSpeed: 0.003 + Math.random() * 0.008,
         })
@@ -71,12 +71,12 @@ export default function RefikLayer() {
       const w = W(), h = H()
 
       // Soft fade instead of clear (creates trailing glow)
-      ctx.fillStyle = 'rgba(250,250,249,0.04)'
+      ctx.fillStyle = 'rgba(214,211,209,0.04)'
       ctx.fillRect(0, 0, w, h)
 
       // Full clear every 600 frames to prevent buildup
       if (frameRef.current % 600 === 0) {
-        ctx.fillStyle = 'rgba(250,250,249,1)'
+        ctx.fillStyle = 'rgba(214,211,209,1)'
         ctx.fillRect(0, 0, w, h)
       }
 
@@ -147,7 +147,7 @@ export default function RefikLayer() {
             ctx.beginPath()
             ctx.moveTo(orbs[i].x, orbs[i].y)
             ctx.lineTo(orbs[j].x, orbs[j].y)
-            const alpha = (1 - d / 120) * 0.04
+            const alpha = (1 - d / 120) * 0.08
             ctx.strokeStyle = `rgba(168,85,247,${alpha})`
             ctx.lineWidth = 0.5
             ctx.stroke()

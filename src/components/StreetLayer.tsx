@@ -130,7 +130,7 @@ export default function StreetLayer() {
         ctx.beginPath()
         ctx.moveTo(a.x, a.y)
         ctx.lineTo(b.x, b.y)
-        ctx.strokeStyle = wire.active ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.03)'
+        ctx.strokeStyle = wire.active ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.06)'
         ctx.lineWidth = 0.5
         ctx.stroke()
 
@@ -141,7 +141,7 @@ export default function StreetLayer() {
           const py = a.y + (b.y - a.y) * wire.pulse
           ctx.beginPath()
           ctx.arc(px, py, 1.2, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(34,211,238,0.3)'
+          ctx.fillStyle = 'rgba(34,211,238,0.6)'
           ctx.fill()
         }
       })

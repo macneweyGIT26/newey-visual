@@ -46,11 +46,11 @@ export default function MinardLayer() {
         y: midY() + (band - 0.5) * BAND_WIDTHS[0],
         vx: 0.3 + Math.random() * 0.4,
         vy: (Math.random() - 0.5) * 0.15,
-        band, alpha: 0.6 + Math.random() * 0.4,
+        band, alpha: 0.85 + Math.random() * 0.15,
         alive: true,
         color: isSecondary ? 'rgba(56,189,248,' : 'rgba(245,158,11,',
         stage: 0,
-        width: 1.5 + Math.random() * 2,
+        width: 2.5 + Math.random() * 2.5,
       })
     }
 
@@ -60,7 +60,7 @@ export default function MinardLayer() {
       ctx.clearRect(0, 0, w, h)
 
       // Grid lines
-      ctx.strokeStyle = 'rgba(0,0,0,0.04)'
+      ctx.strokeStyle = 'rgba(0,0,0,0.08)'
       ctx.lineWidth = 0.5
       for (let x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke() }
       for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke() }
@@ -88,7 +88,7 @@ export default function MinardLayer() {
         ctx.lineTo(x2, midY() + bw2 / 2)
         ctx.bezierCurveTo(x1 + (x2 - x1) * 0.5, midY() + bw2 / 2, x1 + (x2 - x1) * 0.5, midY() + bw1 / 2, x1, midY() + bw1 / 2)
         ctx.closePath()
-        ctx.fillStyle = 'rgba(245,158,11,0.03)'
+        ctx.fillStyle = 'rgba(245,158,11,0.07)'
         ctx.fill()
       })
 
