@@ -211,10 +211,10 @@ export default function A4Canvas() {
         // Pick a recent entry for context
         const recent=data.recentEntries[Math.floor(Math.random()*data.recentEntries.length)]
 
-        const lc=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
+        // Tokens are white with glow — colored lanes fade them
         trafficRef.current.push({
           x:0,y:ly+(Math.random()-0.5)*15,vx:speed,vy:(Math.random()-0.5)*0.15,
-          color:lc,size:2+Math.random()*2.5,trail:[],label:recent?.title||'',
+          color:'255,255,255',size:2.5+Math.random()*2,trail:[],label:recent?.title||'',
         })
       }
 
@@ -239,11 +239,12 @@ export default function A4Canvas() {
         ctx.beginPath();ctx.arc(tr.x,tr.y,dot.size*0.4,0,Math.PI*2)
         ctx.fillStyle=`rgba(${dot.color},${a})`;ctx.fill()})
 
-        const g=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+8)
-        g.addColorStop(0,`rgba(${dot.color},0.7)`);g.addColorStop(1,`rgba(${dot.color},0)`)
-        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+8,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
+        // White token with strong glow
+        const g=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+10)
+        g.addColorStop(0,`rgba(${dot.color},0.8)`);g.addColorStop(1,`rgba(${dot.color},0)`)
+        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+10,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
         ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${dot.color},0.9)`;ctx.fill()
+        ctx.fillStyle=`rgba(${dot.color},0.95)`;ctx.fill()
       })
       if(t%30===0)trafficRef.current=trafficRef.current.filter(d=>d.x<w+20)
 
@@ -265,7 +266,7 @@ export default function A4Canvas() {
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.3)`;ctx.textAlign='left'
       ctx.fillText('LEARNING / REFIK LAYER',15,S.soY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
-      ctx.fillText('Soul',15,S.soY+40)
+      ctx.fillText('Memory',15,S.soY+40)
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.12)'
       ctx.fillText('identity · memory · pattern',15,S.soY+52)
 
