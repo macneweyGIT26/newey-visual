@@ -29,6 +29,7 @@ export default function Home() {
               <a href="/interpret-light" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Workbench</a>
               <a href="/interpret-dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Workbench Dark</a>
               <a href="/mashup" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Mashup</a>
+            <a href="/guide" className="text-stone-600 hover:text-stone-300 transition-colors">Guide</a>
             </nav>
           </div>
         </div>
