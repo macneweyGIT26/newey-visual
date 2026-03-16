@@ -28,11 +28,13 @@ const ORB_COLORS = ['34,211,238','168,85,247','251,146,60','253,186,116','250,20
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number }
 interface TrafficP { x:number;y:number;vx:number;vy:number;color:string;size:number;trail:{x:number;y:number}[] }
 interface Orb { x:number;y:number;vx:number;vy:number;r:number;color:string;alpha:number;phase:number;speed:number }
+interface Flash { x:number;y:number;age:number }
 
 export default function A4Canvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const flowRef = useRef<FlowP[]>([])
   const trafficRef = useRef<TrafficP[]>([])
+  const flashRef = useRef<Flash[]>([])
   const orbsRef = useRef<Orb[]>([])
   const frameRef = useRef(0)
   const initRef = useRef(false)
@@ -206,7 +208,8 @@ export default function A4Canvas() {
           ]
           const target=targets[Math.floor(Math.random()*targets.length)]
           dot.vy=(target-dot.y)*0.04
-          if(target<S.streetY) dot.color='255,95,162' // gold in reason zone
+          if(target<S.streetY||target>S.soulY) flashRef.current.push({x:dot.x,y:dot.y,age:0})
+          if(target<S.streetY) dot.color='255,95,162' // rose in reason zone
           else if(target>S.soulY) dot.color=ORB_COLORS[Math.floor(Math.random()*ORB_COLORS.length)]
           else { const nl=LANES[Math.floor(Math.random()*LANES.length)];dot.color=nl.color }
         }
@@ -307,6 +310,16 @@ export default function A4Canvas() {
       })
       ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.12)'
       ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
+
+      // Crossing flashes — white burst at boundary crossings
+      for(let i=flashRef.current.length-1;i>=0;i--){
+        const f=flashRef.current[i];f.age++
+        if(f.age>25){flashRef.current.splice(i,1);continue}
+        const life=1-f.age/25
+        const fg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,10*life)
+        fg.addColorStop(0,`rgba(255,255,255,${0.4*life})`);fg.addColorStop(1,'rgba(255,255,255,0)')
+        ctx.beginPath();ctx.arc(f.x,f.y,10*life,0,Math.PI*2);ctx.fillStyle=fg;ctx.fill()
+      }
 
       // Section dividers — very subtle, not hard borders
       ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=0.5

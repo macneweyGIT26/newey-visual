@@ -15,10 +15,7 @@ export default function MashupPage() {
             <a href="/a4" className="text-stone-600 hover:text-stone-300 transition-colors">A4</a>
             <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors">Light</a>
             <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>
-            <a href="/interpret-light" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench</a>
-            <a href="/interpret-dark" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench Dark</a>
             <a href="/mashup" className="text-amber-500 font-bold">Mashup</a>
-          <a href="/token" className="text-stone-600 hover:text-stone-300 transition-colors">Token</a>
             <a href="/guide" className="text-stone-600 hover:text-stone-300 transition-colors">Guide</a>
             </nav>
         </div>
