@@ -173,17 +173,7 @@ export default function MashupCanvas() {
       ctx.font='20px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Motion',15,S.streetY+40)
 
-      // Project labels across the top of streets (no buildings — just text)
-      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='center'
-      const projSpacing = w*0.84 / PROJECTS.length
-      PROJECTS.forEach((proj,i) => {
-        const px = w*0.08 + i*projSpacing + projSpacing/2
-        ctx.fillStyle=`rgba(${proj.color},0.5)`; ctx.fillText(proj.name,px,S.streetY+55)
-        // no cost labels
-        // Thin vertical marker
-        ctx.strokeStyle=`rgba(${proj.color},0.06)`;ctx.lineWidth=0.5
-        ctx.beginPath();ctx.moveTo(px,S.streetY+68);ctx.lineTo(px,S.soulY-5);ctx.stroke()
-      })
+      // no project labels at top
 
       // Domain lanes
       LANES.forEach(lane => {
