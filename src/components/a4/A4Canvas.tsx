@@ -18,7 +18,7 @@ const COLORS = {
   WORK: '52,209,231',
   PERSONAL: '255,154,60',
   SYNTHESIS: '255,95,162',  // rose/magenta #FF5FA2
-  ATTRITION: '255,77,77',
+  ATTRITION: '204,34,68',
   TOKEN: '255,255,255',
 }
 
