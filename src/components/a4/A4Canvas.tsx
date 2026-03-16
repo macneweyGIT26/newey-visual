@@ -182,13 +182,13 @@ export default function A4Canvas() {
 
       // Lanes: TOKEN (white, top) + 3 domain lanes — brightness by importance
       const laneFracs=[0.08,0.30,0.55,0.80]
-      const laneNames=['TOKEN','SYSTEM','WORK','PERSONAL']
+      const laneNames=['TOKEN','SYSTEM','WORK','PERSONAL'] as const
       const laneColors={TOKEN:'255,255,255',SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
       const laneAlpha={TOKEN:0.08,SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
       laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        const c=laneColors[ln]
-        const a=laneAlpha[ln]||0.05
+        const c=laneColors[ln as keyof typeof laneColors]
+        const a=laneAlpha[ln as keyof typeof laneAlpha]||0.05
         ctx.strokeStyle=`rgba(${c},${a})`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
       })
