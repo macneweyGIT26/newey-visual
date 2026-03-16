@@ -155,16 +155,8 @@ export default function StreetDark() {
 
   return (
     <section className="relative w-full border-t border-white/5" style={{ height: '55vh', minHeight: 450 }}>
-      <div className="absolute top-8 left-8 z-10">
-        <h2 className="text-xs font-semibold tracking-[0.2em] uppercase text-cyan-400/60">Operations / Street Layer</h2>
-        <p className="text-2xl font-light text-stone-300 mt-1">Motion</p>
-        <p className="text-xs text-stone-600 mt-2 max-w-xs leading-relaxed">Night grid. Agents pulse through infrastructure. Amber = burn. Cyan = intelligence. Red = overload.</p>
-      </div>
-      <div className="absolute bottom-6 right-8 z-10 flex gap-4 text-[10px] text-stone-600">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-stone-600" /> idle</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cyan-400" /> active</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400" /> burn</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400" /> overload</span>
+      <div className="absolute bottom-6 right-8 z-10 text-[8px] text-stone-700">
+        white flash = boundary crossing cost · color = domain work
       </div>
       <canvas ref={canvasRef} className="w-full h-full" />
     </section>

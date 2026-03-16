@@ -130,19 +130,16 @@ export default function MinardDark() {
 
   return (
     <section className="relative w-full" style={{ height: '50vh', minHeight: 400 }}>
-      <div className="absolute top-8 left-8 z-10">
-        <h2 className="text-xs font-semibold tracking-[0.2em] uppercase text-amber-500/60">Executive / Minard Layer</h2>
-        <p className="text-2xl font-light text-stone-300 mt-1">Reason</p>
-        <p className="text-xs text-stone-600 mt-2 max-w-xs leading-relaxed">Luminous flow narrows through stages. Attrition flashes red. Token energy pulses gold.</p>
+      <div className="absolute bottom-6 left-8 z-10 flex gap-4 text-[10px] text-stone-600">
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#A66BFF'}} /> system</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#34D1E7'}} /> work</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF9A3C'}} /> personal</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF5FA2'}} /> synthesis</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#CC2244'}} /> attrition</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full border border-white/30" style={{background:'rgba(255,255,255,0.3)'}} /> crossing flash</span>
       </div>
-      <div className="absolute bottom-6 right-8 z-10 flex gap-5 text-[10px] text-stone-500">
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'rgb(245,178,50)'}} /> token flow</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'rgb(34,211,238)'}} /> secondary path</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'rgb(168,85,247)'}} /> supervisory</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'rgb(239,68,68)'}} /> dead path / attrition</span>
-      </div>
-      <div className="absolute bottom-14 right-8 z-10 text-[9px] text-stone-600 max-w-xs text-right leading-relaxed">
-        Flow narrows left→right through reasoning stages. Width = throughput. Particles that flash red were pruned.
+      <div className="absolute bottom-6 right-8 z-10 text-[8px] text-stone-700">
+        M→R escalation · R→M decision · M→S complete · S→R recall
       </div>
       <canvas ref={canvasRef} className="w-full h-full" />
     </section>
