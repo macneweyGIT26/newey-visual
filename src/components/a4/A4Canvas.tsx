@@ -2,13 +2,21 @@
 import { useEffect, useRef } from 'react'
 import liveData from '@/data/live.json'
 
-// A4 — LIVE DATA VISUALIZATION
-// Unified color system + brightness hierarchy
-// SYSTEM #A66BFF violet, WORK #34D1E7 cyan, PERSONAL #FF9A3C amber
-// SYNTHESIS #2BE6A6 emerald, ATTRITION #FF4D4D red
-// TOKENS white/glow only
-// Brightness order: token glow > synthesis > work > personal > system grid
-// work → high-value work → breakthrough
+// A4v2 — COGNITIVE ARCHITECTURE VISUALIZATION
+// Reasoning: thinking/routing/judgment
+// Motion: execution/token burn/agents (ONLY place tokens burn)
+// Soul: memory/identity/learning
+//
+// Synthesis = convergence: multiple streams meet, emerald burst
+// Crossings:
+//   Motion → Reason = escalation (needs judgment)
+//   Reason → Motion = decision (go/no-go)
+//   Motion → Soul = completion (work persists as memory)
+//   Soul → Reason = recall (pattern recognition)
+//
+// Colors: Violet (system), Cyan (work), Amber (personal)
+// Synthesis (emerald), Attrition (red)
+// Brightness: glow > synthesis > work > personal > system grid
 
 const COLORS = {
   SYSTEM: '166,107,255',
@@ -105,15 +113,17 @@ export default function A4Canvas() {
       ctx.font='9px -apple-system, sans-serif';ctx.textAlign='center'
       STG_N.forEach((s,i)=>{
         const sx=w*STG_X[i]
-        ctx.fillStyle='rgba(245,178,50,0.2)';ctx.fillText(s,sx,S.rH-10)
+        ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.2)`;ctx.fillText(s,sx,S.rH-10)
         ctx.strokeStyle='rgba(255,255,255,0.02)';ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(sx,10);ctx.lineTo(sx,S.rH-15);ctx.stroke()
       })
 
-      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(245,178,50,0.4)';ctx.textAlign='left'
-      ctx.fillText('EXECUTIVE / MINARD LAYER',15,20)
+      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.4)`;ctx.textAlign='left'
+      ctx.fillText('THINKING / MINARD LAYER',15,20)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Reason',15,42)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
+      ctx.fillText('routing · judgment · pruning',15,54)
 
       // Flow particles — spawn rate proportional to real totalEntries
       const spawnRate = Math.max(2, Math.floor(8 - data.totalEntries/10))
@@ -164,9 +174,11 @@ export default function A4Canvas() {
 
       // ═══ MOTION ═══
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.WORK},0.35)`;ctx.textAlign='left'
-      ctx.fillText('OPERATIONS / STREET LAYER',15,S.sY+18)
+      ctx.fillText('EXECUTION / STREET LAYER',15,S.sY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Motion',15,S.sY+40)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
+      ctx.fillText('token burn · agents · tools',15,S.sY+52)
 
       // Lanes weighted by real data — brightness by importance (work > personal > system)
       const laneFracs=[0.25,0.50,0.75]
@@ -251,9 +263,11 @@ export default function A4Canvas() {
 
       // ═══ MEMORY ═══
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.3)`;ctx.textAlign='left'
-      ctx.fillText('AMBIENT / REFIK LAYER',15,S.soY+18)
+      ctx.fillText('LEARNING / REFIK LAYER',15,S.soY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
-      ctx.fillText('Memory',15,S.soY+40)
+      ctx.fillText('Soul',15,S.soY+40)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.12)'
+      ctx.fillText('identity · memory · pattern',15,S.soY+52)
 
       const orbs=orbsRef.current
       const cx1=w*0.35+Math.sin(t*0.001)*50,cy1=S.soY+S.soH*0.4+Math.cos(t*0.0012)*25
@@ -294,8 +308,10 @@ export default function A4Canvas() {
       ctx.beginPath();ctx.moveTo(0,S.sY);ctx.lineTo(w,S.sY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soY);ctx.lineTo(w,S.soY);ctx.stroke()
 
-      // ═══ UNIFIED LEGEND (bottom) — brightness hierarchy ═══
-      const legY = h - 35
+      // ═══ LEGEND (bottom) ═══
+      const legY = h - 42
+      
+      // Colors
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
       const allLegs = [
         {c:COLORS.SYSTEM, l:'system'},
@@ -307,7 +323,6 @@ export default function A4Canvas() {
       const legStartX = 15
       allLegs.forEach((lg,i) => {
         const lx = legStartX + i * 85
-        // Brightness multiplier: synthesis + token glow > work > personal > system grid
         const brightMult=i===3?1.2:i===1?0.9:i===2?0.7:0.5
         ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
         ctx.fillStyle = `rgba(${lg.c},${0.6*brightMult})`; ctx.fill()
@@ -315,9 +330,13 @@ export default function A4Canvas() {
         ctx.fillText(lg.l, lx + 8, legY + 3)
       })
 
-      // Section descriptions right-aligned
+      // Crossing behaviors right-aligned
       ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.08)'
-      ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
+      ctx.fillText('M→R escalation · R→M decision · M→S complete · S→R recall', w-12, legY+3)
+      
+      // Subtitle
+      ctx.font='7px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.05)'
+      ctx.fillText('synthesis = convergence (multiple streams) · tokens burn in Motion only', w-12, h-8)
 
       // Data timestamp
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
