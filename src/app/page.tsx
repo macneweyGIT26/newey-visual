@@ -14,12 +14,17 @@ export default function Home() {
             </h1>
             <p className="text-xs text-stone-400 mt-0.5">Visual System — Concept Prototype</p>
           </div>
-          <div className="flex gap-6 text-[10px] text-stone-400 tracking-wider uppercase">
-            <span>Reason</span>
-            <span className="text-stone-300">·</span>
-            <span>Motion</span>
-            <span className="text-stone-300">·</span>
-            <span>Soul</span>
+          <div className="flex items-center gap-6">
+            <div className="flex gap-6 text-[10px] text-stone-400 tracking-wider uppercase">
+              <span>Reason</span>
+              <span className="text-stone-300">·</span>
+              <span>Motion</span>
+              <span className="text-stone-300">·</span>
+              <span>Soul</span>
+            </div>
+            <a href="/dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">
+              Dark Mode →
+            </a>
           </div>
         </div>
       </header>
