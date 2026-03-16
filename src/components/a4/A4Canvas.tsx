@@ -180,14 +180,15 @@ export default function A4Canvas() {
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('token burn · agents · tools',15,S.sY+52)
 
-      // Lanes weighted by real data — brightness by importance (work > personal > system)
-      const laneFracs=[0.25,0.50,0.75]
-      const laneColors={SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
-      const laneAlpha={SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
-      data.lanes.forEach((lane,i)=>{
+      // Lanes: TOKEN (white, top) + 3 domain lanes — brightness by importance
+      const laneFracs=[0.08,0.30,0.55,0.80]
+      const laneNames=['TOKEN','SYSTEM','WORK','PERSONAL']
+      const laneColors={TOKEN:'255,255,255',SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
+      const laneAlpha={TOKEN:0.08,SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
+      laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        const c=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
-        const a=laneAlpha[lane.name as keyof typeof laneAlpha]||0.05
+        const c=laneColors[ln]
+        const a=laneAlpha[ln]||0.05
         ctx.strokeStyle=`rgba(${c},${a})`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
       })
@@ -198,23 +199,22 @@ export default function A4Canvas() {
         ctx.beginPath();ctx.moveTo(x,S.sY+45);ctx.lineTo(x,S.soY-5);ctx.stroke()
       }
 
-      // Traffic — spawn rate proportional to real lane costs
-      if(t%5===0&&trafficRef.current.length<100){
-        // Weighted lane pick
+      // Traffic — spawn in TOKEN lane only
+      if(t%3===0&&trafficRef.current.length<80){
+        const tokenLy=S.sY+S.sH*laneFracs[0]
         const totalC=data.lanes.reduce((s,l)=>s+l.cost,0)
-        let r2=Math.random()*totalC,lane=data.lanes[0],laneIdx=0
-        for(let i=0;i<data.lanes.length;i++){r2-=data.lanes[i].cost;if(r2<=0){lane=data.lanes[i];laneIdx=i;break}}
+        let r2=Math.random()*totalC,lane=data.lanes[0]
+        for(let i=0;i<data.lanes.length;i++){r2-=data.lanes[i].cost;if(r2<=0){lane=data.lanes[i];break}}
 
-        const ly=S.sY+S.sH*laneFracs[laneIdx]
-        const speed=(lane.cost/totalC)*2.5+0.3
+        const speed=(lane.cost/totalC)*2.2+0.4
 
         // Pick a recent entry for context
         const recent=data.recentEntries[Math.floor(Math.random()*data.recentEntries.length)]
 
-        // Tokens are white with glow — colored lanes fade them
+        // Tokens: white with glow in TOKEN lane
         trafficRef.current.push({
-          x:0,y:ly+(Math.random()-0.5)*15,vx:speed,vy:(Math.random()-0.5)*0.15,
-          color:'255,255,255',size:2.5+Math.random()*2,trail:[],label:recent?.title||'',
+          x:0,y:tokenLy+(Math.random()-0.5)*12,vx:speed,vy:(Math.random()-0.5)*0.1,
+          color:'255,255,255',size:2+Math.random()*1.5,trail:[],label:recent?.title||'',
         })
       }
 
@@ -248,17 +248,17 @@ export default function A4Canvas() {
       })
       if(t%30===0)trafficRef.current=trafficRef.current.filter(d=>d.x<w+20)
 
-      // Substations — brightness by lane importance (work > personal > system)
-      data.lanes.forEach((lane,i)=>{
+      // Substations — one per lane
+      laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        const c=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
+        const c=laneColors[ln]
         for(let x=w*0.14;x<w*0.92;x+=w*0.14){
           const load=Math.sin(t*0.005+x*0.01+ly*0.01)*0.5+0.5
           if(load>0.3){const g=ctx.createRadialGradient(x,ly,0,x,ly,14)
           g.addColorStop(0,`rgba(${c},${load*0.3})`);g.addColorStop(1,`rgba(${c},0)`)
           ctx.beginPath();ctx.arc(x,ly,14,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()}
           ctx.beginPath();ctx.arc(x,ly,2.5,0,Math.PI*2)
-          ctx.fillStyle=`rgba(${c},${0.2+load*0.5})`;ctx.fill()
+          ctx.fillStyle=`rgba(${c},${0.15+load*0.4})`;ctx.fill()
         }
       })
 
