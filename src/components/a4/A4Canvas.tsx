@@ -1,11 +1,15 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import liveData from '@/data/live.json'
 
-// MASHUP v2 — 3 clear sections, no buildings
-// Top: Reason (dark mode Minard flow) — labels + data only
-// Mid: Streets (Workbench Dark traffic) — balls shooting across + between zones
-// Bottom: Soul (dark mode orbs) — amorphous, clustering
-// Traffic dots bleed into upper and lower sections
+// A4v4 — Mashup base + V4 changes (incremental)
+
+const data = liveData as {
+  generated: string; totalEntries: number; totalCost: number
+  projects: { name: string; entries: number; cost: number; domain: string; color: string }[]
+  lanes: { name: string; cost: number; entries: number; color: string }[]
+  recentEntries: { date: string; title: string; domain: string; project: string; resume: boolean; cost: number; team: string }[]
+}
 
 const PROJECTS = [
   { name: 'Newey/System', cost: 57.20, color: '168,85,247' },
@@ -27,12 +31,14 @@ const ORB_COLORS = ['34,211,238','168,85,247','251,146,60','253,186,116','250,20
 
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number }
 interface TrafficP { x:number;y:number;vx:number;vy:number;color:string;size:number;trail:{x:number;y:number}[] }
+interface CrossFlash { x:number;y:number;age:number;maxAge:number }
 interface Orb { x:number;y:number;vx:number;vy:number;r:number;color:string;alpha:number;phase:number;speed:number }
 
 export default function MashupCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const flowRef = useRef<FlowP[]>([])
   const trafficRef = useRef<TrafficP[]>([])
+  const flashRef = useRef<CrossFlash[]>([])
   const orbsRef = useRef<Orb[]>([])
   const frameRef = useRef(0)
   const initRef = useRef(false)
@@ -108,10 +114,12 @@ export default function MashupCanvas() {
       })
 
       // Reason label
-      ctx.font='10px -apple-system, sans-serif'; ctx.fillStyle='rgba(245,178,50,0.4)'; ctx.textAlign='left'
-      ctx.fillText('EXECUTIVE / MINARD LAYER',15,20)
+      ctx.font='10px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,95,162,0.4)'; ctx.textAlign='left'
+      ctx.fillText('THINKING / MINARD LAYER',15,20)
       ctx.font='20px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Reason',15,42)
+      ctx.font='8px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.15)'
+      ctx.fillText('routing · judgment · pruning',15,54)
 
       // no per-section reason legend
 
@@ -140,7 +148,7 @@ export default function MashupCanvas() {
         if(si>=2&&Math.random()<0.001){
           p.alive=false
           const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,10)
-          g.addColorStop(0,'rgba(239,68,68,0.6)');g.addColorStop(1,'rgba(239,68,68,0)')
+          g.addColorStop(0,'rgba(204,34,68,0.6)');g.addColorStop(1,'rgba(204,34,68,0)')
           ctx.beginPath();ctx.arc(p.x,p.y,10,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
           return
         }
@@ -162,9 +170,11 @@ export default function MashupCanvas() {
 
       // Section label
       ctx.font='10px -apple-system, sans-serif'; ctx.fillStyle='rgba(34,211,238,0.35)'; ctx.textAlign='left'
-      ctx.fillText('OPERATIONS / STREET LAYER',15,S.streetY+18)
+      ctx.fillText('EXECUTION / STREET LAYER',15,S.streetY+18)
       ctx.font='20px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Motion',15,S.streetY+40)
+      ctx.font='8px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.15)'
+      ctx.fillText('token burn · agents · tools',15,S.streetY+52)
 
       // no project labels at top
 
@@ -197,16 +207,20 @@ export default function MashupCanvas() {
         dot.x+=dot.vx;dot.y+=dot.vy;dot.vy*=0.98
         dot.trail.push({x:dot.x,y:dot.y});if(dot.trail.length>25) dot.trail.shift()
 
-        // Lane jumping — allows bleeding into reason or soul zones
+        // Lane jumping — allows bleeding into reason or memory zones
         if(Math.random()<0.004){
           const targets=[
             ...LANES.map(l=>S.streetY+S.streetH*l.frac),
-            flowMidY + (Math.random()-0.5)*60,  // bleed into reason
-            S.soulY + Math.random()*S.soulH*0.5, // bleed into soul
+            flowMidY + (Math.random()-0.5)*60,  // M→R escalation
+            S.soulY + Math.random()*S.soulH*0.5, // M→S completion
           ]
           const target=targets[Math.floor(Math.random()*targets.length)]
           dot.vy=(target-dot.y)*0.04
-          if(target<S.streetY) dot.color='245,178,50' // gold in reason zone
+          // White flash at boundary crossing
+          if(target<S.streetY||target>S.soulY){
+            flashRef.current.push({x:dot.x,y:dot.y,age:0,maxAge:25})
+          }
+          if(target<S.streetY) dot.color='255,95,162' // rose in reason zone
           else if(target>S.soulY) dot.color=ORB_COLORS[Math.floor(Math.random()*ORB_COLORS.length)]
           else { const nl=LANES[Math.floor(Math.random()*LANES.length)];dot.color=nl.color }
         }
@@ -250,10 +264,37 @@ export default function MashupCanvas() {
       // SECTION 3: SOUL (bottom third)
       // ═══════════════════════════════════════════
 
-      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(168,85,247,0.3)';ctx.textAlign='left'
-      ctx.fillText('AMBIENT / REFIK LAYER',15,S.soulY+18)
+      // ── WHITE CROSSING FLASHES ──
+      flashRef.current.forEach(f=>{
+        f.age++
+        const life=1-f.age/f.maxAge
+        const fg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,12*life)
+        fg.addColorStop(0,`rgba(255,255,255,${0.5*life})`);fg.addColorStop(1,'rgba(255,255,255,0)')
+        ctx.beginPath();ctx.arc(f.x,f.y,12*life,0,Math.PI*2);ctx.fillStyle=fg;ctx.fill()
+      })
+      if(t%20===0)flashRef.current=flashRef.current.filter(f=>f.age<f.maxAge)
+
+      // ── TOKEN BURN METER (top right) ──
+      const mX=w-235,mY=8,mW=220
+      const burnLoad=0.55+Math.sin(t*0.001)*0.15
+      ctx.fillStyle='rgba(5,10,20,0.5)';ctx.fillRect(mX,mY,mW,42)
+      ctx.fillStyle='rgba(238,246,255,0.7)'
+      ctx.font='600 11px -apple-system, sans-serif';ctx.textAlign='left'
+      ctx.fillText('Token Burn',mX+12,mY+15)
+      ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(mX+12,mY+24,mW-24,8)
+      const fillW=(mW-24)*burnLoad
+      const barGrad=ctx.createLinearGradient(mX+12,0,mX+12+fillW,0)
+      barGrad.addColorStop(0,'rgb(52,209,231)');barGrad.addColorStop(0.55,'rgb(255,154,60)');barGrad.addColorStop(1,'rgb(255,95,162)')
+      ctx.fillStyle=barGrad;ctx.fillRect(mX+12,mY+24,fillW,8)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
+      ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,mY+56)
+
+      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(255,95,162,0.3)';ctx.textAlign='left'
+      ctx.fillText('LEARNING / REFIK LAYER',15,S.soulY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
-      ctx.fillText('Soul',15,S.soulY+40)
+      ctx.fillText('Memory',15,S.soulY+40)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.12)'
+      ctx.fillText('identity · memory · pattern',15,S.soulY+52)
 
       const orbs=orbsRef.current
       const cx1=w*0.35+Math.sin(t*0.001)*50,cy1=S.soulY+S.soulH*0.4+Math.cos(t*0.0012)*25
@@ -288,41 +329,38 @@ export default function MashupCanvas() {
         }
       }
 
-      // ═══ UNIFIED LEGEND (bottom) ═══
-      const legY = h - 35
+      // ═══ LEGEND (bottom) ═══
+      const legY = h - 42
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
       const allLegs = [
-        {c:'168,85,247', l:'system'},
-        {c:'34,211,238', l:'work'},
-        {c:'251,146,60', l:'personal'},
-        {c:'250,204,21', l:'synthesis'},
-        {c:'239,68,68', l:'attrition'},
+        {c:'166,107,255', l:'system', b:0.5},
+        {c:'52,209,231', l:'work', b:0.9},
+        {c:'255,154,60', l:'personal', b:0.7},
+        {c:'255,95,162', l:'synthesis', b:1.2},
+        {c:'204,34,68', l:'attrition', b:0.6},
+        {c:'255,255,255', l:'crossing flash', b:0.4},
       ]
       allLegs.forEach((lg,i) => {
-        const lx = 15 + i * 85
+        const lx = 15 + i * 72
         ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
-        ctx.fillStyle = `rgba(${lg.c},0.8)`; ctx.fill()
-        ctx.fillStyle = 'rgba(255,255,255,0.25)'
+        ctx.fillStyle = `rgba(${lg.c},${0.6*lg.b})`; ctx.fill()
+        ctx.fillStyle = `rgba(255,255,255,${0.12+lg.b*0.08})`
         ctx.fillText(lg.l, lx + 8, legY + 3)
       })
-      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.12)'
-      ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
+      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.08)'
+      ctx.fillText('M→R escalation · R→M decision · M→S complete · S→R recall', w-12, legY+3)
+      ctx.font='7px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.05)'
+      ctx.fillText('white flash = boundary crossing cost · color = domain work', w-12, h-8)
 
       // Section dividers — very subtle, not hard borders
       ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=0.5
       ctx.beginPath();ctx.moveTo(0,S.streetY);ctx.lineTo(w,S.streetY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soulY);ctx.lineTo(w,S.soulY);ctx.stroke()
 
-      // Gold synthesis pulse
-      if(t%800>760){const p=(t%800-760)/40,r=p*Math.max(w,h)*0.2
+      // Rose synthesis pulse (rare)
+      if(t%1000>970){const p=(t%1000-970)/30,r=p*Math.max(w,h)*0.15
       ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2)
-      ctx.strokeStyle=`rgba(250,204,21,${0.06*(1-p)})`;ctx.lineWidth=1.5;ctx.stroke()}
-
-      // Cyan sweep
-      if(t%450<40){const wx=(t%450)/40*w
-      const sg=ctx.createLinearGradient(wx-40,0,wx+40,0)
-      sg.addColorStop(0,'rgba(34,211,238,0)');sg.addColorStop(0.5,'rgba(34,211,238,0.03)');sg.addColorStop(1,'rgba(34,211,238,0)')
-      ctx.fillStyle=sg;ctx.fillRect(wx-40,0,80,h)}
+      ctx.strokeStyle=`rgba(255,95,162,${0.12*(1-p)})`;ctx.lineWidth=1.5;ctx.stroke()}
 
       animId=requestAnimationFrame(draw)
     }
