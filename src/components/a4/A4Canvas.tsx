@@ -180,8 +180,8 @@ export default function A4Canvas() {
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('token burn · agents · tools',15,S.sY+52)
 
-      // Lanes: text space, then TOKEN (white), then SYSTEM, WORK, PERSONAL
-      const laneFracs=[0.30,0.50,0.70,0.80]
+      // Lanes: evenly spaced, TOKEN up, PERSONAL down
+      const laneFracs=[0.25,0.48,0.70,0.87]
       const laneNames=['TOKEN','SYSTEM','WORK','PERSONAL'] as const
       const laneColors={TOKEN:'255,255,255',SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
       const laneAlpha={TOKEN:0.08,SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
