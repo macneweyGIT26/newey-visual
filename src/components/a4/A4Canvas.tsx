@@ -214,7 +214,7 @@ export default function A4Canvas() {
         // Tokens: white with glow in TOKEN lane
         trafficRef.current.push({
           x:0,y:tokenLy+(Math.random()-0.5)*12,vx:speed,vy:(Math.random()-0.5)*0.1,
-          color:'255,255,255',size:2+Math.random()*1.5,trail:[],label:recent?.title||'',
+          color:'255,255,255',size:1.5+Math.random(),trail:[],label:recent?.title||'',
         })
       }
 
@@ -239,12 +239,12 @@ export default function A4Canvas() {
         ctx.beginPath();ctx.arc(tr.x,tr.y,dot.size*0.4,0,Math.PI*2)
         ctx.fillStyle=`rgba(${dot.color},${a})`;ctx.fill()})
 
-        // White token with strong glow
-        const g=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+10)
-        g.addColorStop(0,`rgba(${dot.color},0.8)`);g.addColorStop(1,`rgba(${dot.color},0)`)
-        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+10,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
+        // White token with subtle glow
+        const g=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+5)
+        g.addColorStop(0,`rgba(${dot.color},0.5)`);g.addColorStop(1,`rgba(${dot.color},0)`)
+        ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()
         ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${dot.color},0.95)`;ctx.fill()
+        ctx.fillStyle=`rgba(${dot.color},0.9)`;ctx.fill()
       })
       if(t%30===0)trafficRef.current=trafficRef.current.filter(d=>d.x<w+20)
 
