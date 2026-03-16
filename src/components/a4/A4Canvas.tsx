@@ -119,7 +119,7 @@ export default function A4Canvas() {
           x:w*0.06,y:flowMidY+(band-0.5)*BAND_W[0],
           vx:0.3+Math.random()*0.4,vy:(Math.random()-0.5)*0.12,
           band,alpha:0.8+Math.random()*0.2,alive:true,
-          color:isPrimary?'245,178,50':isSupervisory?'168,85,247':'34,211,238',
+          color:proj.domain==='SYSTEM'?'168,85,247':proj.domain==='WORK'?'34,211,238':'251,146,60',
           width:2+Math.random()*3,glow:5+Math.random()*10,project:proj.name,
         })
       }
@@ -149,12 +149,7 @@ export default function A4Canvas() {
       })
       if(t%60===0)flowRef.current=flowRef.current.filter(p=>p.alive)
 
-      // Reason legend
-      ctx.font='8px -apple-system, sans-serif';ctx.textAlign='left'
-      const legs=[{c:'245,178,50',l:'work'},{c:'34,211,238',l:'personal'},{c:'168,85,247',l:'system'},{c:'239,68,68',l:'attrition'}]
-      legs.forEach((lg,i)=>{ctx.beginPath();ctx.arc(15+i*75,S.rH-28,2.5,0,Math.PI*2)
-      ctx.fillStyle=`rgba(${lg.c},0.7)`;ctx.fill()
-      ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fillText(lg.l,22+i*75,S.rH-25)})
+      // no per-section legend — unified legend at bottom
 
       // ═══ MOTION ═══
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(34,211,238,0.35)';ctx.textAlign='left'
@@ -281,6 +276,29 @@ export default function A4Canvas() {
       ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=0.5
       ctx.beginPath();ctx.moveTo(0,S.sY);ctx.lineTo(w,S.sY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soY);ctx.lineTo(w,S.soY);ctx.stroke()
+
+      // ═══ UNIFIED LEGEND (bottom) ═══
+      const legY = h - 35
+      ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
+      const allLegs = [
+        {c:'168,85,247', l:'system'},
+        {c:'34,211,238', l:'work'},
+        {c:'251,146,60', l:'personal'},
+        {c:'250,204,21', l:'synthesis'},
+        {c:'239,68,68', l:'attrition'},
+      ]
+      const legStartX = 15
+      allLegs.forEach((lg,i) => {
+        const lx = legStartX + i * 85
+        ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
+        ctx.fillStyle = `rgba(${lg.c},0.8)`; ctx.fill()
+        ctx.fillStyle = 'rgba(255,255,255,0.25)'
+        ctx.fillText(lg.l, lx + 8, legY + 3)
+      })
+
+      // Section descriptions right-aligned
+      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.12)'
+      ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
 
       // Data timestamp
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'

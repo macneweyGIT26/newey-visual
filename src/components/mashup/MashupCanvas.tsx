@@ -113,19 +113,12 @@ export default function MashupCanvas() {
       ctx.font='20px -apple-system, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Reason',15,42)
 
-      // Reason legend
-      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='left'
-      const legs=[{c:'245,178,50',l:'token flow'},{c:'34,211,238',l:'secondary'},{c:'168,85,247',l:'supervisory'},{c:'239,68,68',l:'attrition'}]
-      legs.forEach((lg,i)=>{
-        ctx.beginPath();ctx.arc(15+i*90,S.reasonH-28,2.5,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${lg.c},0.7)`;ctx.fill()
-        ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fillText(lg.l,22+i*90,S.reasonH-25)
-      })
+      // no per-section reason legend
 
       // Spawn flow particles
       if(t%5===0){
         const band=Math.random()
-        const colors=['245,178,50','245,178,50','34,211,238','168,85,247']
+        const colors=['168,85,247','34,211,238','34,211,238','251,146,60']
         flowRef.current.push({
           x:w*0.06,y:flowMidY+(band-0.5)*BAND_W[0],
           vx:0.3+Math.random()*0.4,vy:(Math.random()-0.5)*0.12,
@@ -249,15 +242,7 @@ export default function MashupCanvas() {
         }
       })
 
-      // Street legend
-      ctx.font='9px -apple-system, sans-serif';ctx.textAlign='left'
-      const sLegY=S.soulY-15
-      const sLegs=[{c:'168,85,247',l:'system'},{c:'34,211,238',l:'work'},{c:'251,146,60',l:'personal'},{c:'239,68,68',l:'overload'}]
-      sLegs.forEach((lg,i)=>{
-        ctx.beginPath();ctx.arc(15+i*85,sLegY,2.5,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${lg.c},0.7)`;ctx.fill()
-        ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fillText(lg.l,22+i*85,sLegY+3)
-      })
+      // no per-section street legend
 
       // no stats line
 
@@ -303,8 +288,25 @@ export default function MashupCanvas() {
         }
       }
 
-      ctx.font='9px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.08)';ctx.textAlign='right'
-      ctx.fillText('drift · cluster · bloom · ripple',w-12,h-10)
+      // ═══ UNIFIED LEGEND (bottom) ═══
+      const legY = h - 35
+      ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
+      const allLegs = [
+        {c:'168,85,247', l:'system'},
+        {c:'34,211,238', l:'work'},
+        {c:'251,146,60', l:'personal'},
+        {c:'250,204,21', l:'synthesis'},
+        {c:'239,68,68', l:'attrition'},
+      ]
+      allLegs.forEach((lg,i) => {
+        const lx = 15 + i * 85
+        ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
+        ctx.fillStyle = `rgba(${lg.c},0.8)`; ctx.fill()
+        ctx.fillStyle = 'rgba(255,255,255,0.25)'
+        ctx.fillText(lg.l, lx + 8, legY + 3)
+      })
+      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.12)'
+      ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
 
       // Section dividers — very subtle, not hard borders
       ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=0.5
