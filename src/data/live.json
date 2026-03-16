@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-16T04:06:15.923Z",
+  "generated": "2026-03-16T13:30:50.725Z",
   "totalEntries": 24,
   "totalCost": 103.81,
   "resumeCount": 19,
@@ -11,42 +11,42 @@
       "entries": 9,
       "cost": 62.6,
       "domain": "SYSTEM",
-      "color": "168,85,247"
+      "color": "166,107,255"
     },
     {
       "name": "F1 Intelligence",
       "entries": 10,
       "cost": 17.69,
       "domain": "WORK",
-      "color": "34,211,238"
+      "color": "52,209,231"
     },
     {
       "name": "Media Library",
       "entries": 1,
       "cost": 12,
       "domain": "WORK",
-      "color": "245,158,11"
+      "color": "255,154,60"
     },
     {
       "name": "Instagram Interests",
       "entries": 2,
       "cost": 8.4,
       "domain": "WORK",
-      "color": "236,72,153"
+      "color": "255,154,60"
     },
     {
       "name": "Asset Index",
       "entries": 1,
       "cost": 2.4,
       "domain": "WORK",
-      "color": "16,185,129"
+      "color": "43,230,166"
     },
     {
       "name": "Grocery List",
       "entries": 1,
       "cost": 0.72,
       "domain": "PERSONAL",
-      "color": "251,146,60"
+      "color": "255,154,60"
     }
   ],
   "lanes": [
@@ -54,19 +54,19 @@
       "name": "SYSTEM",
       "cost": 61.9,
       "entries": 8,
-      "color": "168,85,247"
+      "color": "166,107,255"
     },
     {
       "name": "WORK",
       "cost": 40.49,
       "entries": 14,
-      "color": "34,211,238"
+      "color": "52,209,231"
     },
     {
       "name": "PERSONAL",
       "cost": 1.42,
       "entries": 2,
-      "color": "251,146,60"
+      "color": "255,154,60"
     }
   ],
   "recentEntries": [

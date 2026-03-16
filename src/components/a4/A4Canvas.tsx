@@ -3,10 +3,21 @@ import { useEffect, useRef } from 'react'
 import liveData from '@/data/live.json'
 
 // A4 — LIVE DATA VISUALIZATION
-// Same Mashup structure (Reason/Motion/Soul sections) but driven by real tracker data
-// Reason: flow particles proportional to real entries/cost
-// Motion: lanes weighted by real domain costs, traffic density = real activity
-// Soul: orbs colored by real projects
+// Unified color system + brightness hierarchy
+// SYSTEM #A66BFF violet, WORK #34D1E7 cyan, PERSONAL #FF9A3C amber
+// SYNTHESIS #2BE6A6 emerald, ATTRITION #FF4D4D red
+// TOKENS white/glow only
+// Brightness order: token glow > synthesis > work > personal > system grid
+// work → high-value work → breakthrough
+
+const COLORS = {
+  SYSTEM: '166,107,255',
+  WORK: '52,209,231',
+  PERSONAL: '255,154,60',
+  SYNTHESIS: '43,230,166',
+  ATTRITION: '255,77,77',
+  TOKEN: '255,255,255',
+}
 
 const data = liveData as {
   generated: string; totalEntries: number; totalCost: number
@@ -119,7 +130,7 @@ export default function A4Canvas() {
           x:w*0.06,y:flowMidY+(band-0.5)*BAND_W[0],
           vx:0.3+Math.random()*0.4,vy:(Math.random()-0.5)*0.12,
           band,alpha:0.8+Math.random()*0.2,alive:true,
-          color:proj.domain==='SYSTEM'?'168,85,247':proj.domain==='WORK'?'34,211,238':'251,146,60',
+          color:proj.domain==='SYSTEM'?COLORS.SYSTEM:proj.domain==='WORK'?COLORS.WORK:COLORS.PERSONAL,
           width:2+Math.random()*3,glow:5+Math.random()*10,project:proj.name,
         })
       }
@@ -134,7 +145,7 @@ export default function A4Canvas() {
         if(si>=2&&Math.random()<0.001){
           p.alive=false
           const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,10)
-          g.addColorStop(0,'rgba(239,68,68,0.6)');g.addColorStop(1,'rgba(239,68,68,0)')
+          g.addColorStop(0,`rgba(${COLORS.ATTRITION},0.6)`);g.addColorStop(1,`rgba(${COLORS.ATTRITION},0)`)
           ctx.beginPath();ctx.arc(p.x,p.y,10,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();return
         }
         if(p.x>w*0.95){p.alpha-=0.02;if(p.alpha<=0)p.alive=false}
@@ -152,16 +163,20 @@ export default function A4Canvas() {
       // no per-section legend — unified legend at bottom
 
       // ═══ MOTION ═══
-      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(34,211,238,0.35)';ctx.textAlign='left'
+      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.WORK},0.35)`;ctx.textAlign='left'
       ctx.fillText('OPERATIONS / STREET LAYER',15,S.sY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.2)'
       ctx.fillText('Motion',15,S.sY+40)
 
-      // Lanes weighted by real data
+      // Lanes weighted by real data — brightness by importance (work > personal > system)
       const laneFracs=[0.25,0.50,0.75]
+      const laneColors={SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
+      const laneAlpha={SYSTEM:0.05,WORK:0.12,PERSONAL:0.08}
       data.lanes.forEach((lane,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        ctx.strokeStyle=`rgba(${lane.color},0.1)`;ctx.lineWidth=0.5
+        const c=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
+        const a=laneAlpha[lane.name as keyof typeof laneAlpha]||0.05
+        ctx.strokeStyle=`rgba(${c},${a})`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
       })
 
@@ -184,9 +199,10 @@ export default function A4Canvas() {
         // Pick a recent entry for context
         const recent=data.recentEntries[Math.floor(Math.random()*data.recentEntries.length)]
 
+        const lc=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
         trafficRef.current.push({
           x:0,y:ly+(Math.random()-0.5)*15,vx:speed,vy:(Math.random()-0.5)*0.15,
-          color:lane.color,size:2+Math.random()*2.5,trail:[],label:recent?.title||'',
+          color:lc,size:2+Math.random()*2.5,trail:[],label:recent?.title||'',
         })
       }
 
@@ -203,7 +219,7 @@ export default function A4Canvas() {
           ]
           const target=targets[Math.floor(Math.random()*targets.length)]
           dot.vy=(target-dot.y)*0.04
-          if(target<S.sY)dot.color='245,178,50'
+          if(target<S.sY)dot.color=COLORS.SYNTHESIS
           else if(target>S.soY)dot.color=ORB_COLORS[Math.floor(Math.random()*ORB_COLORS.length)]
         }
 
@@ -219,21 +235,22 @@ export default function A4Canvas() {
       })
       if(t%30===0)trafficRef.current=trafficRef.current.filter(d=>d.x<w+20)
 
-      // Substations
+      // Substations — brightness by lane importance (work > personal > system)
       data.lanes.forEach((lane,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
+        const c=laneColors[lane.name as keyof typeof laneColors]||COLORS.SYSTEM
         for(let x=w*0.14;x<w*0.92;x+=w*0.14){
           const load=Math.sin(t*0.005+x*0.01+ly*0.01)*0.5+0.5
           if(load>0.3){const g=ctx.createRadialGradient(x,ly,0,x,ly,14)
-          g.addColorStop(0,`rgba(${lane.color},${load*0.3})`);g.addColorStop(1,`rgba(${lane.color},0)`)
+          g.addColorStop(0,`rgba(${c},${load*0.3})`);g.addColorStop(1,`rgba(${c},0)`)
           ctx.beginPath();ctx.arc(x,ly,14,0,Math.PI*2);ctx.fillStyle=g;ctx.fill()}
           ctx.beginPath();ctx.arc(x,ly,2.5,0,Math.PI*2)
-          ctx.fillStyle=`rgba(${lane.color},${0.2+load*0.5})`;ctx.fill()
+          ctx.fillStyle=`rgba(${c},${0.2+load*0.5})`;ctx.fill()
         }
       })
 
-      // ═══ SOUL ═══
-      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(168,85,247,0.3)';ctx.textAlign='left'
+      // ═══ MEMORY ═══
+      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle=`rgba(${COLORS.SYNTHESIS},0.3)`;ctx.textAlign='left'
       ctx.fillText('AMBIENT / REFIK LAYER',15,S.soY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('Memory',15,S.soY+40)
@@ -277,42 +294,44 @@ export default function A4Canvas() {
       ctx.beginPath();ctx.moveTo(0,S.sY);ctx.lineTo(w,S.sY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soY);ctx.lineTo(w,S.soY);ctx.stroke()
 
-      // ═══ UNIFIED LEGEND (bottom) ═══
+      // ═══ UNIFIED LEGEND (bottom) — brightness hierarchy ═══
       const legY = h - 35
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
       const allLegs = [
-        {c:'168,85,247', l:'system'},
-        {c:'34,211,238', l:'work'},
-        {c:'251,146,60', l:'personal'},
-        {c:'250,204,21', l:'synthesis'},
-        {c:'239,68,68', l:'attrition'},
+        {c:COLORS.SYSTEM, l:'system'},
+        {c:COLORS.WORK, l:'work'},
+        {c:COLORS.PERSONAL, l:'personal'},
+        {c:COLORS.SYNTHESIS, l:'synthesis'},
+        {c:COLORS.ATTRITION, l:'attrition'},
       ]
       const legStartX = 15
       allLegs.forEach((lg,i) => {
         const lx = legStartX + i * 85
+        // Brightness multiplier: synthesis + token glow > work > personal > system grid
+        const brightMult=i===3?1.2:i===1?0.9:i===2?0.7:0.5
         ctx.beginPath(); ctx.arc(lx, legY, 3, 0, Math.PI*2)
-        ctx.fillStyle = `rgba(${lg.c},0.8)`; ctx.fill()
-        ctx.fillStyle = 'rgba(255,255,255,0.25)'
+        ctx.fillStyle = `rgba(${lg.c},${0.6*brightMult})`; ctx.fill()
+        ctx.fillStyle = `rgba(255,255,255,${0.15+i*0.04})`
         ctx.fillText(lg.l, lx + 8, legY + 3)
       })
 
       // Section descriptions right-aligned
-      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.12)'
+      ctx.font='8px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.08)'
       ctx.fillText('reason = flow + narrowing  ·  motion = traffic + lanes  ·  memory = drift + cluster', w-12, legY+3)
 
       // Data timestamp
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
       ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,15)
 
-      // Gold pulse
+      // Synthesis pulse — high importance signal
       if(t%800>760){const p=(t%800-760)/40,r=p*Math.max(w,h)*0.2
       ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2)
-      ctx.strokeStyle=`rgba(250,204,21,${0.06*(1-p)})`;ctx.lineWidth=1.5;ctx.stroke()}
+      ctx.strokeStyle=`rgba(${COLORS.SYNTHESIS},${0.12*(1-p)})`;ctx.lineWidth=1.5;ctx.stroke()}
 
-      // Cyan sweep
+      // Work sweep — high-value work → breakthrough signal
       if(t%450<40){const wx=(t%450)/40*w
       const sg=ctx.createLinearGradient(wx-40,0,wx+40,0)
-      sg.addColorStop(0,'rgba(34,211,238,0)');sg.addColorStop(0.5,'rgba(34,211,238,0.03)');sg.addColorStop(1,'rgba(34,211,238,0)')
+      sg.addColorStop(0,`rgba(${COLORS.WORK},0)`);sg.addColorStop(0.5,`rgba(${COLORS.WORK},0.06)`);sg.addColorStop(1,`rgba(${COLORS.WORK},0)`)
       ctx.fillStyle=sg;ctx.fillRect(wx-40,0,80,h)}
 
       animId=requestAnimationFrame(draw)
