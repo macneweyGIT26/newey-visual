@@ -2,22 +2,17 @@
 import { useEffect, useRef } from 'react'
 import liveData from '@/data/live.json'
 
-// A4v3 — COGNITIVE ARCHITECTURE VISUALIZATION
-// Token redesign: white = electricity (support), color = work (primary)
-// Synthesis: rose/magenta #FF5FA2 (convergence, distinct from work)
-// Colored lane motion: minimal drifting particles per domain
-//
-// Crossings:
-//   Motion → Reason = escalation (needs judgment)
-//   Reason → Motion = decision (go/no-go)
-//   Motion → Soul = completion (work persists as memory)
-//   Soul → Reason = recall (pattern recognition)
+// A4v4 — COGNITIVE ARCHITECTURE VISUALIZATION
+// White = crossing flash only (cost of boundary transition)
+// Colored dots ARE the tokens. Movement IS the burn.
+// Crossings: M→R escalation, R→M decision, M→S completion, S→R recall
+// Token Burn meter (top right, like Token tab)
 
 const COLORS = {
   SYSTEM: '166,107,255',
   WORK: '52,209,231',
   PERSONAL: '255,154,60',
-  SYNTHESIS: '255,95,162',  // rose/magenta #FF5FA2
+  SYNTHESIS: '255,95,162',
   ATTRITION: '204,34,68',
   TOKEN: '255,255,255',
 }
@@ -30,16 +25,16 @@ const data = liveData as {
   recentEntries: { date: string; title: string; domain: string; project: string; resume: boolean; cost: number; team: string }[]
 }
 
-const ORB_COLORS = data.projects.map(p => p.color)
-
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number;project:string }
-interface LaneDot { x:number;y:number;vx:number;color:string;size:number;alpha:number }
+interface LaneDot { x:number;y:number;vx:number;vy:number;color:string;size:number;alpha:number;crossing:boolean }
+interface CrossFlash { x:number;y:number;age:number;maxAge:number }
 interface Orb { x:number;y:number;vx:number;vy:number;r:number;color:string;alpha:number;phase:number;speed:number }
 
 export default function A4Canvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const flowRef = useRef<FlowP[]>([])
   const laneDotsRef = useRef<LaneDot[]>([])
+  const flashRef = useRef<CrossFlash[]>([])
   const orbsRef = useRef<Orb[]>([])
   const frameRef = useRef(0)
   const initRef = useRef(false)
@@ -62,7 +57,6 @@ export default function A4Canvas() {
     const initAll=()=>{
       initRef.current=true
       const w=W(),h=H()
-      // Memory orbs — one per project entry, colored by project
       data.projects.forEach(proj => {
         for(let i=0;i<Math.max(2,proj.entries);i++){
           orbsRef.current.push({
@@ -79,6 +73,13 @@ export default function A4Canvas() {
 
     resize();window.addEventListener('resize',resize)
 
+    // Helper: rounded rect
+    const roundedRect=(x:number,y:number,w:number,h:number,r:number)=>{
+      r=Math.min(r,w/2,h/2);ctx.beginPath()
+      ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r)
+      ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()
+    }
+
     const draw=()=>{
       frameRef.current++
       const w=W(),h=H(),t=frameRef.current
@@ -93,7 +94,7 @@ export default function A4Canvas() {
       const BAND_W=[140,110,70,45,20]
 
       // ═══ REASON ═══
-      // Amber/orange Sankey flow band (narrowing funnel)
+      // Amber Sankey flow band
       STG_X.forEach((sx,i)=>{
         if(i>=STG_X.length-1)return
         const x1=w*sx,x2=w*STG_X[i+1],bw1=BAND_W[i],bw2=BAND_W[i+1]
@@ -121,13 +122,12 @@ export default function A4Canvas() {
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('routing · judgment · pruning',15,54)
 
-      // Flow particles — spawn rate proportional to real totalEntries
+      // Flow particles
       const spawnRate = Math.max(2, Math.floor(8 - data.totalEntries/10))
       if(t%spawnRate===0){
         const totalE=data.projects.reduce((s,p)=>s+p.entries,0)
         let r=Math.random()*totalE,proj=data.projects[0]
         for(const p of data.projects){r-=p.entries;if(r<=0){proj=p;break}}
-
         const band=Math.random()
         flowRef.current.push({
           x:w*0.06,y:flowMidY+(band-0.5)*BAND_W[0],
@@ -171,7 +171,7 @@ export default function A4Canvas() {
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
       ctx.fillText('token burn · agents · tools',15,S.sY+52)
 
-      // 3 domain lanes (no separate TOKEN lane — white is support only)
+      // 3 domain lanes
       const laneFracs=[0.30,0.55,0.80]
       const laneNames=['SYSTEM','WORK','PERSONAL'] as const
       const laneColorMap={SYSTEM:COLORS.SYSTEM,WORK:COLORS.WORK,PERSONAL:COLORS.PERSONAL}
@@ -190,8 +190,7 @@ export default function A4Canvas() {
         ctx.beginPath();ctx.moveTo(x,S.sY+55);ctx.lineTo(x,S.soY-5);ctx.stroke()
       }
 
-      // ── COLORED LANE PARTICLES (minimal motion) ──
-      // Small colored dots drifting slowly along domain lanes
+      // ── COLORED LANE PARTICLES + CROSSING BEHAVIOR ──
       if(t%12===0&&laneDotsRef.current.length<60){
         const totalC=data.lanes.reduce((s,l)=>s+l.cost,0)
         let r2=Math.random()*totalC,lane=data.lanes[0],laneIdx=0
@@ -201,41 +200,54 @@ export default function A4Canvas() {
         const c=laneColorMap[domainName]||COLORS.SYSTEM
         laneDotsRef.current.push({
           x:0,y:ly+(Math.random()-0.5)*18,
-          vx:0.15+Math.random()*0.35,
+          vx:0.15+Math.random()*0.35,vy:0,
           color:c,size:1.2+Math.random()*1.5,alpha:0.4+Math.random()*0.4,
+          crossing:false,
         })
       }
 
       laneDotsRef.current.forEach(dot=>{
-        dot.x+=dot.vx
+        dot.x+=dot.vx;dot.y+=dot.vy;dot.vy*=0.97
+
+        // ── CROSSING EVENTS (rare, meaningful) ──
+        if(!dot.crossing&&Math.random()<0.003){
+          dot.crossing=true
+          // Flash white at crossing point
+          flashRef.current.push({x:dot.x,y:dot.y,age:0,maxAge:25})
+
+          if(Math.random()<0.5){
+            // M→R: escalation — dot moves up into Reason
+            dot.vy=-(S.sY-flowMidY)*0.015
+          } else {
+            // M→S: completion — dot moves down into Memory
+            dot.vy=(S.soY+S.soH*0.5-dot.y)*0.012
+          }
+        }
+
         // Draw colored dot
         ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size,0,Math.PI*2)
         ctx.fillStyle=`rgba(${dot.color},${dot.alpha})`;ctx.fill()
-        // Subtle glow
         const dg=ctx.createRadialGradient(dot.x,dot.y,0,dot.x,dot.y,dot.size+4)
         dg.addColorStop(0,`rgba(${dot.color},${dot.alpha*0.3})`);dg.addColorStop(1,`rgba(${dot.color},0)`)
         ctx.beginPath();ctx.arc(dot.x,dot.y,dot.size+4,0,Math.PI*2);ctx.fillStyle=dg;ctx.fill()
       })
       if(t%30===0)laneDotsRef.current=laneDotsRef.current.filter(d=>d.x<w+10)
 
-      // ── TOKEN SIGNALS (white as support, not traffic) ──
+      // ── WHITE CROSSING FLASHES ──
+      flashRef.current.forEach(f=>{
+        f.age++
+        const life=1-f.age/f.maxAge
+        const fg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,12*life)
+        fg.addColorStop(0,`rgba(255,255,255,${0.6*life})`);fg.addColorStop(1,'rgba(255,255,255,0)')
+        ctx.beginPath();ctx.arc(f.x,f.y,12*life,0,Math.PI*2);ctx.fillStyle=fg;ctx.fill()
+      })
+      if(t%20===0)flashRef.current=flashRef.current.filter(f=>f.age<f.maxAge)
 
-      // A. Intersection pulses — where cross streets meet lane lines
+      // Substations (colored, no white)
       laneNames.forEach((ln,i)=>{
         const ly=S.sY+S.sH*laneFracs[i]
-        for(let x=w*0.1;x<w*0.95;x+=w*0.1){
-          // Pulse when colored traffic is nearby
-          const hasTraffic=laneDotsRef.current.some(d=>Math.abs(d.x-x)<30&&Math.abs(d.y-ly)<25)
-          if(hasTraffic){
-            const pulse=Math.sin(t*0.02+x*0.005)*0.5+0.5
-            if(pulse>0.4){
-              const pg=ctx.createRadialGradient(x,ly,0,x,ly,8)
-              pg.addColorStop(0,`rgba(255,255,255,${0.15*pulse})`);pg.addColorStop(1,'rgba(255,255,255,0)')
-              ctx.beginPath();ctx.arc(x,ly,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill()
-            }
-          }
-          // Substation dot (colored)
-          const c=laneColorMap[ln]
+        const c=laneColorMap[ln]
+        for(let x=w*0.14;x<w*0.92;x+=w*0.14){
           const load=Math.sin(t*0.005+x*0.01+ly*0.01)*0.5+0.5
           if(load>0.3){
             const sg=ctx.createRadialGradient(x,ly,0,x,ly,12)
@@ -244,31 +256,6 @@ export default function A4Canvas() {
           }
           ctx.beginPath();ctx.arc(x,ly,2,0,Math.PI*2)
           ctx.fillStyle=`rgba(${c},${0.12+load*0.35})`;ctx.fill()
-        }
-      })
-
-      // B. Lane shimmer — faint white overlay on active lanes, intensity ∝ traffic density
-      laneNames.forEach((ln,i)=>{
-        const ly=S.sY+S.sH*laneFracs[i]
-        const trafficCount=laneDotsRef.current.filter(d=>Math.abs(d.y-ly)<25).length
-        if(trafficCount>0){
-          const shimmerAlpha=Math.min(0.04,trafficCount*0.008)
-          const shimmerPhase=Math.sin(t*0.003+i*2)*0.5+0.5
-          ctx.strokeStyle=`rgba(255,255,255,${shimmerAlpha*shimmerPhase})`
-          ctx.lineWidth=12
-          ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
-        }
-      })
-
-      // C. Current travel — subtle short white streaks along colored traffic direction
-      laneDotsRef.current.forEach(dot=>{
-        if(Math.random()<0.3){
-          ctx.beginPath()
-          ctx.moveTo(dot.x-6,dot.y)
-          ctx.lineTo(dot.x+2,dot.y)
-          ctx.strokeStyle=`rgba(255,255,255,${0.08+Math.random()*0.12})`
-          ctx.lineWidth=0.5
-          ctx.stroke()
         }
       })
 
@@ -320,6 +307,35 @@ export default function A4Canvas() {
       ctx.beginPath();ctx.moveTo(0,S.sY);ctx.lineTo(w,S.sY);ctx.stroke()
       ctx.beginPath();ctx.moveTo(0,S.soY);ctx.lineTo(w,S.soY);ctx.stroke()
 
+      // ═══ TOKEN BURN METER (top right, below timestamp) ═══
+      const mX=w-235,mY=22,mW=220,mH=42
+      const burnLoad=0.55+Math.sin(t*0.001)*0.15
+      ctx.save()
+      roundedRect(mX,mY,mW,mH,10)
+      ctx.fillStyle='rgba(5,10,20,0.5)';ctx.fill()
+      ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.stroke()
+
+      ctx.fillStyle='rgba(238,246,255,0.7)'
+      ctx.font='600 11px -apple-system, sans-serif'
+      ctx.textAlign='left'
+      ctx.fillText('Token Burn',mX+12,mY+15)
+
+      // Bar background
+      roundedRect(mX+12,mY+24,mW-24,8,4)
+      ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fill()
+
+      // Bar fill — gradient cyan → amber → rose
+      const fillW=(mW-24)*burnLoad
+      const barGrad=ctx.createLinearGradient(mX+12,0,mX+12+fillW,0)
+      barGrad.addColorStop(0,`rgb(${COLORS.WORK})`);barGrad.addColorStop(0.55,`rgb(${COLORS.PERSONAL})`);barGrad.addColorStop(1,`rgb(${COLORS.SYNTHESIS})`)
+      roundedRect(mX+12,mY+24,fillW,8,4)
+      ctx.fillStyle=barGrad;ctx.shadowColor=`rgb(${COLORS.WORK})`;ctx.shadowBlur=12;ctx.fill()
+      ctx.restore()
+
+      // Data timestamp (below meter)
+      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
+      ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,mY+mH+14)
+
       // ═══ LEGEND (bottom) ═══
       const legY = h - 42
       ctx.font='9px -apple-system, sans-serif'; ctx.textAlign='left'
@@ -329,7 +345,7 @@ export default function A4Canvas() {
         {c:COLORS.PERSONAL, l:'personal', b:0.7},
         {c:COLORS.SYNTHESIS, l:'synthesis', b:1.2},
         {c:COLORS.ATTRITION, l:'attrition', b:0.6},
-        {c:'255,255,255', l:'tokens (current)', b:0.4},
+        {c:'255,255,255', l:'crossing flash', b:0.4},
       ]
       const legStartX = 15
       allLegs.forEach((lg,i) => {
@@ -346,22 +362,12 @@ export default function A4Canvas() {
       
       // Subtitle
       ctx.font='7px -apple-system, sans-serif'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.05)'
-      ctx.fillText('synthesis = convergence · white = compute energy · color = domain work', w-12, h-8)
+      ctx.fillText('white flash = boundary crossing cost · color = domain work', w-12, h-8)
 
-      // Data timestamp
-      ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
-      ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,15)
-
-      // Synthesis pulse — rose convergence signal (rare, distinct)
+      // Synthesis pulse — rose convergence (rare)
       if(t%1000>970){const p=(t%1000-970)/30,r=p*Math.max(w,h)*0.15
       ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2)
       ctx.strokeStyle=`rgba(${COLORS.SYNTHESIS},${0.15*(1-p)})`;ctx.lineWidth=2;ctx.stroke()}
-
-      // Work sweep — cyan activity signal
-      if(t%500<35){const wx=(t%500)/35*w
-      const sg=ctx.createLinearGradient(wx-30,0,wx+30,0)
-      sg.addColorStop(0,`rgba(${COLORS.WORK},0)`);sg.addColorStop(0.5,`rgba(${COLORS.WORK},0.04)`);sg.addColorStop(1,`rgba(${COLORS.WORK},0)`)
-      ctx.fillStyle=sg;ctx.fillRect(wx-30,0,60,h)}
 
       animId=requestAnimationFrame(draw)
     }
