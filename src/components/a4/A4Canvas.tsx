@@ -241,7 +241,7 @@ export default function A4Canvas() {
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(168,85,247,0.3)';ctx.textAlign='left'
       ctx.fillText('AMBIENT / REFIK LAYER',15,S.soY+18)
       ctx.font='20px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)'
-      ctx.fillText('Soul',15,S.soY+40)
+      ctx.fillText('Memory',15,S.soY+40)
 
       const orbs=orbsRef.current
       const cx1=w*0.35+Math.sin(t*0.001)*50,cy1=S.soY+S.soH*0.4+Math.cos(t*0.0012)*25
