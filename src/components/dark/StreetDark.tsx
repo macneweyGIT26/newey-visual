@@ -155,9 +155,7 @@ export default function StreetDark() {
 
   return (
     <section className="relative w-full border-t border-white/5" style={{ height: '55vh', minHeight: 450 }}>
-      <div className="absolute bottom-6 right-8 z-10 text-[8px] text-stone-700">
-        white flash = boundary crossing cost · color = domain work
-      </div>
+
       <canvas ref={canvasRef} className="w-full h-full" />
     </section>
   )

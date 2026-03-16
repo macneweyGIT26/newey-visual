@@ -26,8 +26,8 @@ export default function DarkPage() {
       {/* Reason */}
       <div className="relative">
         <div className="absolute top-4 left-4 z-10">
-          <p className="text-[10px] text-rose-400/40 tracking-[0.25em] uppercase">Thinking / Minard Layer</p>
-          <p className="text-lg text-white/20 mt-1">Reason</p>
+          <p className="text-[10px] text-white/40 tracking-[0.25em] uppercase">Thinking / Minard Layer</p>
+          <p className="text-xl text-white/20 mt-1">Reason</p>
           <p className="text-[8px] text-white/15 mt-0.5">routing · judgment · pruning</p>
         </div>
         <MinardDark />
@@ -36,8 +36,8 @@ export default function DarkPage() {
       {/* Motion */}
       <div className="relative">
         <div className="absolute top-4 left-4 z-10">
-          <p className="text-[10px] text-cyan-400/40 tracking-[0.25em] uppercase">Execution / Street Layer</p>
-          <p className="text-lg text-white/20 mt-1">Motion</p>
+          <p className="text-[10px] text-white/40 tracking-[0.25em] uppercase">Execution / Street Layer</p>
+          <p className="text-xl text-white/20 mt-1">Motion</p>
           <p className="text-[8px] text-white/15 mt-0.5">token burn · agents · tools</p>
         </div>
         <StreetDark />
@@ -46,21 +46,29 @@ export default function DarkPage() {
       {/* Memory */}
       <div className="relative">
         <div className="absolute top-4 left-4 z-10">
-          <p className="text-[10px] text-rose-400/30 tracking-[0.25em] uppercase">Learning / Refik Layer</p>
-          <p className="text-lg text-white/15 mt-1">Memory</p>
-          <p className="text-[8px] text-white/12 mt-0.5">identity · memory · pattern</p>
+          <p className="text-[10px] text-white/40 tracking-[0.25em] uppercase">Learning / Refik Layer</p>
+          <p className="text-xl text-white/20 mt-1">Memory</p>
+          <p className="text-[8px] text-white/15 mt-0.5">identity · memory · pattern</p>
         </div>
         <RefikDark />
       </div>
 
-      <footer className="px-8 py-4 border-t border-white/5 text-center">
-        <p className="text-[10px] text-stone-600 tracking-wider">
-          Reasoning = thinking · Motion = execution · Memory = learning
-        </p>
-        <p className="text-[10px] text-stone-700 mt-1">
-          Newey 2.0 — A4 Dark — March 2026
-        </p>
-      </footer>
+      {/* Legend — same position as A4 bottom */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 px-4 py-3 bg-[#0a0e1a]/80 border-t border-white/5">
+        <div className="flex items-center justify-between max-w-[1800px] mx-auto">
+          <div className="flex gap-4 text-[9px] text-stone-600">
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#A66BFF',opacity:0.5}} /> system</span>
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#34D1E7',opacity:0.9}} /> work</span>
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF9A3C',opacity:0.7}} /> personal</span>
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF5FA2',opacity:1}} /> synthesis</span>
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#CC2244',opacity:0.6}} /> attrition</span>
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full border border-white/30" style={{background:'rgba(255,255,255,0.3)'}} /> crossing flash</span>
+          </div>
+          <div className="text-[8px] text-stone-700">
+            M→R escalation · R→M decision · M→S complete · S→R recall
+          </div>
+        </div>
+      </div>
     </main>
   )
 }

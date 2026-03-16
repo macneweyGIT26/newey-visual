@@ -130,17 +130,7 @@ export default function MinardDark() {
 
   return (
     <section className="relative w-full" style={{ height: '50vh', minHeight: 400 }}>
-      <div className="absolute bottom-6 left-8 z-10 flex gap-4 text-[10px] text-stone-600">
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#A66BFF'}} /> system</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#34D1E7'}} /> work</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF9A3C'}} /> personal</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#FF5FA2'}} /> synthesis</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{background:'#CC2244'}} /> attrition</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full border border-white/30" style={{background:'rgba(255,255,255,0.3)'}} /> crossing flash</span>
-      </div>
-      <div className="absolute bottom-6 right-8 z-10 text-[8px] text-stone-700">
-        M→R escalation · R→M decision · M→S complete · S→R recall
-      </div>
+
       <canvas ref={canvasRef} className="w-full h-full" />
     </section>
   )

@@ -171,9 +171,7 @@ export default function RefikDark() {
 
   return (
     <section className="relative w-full border-t border-white/5" style={{ height: '50vh', minHeight: 400 }}>
-      <div className="absolute bottom-6 right-8 z-10 text-[8px] text-stone-700">
-        drift · cluster · bloom · ripple
-      </div>
+
       <canvas ref={canvasRef} className="w-full h-full" />
     </section>
   )
