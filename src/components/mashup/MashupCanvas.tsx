@@ -179,7 +179,7 @@ export default function MashupCanvas() {
       PROJECTS.forEach((proj,i) => {
         const px = w*0.08 + i*projSpacing + projSpacing/2
         ctx.fillStyle=`rgba(${proj.color},0.5)`; ctx.fillText(proj.name,px,S.streetY+55)
-        ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.fillText(`$${proj.cost.toFixed(0)}`,px,S.streetY+65)
+        // no cost labels
         // Thin vertical marker
         ctx.strokeStyle=`rgba(${proj.color},0.06)`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(px,S.streetY+68);ctx.lineTo(px,S.soulY-5);ctx.stroke()
@@ -191,7 +191,7 @@ export default function MashupCanvas() {
         ctx.strokeStyle=`rgba(${lane.color},0.1)`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
         ctx.font='9px -apple-system, sans-serif';ctx.textAlign='left'
-        ctx.fillStyle=`rgba(${lane.color},0.45)`;ctx.fillText(`${lane.name} $${lane.cost.toFixed(0)}`,10,ly-5)
+        ctx.fillStyle=`rgba(${lane.color},0.45)`;ctx.fillText(lane.name,10,ly-5)
       })
 
       // Cross-streets
@@ -270,9 +270,7 @@ export default function MashupCanvas() {
         ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fillText(lg.l,22+i*85,sLegY+3)
       })
 
-      // Stats line
-      ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.15)';ctx.textAlign='right'
-      ctx.fillText('7 projects · 24 entries · $101 · 18 resume-ready',w-12,S.soulY-15)
+      // no stats line
 
       // ═══════════════════════════════════════════
       // SECTION 3: SOUL (bottom third)
