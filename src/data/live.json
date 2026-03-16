@@ -1,0 +1,174 @@
+{
+  "generated": "2026-03-16T04:06:15.923Z",
+  "totalEntries": 24,
+  "totalCost": 103.81,
+  "resumeCount": 19,
+  "teamCount": 5,
+  "soloCount": 19,
+  "projects": [
+    {
+      "name": "Newey",
+      "entries": 9,
+      "cost": 62.6,
+      "domain": "SYSTEM",
+      "color": "168,85,247"
+    },
+    {
+      "name": "F1 Intelligence",
+      "entries": 10,
+      "cost": 17.69,
+      "domain": "WORK",
+      "color": "34,211,238"
+    },
+    {
+      "name": "Media Library",
+      "entries": 1,
+      "cost": 12,
+      "domain": "WORK",
+      "color": "245,158,11"
+    },
+    {
+      "name": "Instagram Interests",
+      "entries": 2,
+      "cost": 8.4,
+      "domain": "WORK",
+      "color": "236,72,153"
+    },
+    {
+      "name": "Asset Index",
+      "entries": 1,
+      "cost": 2.4,
+      "domain": "WORK",
+      "color": "16,185,129"
+    },
+    {
+      "name": "Grocery List",
+      "entries": 1,
+      "cost": 0.72,
+      "domain": "PERSONAL",
+      "color": "251,146,60"
+    }
+  ],
+  "lanes": [
+    {
+      "name": "SYSTEM",
+      "cost": 61.9,
+      "entries": 8,
+      "color": "168,85,247"
+    },
+    {
+      "name": "WORK",
+      "cost": 40.49,
+      "entries": 14,
+      "color": "34,211,238"
+    },
+    {
+      "name": "PERSONAL",
+      "cost": 1.42,
+      "entries": 2,
+      "color": "251,146,60"
+    }
+  ],
+  "recentEntries": [
+    {
+      "date": "2026-03-15",
+      "title": "Instagram Interests — Category Expansion + Collection Mapping",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "Instagram Interests",
+      "resume": true,
+      "cost": 4.8,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Instagram Interests — Full Rebuild",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "Instagram Interests",
+      "resume": true,
+      "cost": 3.6,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Grocery List System Build",
+      "domain": "PERSONAL",
+      "category": "PROJECT",
+      "project": "Grocery List",
+      "resume": true,
+      "cost": 0.72,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Project Tracker Build",
+      "domain": "SYSTEM",
+      "category": "SYSTEM_MAINTENANCE",
+      "project": "Newey",
+      "resume": true,
+      "cost": 2.4,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Hamilton vs Leclerc Corner Speed Analysis",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": false,
+      "cost": 0.48,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Security Audit",
+      "domain": "SYSTEM",
+      "category": "SYSTEM_MAINTENANCE",
+      "project": "Newey",
+      "resume": false,
+      "cost": 0.24,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "OpenClaw Update 2026.3.12 to 2026.3.13",
+      "domain": "SYSTEM",
+      "category": "SYSTEM_MAINTENANCE",
+      "project": "Newey",
+      "resume": false,
+      "cost": 0.24,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "Overview Format Improvement",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": true,
+      "cost": 0.72,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "vercel.json Fix — Catch-All Rewrite",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": true,
+      "cost": 0.48,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-15",
+      "title": "F1 Japan GP Round 3 Preview",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": true,
+      "cost": 2.88,
+      "team": "solo"
+    }
+  ]
+}

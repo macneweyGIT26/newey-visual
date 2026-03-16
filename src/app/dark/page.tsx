@@ -16,6 +16,7 @@ export default function DarkPage() {
             <p className="text-xs text-stone-600 mt-0.5">Visual System — Dark Mode</p>
           </div>
           <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
+            <a href="/a4" className="text-stone-600 hover:text-stone-300 transition-colors">A4</a>
             <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors">Light</a>
             <a href="/dark" className="text-amber-500 font-bold">Dark</a>
             <a href="/interpret-light" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench</a>

@@ -13,7 +13,8 @@ export default function InterpretLightPage() {
           </div>
           <div className="flex items-center gap-4">
             <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
-              <a href="/" className="text-stone-400 hover:text-stone-700 transition-colors">Light</a>
+              <a href="/a4" className="text-stone-600 hover:text-stone-300 transition-colors">A4</a>
+            <a href="/" className="text-stone-400 hover:text-stone-700 transition-colors">Light</a>
               <a href="/dark" className="text-stone-400 hover:text-stone-700 transition-colors">Dark</a>
               <a href="/interpret-light" className="text-amber-600 font-bold">Workbench</a>
               <a href="/interpret-dark" className="text-stone-400 hover:text-stone-700 transition-colors">Workbench Dark</a>
