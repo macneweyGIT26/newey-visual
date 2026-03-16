@@ -180,8 +180,7 @@ export default function MashupCanvas() {
         const ly = S.streetY + S.streetH * lane.frac
         ctx.strokeStyle=`rgba(${lane.color},0.1)`;ctx.lineWidth=0.5
         ctx.beginPath();ctx.moveTo(w*0.03,ly);ctx.lineTo(w*0.97,ly);ctx.stroke()
-        ctx.font='9px -apple-system, sans-serif';ctx.textAlign='left'
-        ctx.fillStyle=`rgba(${lane.color},0.45)`;ctx.fillText(lane.name,10,ly-5)
+        // no lane labels
       })
 
       // Cross-streets
