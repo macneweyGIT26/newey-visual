@@ -17,6 +17,7 @@ export default function InterpretLightPage() {
               <a href="/dark" className="text-stone-400 hover:text-stone-700 transition-colors">Dark</a>
               <a href="/interpret-light" className="text-amber-600 font-bold">Workbench</a>
               <a href="/interpret-dark" className="text-stone-400 hover:text-stone-700 transition-colors">Workbench Dark</a>
+            <a href="/mashup" className="text-stone-400 hover:text-stone-700 transition-colors">Mashup</a>
             </nav>
           </div>
         </div>

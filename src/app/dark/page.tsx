@@ -20,6 +20,7 @@ export default function DarkPage() {
             <a href="/dark" className="text-amber-500 font-bold">Dark</a>
             <a href="/interpret-light" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench</a>
             <a href="/interpret-dark" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench Dark</a>
+              <a href="/mashup" className="text-stone-600 hover:text-stone-300 transition-colors">Mashup</a>
           </nav>
         </div>
       </header>

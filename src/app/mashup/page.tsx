@@ -1,0 +1,26 @@
+import MashupCanvas from '@/components/mashup/MashupCanvas'
+
+export const metadata = { title: 'Newey 2.0 — Mashup', description: 'All layers fused into one living canvas' }
+
+export default function MashupPage() {
+  return (
+    <main className="min-h-screen bg-[#080c18]">
+      <header className="px-8 py-5 border-b border-white/5 relative z-20">
+        <div className="flex items-baseline justify-between max-w-[1800px] mx-auto">
+          <div>
+            <h1 className="text-sm font-semibold tracking-[0.3em] uppercase text-stone-400">Newey 2.0</h1>
+            <p className="text-xs text-stone-600 mt-0.5">Mashup</p>
+          </div>
+          <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
+            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors">Light</a>
+            <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>
+            <a href="/interpret-light" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench</a>
+            <a href="/interpret-dark" className="text-stone-600 hover:text-stone-300 transition-colors">Workbench Dark</a>
+            <a href="/mashup" className="text-amber-500 font-bold">Mashup</a>
+          </nav>
+        </div>
+      </header>
+      <MashupCanvas />
+    </main>
+  )
+}
