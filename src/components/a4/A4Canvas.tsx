@@ -93,6 +93,13 @@ export default function A4Canvas() {
       const BAND_W=[140,110,70,45,20]
 
       // ═══ REASON ═══
+      // Warm amber background wash
+      const reasonGrad=ctx.createLinearGradient(0,0,0,S.rH)
+      reasonGrad.addColorStop(0,`rgba(${COLORS.PERSONAL},0.03)`)
+      reasonGrad.addColorStop(0.5,`rgba(${COLORS.PERSONAL},0.05)`)
+      reasonGrad.addColorStop(1,`rgba(${COLORS.PERSONAL},0.01)`)
+      ctx.fillStyle=reasonGrad;ctx.fillRect(0,0,w,S.rH)
+
       STG_X.forEach((sx,i)=>{
         if(i>=STG_X.length-1)return
         const x1=w*sx,x2=w*STG_X[i+1],bw1=BAND_W[i],bw2=BAND_W[i+1]
