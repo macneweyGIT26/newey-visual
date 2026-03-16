@@ -85,8 +85,8 @@ export default function A4Canvas() {
       const w=W(),h=H(),t=frameRef.current
       const S=sectRef.current
 
-      ctx.fillStyle='rgba(8,12,24,0.06)';ctx.fillRect(0,0,w,h)
-      if(t%600===0){ctx.fillStyle='rgba(8,12,24,0.95)';ctx.fillRect(0,0,w,h)}
+      ctx.fillStyle='rgba(8,12,24,0.12)';ctx.fillRect(0,0,w,h)
+      if(t%300===0){ctx.fillStyle='rgba(8,12,24,0.98)';ctx.fillRect(0,0,w,h)}
 
       const flowMidY=S.rH*0.55
       const STG_X=[0.06,0.22,0.42,0.65,0.88]
@@ -329,7 +329,7 @@ export default function A4Canvas() {
       const barGrad=ctx.createLinearGradient(mX+12,0,mX+12+fillW,0)
       barGrad.addColorStop(0,`rgb(${COLORS.WORK})`);barGrad.addColorStop(0.55,`rgb(${COLORS.PERSONAL})`);barGrad.addColorStop(1,`rgb(${COLORS.SYNTHESIS})`)
       roundedRect(mX+12,mY+24,fillW,8,4)
-      ctx.fillStyle=barGrad;ctx.shadowColor=`rgb(${COLORS.WORK})`;ctx.shadowBlur=12;ctx.fill()
+      ctx.fillStyle=barGrad;ctx.fill()
       ctx.restore()
 
       // Data timestamp (below meter)
