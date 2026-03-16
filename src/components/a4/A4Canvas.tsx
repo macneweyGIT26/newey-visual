@@ -274,20 +274,9 @@ export default function MashupCanvas() {
       })
       if(t%20===0)flashRef.current=flashRef.current.filter(f=>f.age<f.maxAge)
 
-      // ── TOKEN BURN METER (top right) ──
-      const mX=w-235,mY=8,mW=220
-      const burnLoad=0.55+Math.sin(t*0.001)*0.15
-      ctx.fillStyle='rgba(5,10,20,0.5)';ctx.fillRect(mX,mY,mW,42)
-      ctx.fillStyle='rgba(238,246,255,0.7)'
-      ctx.font='600 11px -apple-system, sans-serif';ctx.textAlign='left'
-      ctx.fillText('Token Burn',mX+12,mY+15)
-      ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(mX+12,mY+24,mW-24,8)
-      const fillW=(mW-24)*burnLoad
-      const barGrad=ctx.createLinearGradient(mX+12,0,mX+12+fillW,0)
-      barGrad.addColorStop(0,'rgb(52,209,231)');barGrad.addColorStop(0.55,'rgb(255,154,60)');barGrad.addColorStop(1,'rgb(255,95,162)')
-      ctx.fillStyle=barGrad;ctx.fillRect(mX+12,mY+24,fillW,8)
+      // Data timestamp (top right)
       ctx.font='8px -apple-system, sans-serif';ctx.fillStyle='rgba(255,255,255,0.06)';ctx.textAlign='right'
-      ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,mY+56)
+      ctx.fillText(`data: ${data.generated.split('T')[0]} · ${data.totalEntries} entries`,w-12,15)
 
       ctx.font='10px -apple-system, sans-serif';ctx.fillStyle='rgba(255,95,162,0.3)';ctx.textAlign='left'
       ctx.fillText('LEARNING / REFIK LAYER',15,S.soulY+18)
