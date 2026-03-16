@@ -26,7 +26,7 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-200 mb-1">Executive / Minard Layer</h2>
           <div className="w-12 h-px bg-amber-500/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Gold particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. Cyan traces secondary routes. Violet marks supervisory oversight. Red flashes where paths die.
+            Particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. <span className="text-violet-400">Violet</span> traces system work. <span className="text-cyan-400">Cyan</span> traces work output. <span className="text-amber-400">Amber</span> traces personal. <span className="text-red-400">Red</span> flashes where paths die.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-200 mb-1">Operations / Street Layer</h2>
           <div className="w-12 h-px bg-cyan-400/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Token traffic shoots across 3 domain lanes — violet for system, cyan for work, amber for personal. Glowing dots jump lanes at cross-streets. Substations pulse at intersections. Balls bleed into Reason above and Soul below.
+            Token traffic shoots across 3 domain lanes — <span className="text-violet-400">violet</span> for system, <span className="text-cyan-400">cyan</span> for work, <span className="text-amber-400">amber</span> for personal. Glowing dots jump lanes at cross-streets. Substations pulse at intersections. Balls bleed into Reason above and Memory below.
           </p>
         </div>
 
@@ -44,13 +44,45 @@ export default function GuidePage() {
           <h2 className="text-xl font-light text-stone-200 mb-1">Ambient / Refik Layer</h2>
           <div className="w-12 h-px bg-violet-400/30 mb-6" />
           <p className="text-sm leading-relaxed text-stone-400">
-            Pastel orbs drift slowly, clustering toward two wandering centers then repelling when too close. Violet threads form between nearby memories. Gold ripples mark synthesis moments. The void breathes.
+            Pastel orbs drift slowly, clustering toward two wandering centers then repelling when too close. <span className="text-violet-400">Violet</span> threads form between nearby memories. <span className="text-yellow-400">Gold</span> ripples mark synthesis moments. The void breathes.
           </p>
+        </div>
+
+        {/* Unified Color Legend */}
+        <div className="mb-16 pt-10 border-t border-white/5">
+          <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-stone-500 mb-6">Color System</p>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full" style={{background:'rgb(168,85,247)'}} />
+              <span className="text-sm text-violet-400 w-20">Violet</span>
+              <span className="text-sm text-stone-500">System — infrastructure, maintenance, governance</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full" style={{background:'rgb(34,211,238)'}} />
+              <span className="text-sm text-cyan-400 w-20">Cyan</span>
+              <span className="text-sm text-stone-500">Work — projects, analysis, deliverables</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full" style={{background:'rgb(251,146,60)'}} />
+              <span className="text-sm text-amber-400 w-20">Amber</span>
+              <span className="text-sm text-stone-500">Personal — family, grocery, private</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full" style={{background:'rgb(250,204,21)'}} />
+              <span className="text-sm text-yellow-400 w-20">Gold</span>
+              <span className="text-sm text-stone-500">Synthesis — high-value output, convergence</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full" style={{background:'rgb(239,68,68)'}} />
+              <span className="text-sm text-red-400 w-20">Red</span>
+              <span className="text-sm text-stone-500">Attrition — dead paths, pruned routes, failure</span>
+            </div>
+          </div>
         </div>
 
         <div className="pt-10 border-t border-white/5">
           <p className="text-[10px] text-stone-700 tracking-wider">
-            Minard = reason · Street = motion · Refik = soul
+            Minard = reason · Street = motion · Refik = memory
           </p>
           <p className="text-[10px] text-stone-700 mt-1">
             Newey 2.0 Visual System — March 2026
