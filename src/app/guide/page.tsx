@@ -34,7 +34,7 @@ export default function GuidePage() {
               <h3 className="text-lg font-light text-stone-200 mb-2">Reason</h3>
               <p className="text-xs text-stone-600 mb-3">Thinking · Routing · Judgment</p>
               <p className="text-sm leading-relaxed text-stone-400">
-                Particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. <span style={{color:'#A66BFF'}}>Violet</span> traces system analysis. <span style={{color:'#34D1E7'}}>Cyan</span> traces work decisions. <span style={{color:'#FF9A3C'}}>Amber</span> traces personal judgment. <span style={{color:'#FF4D4D'}}>Red</span> marks where reasoning dies.
+                Particles flow left→right through 5 reasoning stages, narrowing as paths are pruned. <span style={{color:'#A66BFF'}}>Violet</span> traces system analysis. <span style={{color:'#34D1E7'}}>Cyan</span> traces work decisions. <span style={{color:'#FF9A3C'}}>Amber</span> traces personal judgment. <span style={{color:'#CC2244'}}>Crimson</span> marks where reasoning dies.
               </p>
             </div>
 
@@ -43,7 +43,7 @@ export default function GuidePage() {
               <h3 className="text-lg font-light text-stone-200 mb-2">Motion</h3>
               <p className="text-xs text-stone-600 mb-3">Execution · Token Burn · Agents & Tools</p>
               <p className="text-sm leading-relaxed text-stone-400">
-                Colored dots drift across 3 domain lanes — <span style={{color:'#A66BFF'}}>violet</span> for system, <span style={{color:'#34D1E7'}}>cyan</span> for work, <span style={{color:'#FF9A3C'}}>amber</span> for personal. Substations pulse at intersections. <strong>Tokens burn only in Motion.</strong> White appears as subtle support: intersection pulses, lane shimmer, and faint current streaks around active traffic. White = electricity. Color = work.
+                Colored dots move across 3 domain lanes — <span style={{color:'#A66BFF'}}>violet</span> for system, <span style={{color:'#34D1E7'}}>cyan</span> for work, <span style={{color:'#FF9A3C'}}>amber</span> for personal. Traffic density proportional to real domain costs. Substations pulse at intersections. <strong>Tokens burn only in Motion.</strong> Dots that cross boundaries flash white — the cost of escalation or completion.
               </p>
             </div>
 
@@ -52,14 +52,14 @@ export default function GuidePage() {
               <h3 className="text-lg font-light text-stone-200 mb-2">Memory</h3>
               <p className="text-xs text-stone-600 mb-3">Identity · Memory · Pattern</p>
               <p className="text-sm leading-relaxed text-stone-400">
-                Pastel orbs drift slowly, clustering toward wandering centers then repelling when too close. <span style={{color:'#A66BFF'}}>Violet</span> threads form between nearby memories. <span style={{color:'#FF5FA2'}}>Rose</span> ripples mark synthesis moments. The void breathes.
+                Orbs drift slowly, clustering toward wandering centers then repelling when too close. One orb per project entry, sized by cost, colored by project. <span style={{color:'#A66BFF'}}>Violet</span> threads form between nearby memories. <span style={{color:'#FF5FA2'}}>Rose</span> ripples mark synthesis moments.
               </p>
             </div>
 
           </div>
         </div>
 
-        {/* Crossings */}
+        {/* Crossings — NEVER DELETE THIS SECTION */}
         <div className="mb-20 pt-10 border-t border-white/5">
           <h2 className="text-xl font-light text-stone-100 mb-6">Layer Crossings</h2>
           <p className="text-sm text-stone-400 mb-6">The dots that cross layers are the interesting work. Four crossing types:</p>
@@ -132,17 +132,17 @@ export default function GuidePage() {
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <span className="w-4 h-4 rounded-full mt-1" style={{background:'#FF4D4D'}} />
+              <span className="w-4 h-4 rounded-full mt-1" style={{background:'#CC2244'}} />
               <div>
-                <p className="text-sm font-mono text-stone-300">#FF4D4D — Attrition</p>
+                <p className="text-sm font-mono text-stone-300">#CC2244 — Attrition</p>
                 <p className="text-xs text-stone-600">Dead paths, pruned routes, failure</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="w-4 h-4 rounded-full mt-1 border border-white/20" style={{background:'rgba(255,255,255,0.3)'}} />
               <div>
-                <p className="text-sm font-mono text-stone-300">White — Tokens (support only)</p>
-                <p className="text-xs text-stone-600">Compute energy. Intersection pulses, lane shimmer, current streaks. Never dominant.</p>
+                <p className="text-sm font-mono text-stone-300">White — Crossing Flash</p>
+                <p className="text-xs text-stone-600">Boundary crossing cost. Brief burst when work escalates or completes across layers.</p>
               </div>
             </div>
           </div>
@@ -159,42 +159,42 @@ export default function GuidePage() {
               <span>Synthesis pulse — rose convergence (rarest, brightest event)</span>
             </div>
             <div className="flex items-center gap-2">
+              <span>⚡</span>
+              <span>Crossing flash — white burst at layer boundaries (cost of transition)</span>
+            </div>
+            <div className="flex items-center gap-2">
               <span>🔵</span>
-              <span>Work lanes — 0.14 opacity (primary execution)</span>
+              <span>Work traffic — highest lane opacity, most visible domain</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🟠</span>
-              <span>Personal lanes — 0.09 opacity (secondary execution)</span>
+              <span>Personal traffic — medium lane opacity</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🟣</span>
-              <span>System grid — 0.06 opacity (infrastructure, implicit)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>⚡</span>
-              <span>Token signals — white shimmer/pulses (compute energy, never dominant)</span>
+              <span>System grid — lowest lane opacity (infrastructure, implicit)</span>
             </div>
             <div className="flex items-center gap-2">
               <span>🔴</span>
-              <span>Attrition flashes — signal where work dies</span>
+              <span>Attrition — crimson flash where reasoning dies</span>
             </div>
           </div>
         </div>
 
-        {/* Philosophy */}
+        {/* Activity Pacing */}
         <div className="mb-16 pt-10 border-t border-white/5">
-          <h2 className="text-xl font-light text-stone-100 mb-6">Why This Works</h2>
-          <p className="text-sm text-stone-400 leading-relaxed mb-4">
-            This model maps to multiple domains simultaneously:
+          <h2 className="text-xl font-light text-stone-100 mb-6">Activity Pacing</h2>
+          <p className="text-sm text-stone-400 mb-4 leading-relaxed">
+            The chart is Newey&apos;s heartbeat, not a clock. All three layers speed up and slow down based on real activity — not time of day.
           </p>
-          <div className="space-y-1 text-sm text-stone-600">
-            <div><strong>Human brain:</strong> perception / reasoning / memory</div>
-            <div><strong>Company:</strong> operations / strategy / culture</div>
-            <div><strong>LLM inference:</strong> token processing / reasoning / vector memory</div>
-            <div><strong>City:</strong> streets / planning / institutions</div>
+          <div className="space-y-2 text-sm text-stone-600">
+            <div><strong>Data sources:</strong> tracker entries today, memory file activity, cron jobs running</div>
+            <div><strong>Active session</strong> = fast particles, dense traffic, breathing orbs</div>
+            <div><strong>Idle</strong> = sparse movement, dim substations, slow drift</div>
+            <div><strong>Scheduled work</strong> (backup at 1 AM, heartbeats) = moderate pulse</div>
           </div>
           <p className="text-xs text-stone-500 italic mt-4">
-            That&apos;s why it feels right. It&apos;s not decoration—it&apos;s architecture.
+            If it&apos;s moving fast, Newey is busy. If it&apos;s quiet, Newey is idle.
           </p>
         </div>
 
@@ -203,7 +203,7 @@ export default function GuidePage() {
             Reasoning = thinking · Motion = execution · Memory = learning
           </p>
           <p className="text-[10px] text-stone-700 mt-1">
-            Newey 2.0 Visual System — A4v3 — March 2026
+            Newey 2.0 Visual System — A4v5 — March 2026
           </p>
         </div>
 
