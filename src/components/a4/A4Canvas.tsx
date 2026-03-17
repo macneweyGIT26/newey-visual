@@ -362,7 +362,8 @@ export default function A4Canvas() {
 
       // Data timestamp + activity indicator
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.textAlign = 'right'
-      ctx.fillText(`${data.generated.split('T')[0]} · ${data.totalEntries} entries · ${state.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
+      const hour = new Date().getHours()
+      ctx.fillText(`${data.generated.split('T')[0]} · ${hour}:00 · ${data.totalEntries} entries · ${state.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
 
       // Rose synthesis pulse (rare)
       if (t % 1000 > 970) {
