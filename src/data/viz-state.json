@@ -1,14 +1,14 @@
 {
-  "generated": "2026-03-17T00:20:04.736Z",
+  "generated": "2026-03-17T04:13:39.845Z",
   "activity": {
-    "score": 0.6,
-    "todayEntries": 5,
-    "recentMemoryLines": 100,
+    "score": 0,
+    "todayEntries": 0,
+    "recentMemoryLines": 0,
     "cronJobs": 0,
-    "label": "working"
+    "label": "sleep"
   },
   "timeOfDay": {
-    "hour": 20,
+    "hour": 0,
     "autoTheme": "dark"
   }
 }

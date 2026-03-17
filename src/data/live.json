@@ -1,22 +1,22 @@
 {
-  "generated": "2026-03-17T00:20:04.735Z",
-  "totalEntries": 29,
-  "totalCost": 122.29,
-  "resumeCount": 24,
-  "teamCount": 8,
-  "soloCount": 21,
+  "generated": "2026-03-17T04:13:39.845Z",
+  "totalEntries": 35,
+  "totalCost": 128.41,
+  "resumeCount": 29,
+  "teamCount": 13,
+  "soloCount": 22,
   "projects": [
     {
       "name": "Newey",
-      "entries": 13,
-      "cost": 79.16,
+      "entries": 15,
+      "cost": 82.52,
       "domain": "SYSTEM",
       "color": "166,107,255"
     },
     {
       "name": "F1 Intelligence",
-      "entries": 11,
-      "cost": 19.61,
+      "entries": 12,
+      "cost": 21.53,
       "domain": "WORK",
       "color": "52,209,231"
     },
@@ -29,8 +29,8 @@
     },
     {
       "name": "Instagram Interests",
-      "entries": 2,
-      "cost": 8.4,
+      "entries": 3,
+      "cost": 8.52,
       "domain": "WORK",
       "color": "255,154,60"
     },
@@ -47,29 +47,103 @@
       "cost": 0.72,
       "domain": "PERSONAL",
       "color": "255,154,60"
+    },
+    {
+      "name": "CABO",
+      "entries": 1,
+      "cost": 0.48,
+      "domain": "WORK",
+      "color": "52,209,231"
+    },
+    {
+      "name": "Peanut",
+      "entries": 1,
+      "cost": 0.24,
+      "domain": "WORK",
+      "color": "52,209,231"
     }
   ],
   "lanes": [
     {
       "name": "SYSTEM",
-      "cost": 78.46,
-      "entries": 12,
+      "cost": 81.82,
+      "entries": 14,
       "color": "166,107,255"
     },
     {
       "name": "WORK",
-      "cost": 42.41,
-      "entries": 15,
+      "cost": 45.05,
+      "entries": 18,
       "color": "52,209,231"
     },
     {
       "name": "PERSONAL",
-      "cost": 1.42,
-      "entries": 2,
+      "cost": 1.54,
+      "entries": 3,
       "color": "255,154,60"
     }
   ],
   "recentEntries": [
+    {
+      "date": "2026-03-16",
+      "title": "Instagram Interests — Cooking Search",
+      "domain": "PERSONAL",
+      "category": "COB",
+      "project": "Instagram Interests",
+      "resume": false,
+      "cost": 0.12,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "PM Skill — SOL Wick Analysis (first use)",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": true,
+      "cost": 1.92,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "Company Analysis Skill — Build",
+      "domain": "SYSTEM",
+      "category": "PROJECT",
+      "project": "Newey",
+      "resume": true,
+      "cost": 1.92,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "PM Chart Analysis Skill — Build",
+      "domain": "SYSTEM",
+      "category": "PROJECT",
+      "project": "Newey",
+      "resume": true,
+      "cost": 1.44,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "CABO Analysis — Recovery + Review",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "CABO",
+      "resume": true,
+      "cost": 0.48,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "Project Peanut — Recovery + Tracker Entry",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "Peanut",
+      "resume": true,
+      "cost": 0.24,
+      "team": "team"
+    },
     {
       "date": "2026-03-16",
       "title": "Visual Doctrine + Design System",
@@ -109,66 +183,6 @@
       "resume": true,
       "cost": 2.4,
       "team": "solo"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Newey 2.0 Visual — A4v1 to A4v5",
-      "domain": "SYSTEM",
-      "category": "PROJECT",
-      "project": "Newey",
-      "resume": true,
-      "cost": 12,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Instagram Interests — Category Expansion + Collection Mapping",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "Instagram Interests",
-      "resume": true,
-      "cost": 4.8,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Instagram Interests — Full Rebuild",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "Instagram Interests",
-      "resume": true,
-      "cost": 3.6,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Grocery List System Build",
-      "domain": "PERSONAL",
-      "category": "PROJECT",
-      "project": "Grocery List",
-      "resume": true,
-      "cost": 0.72,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Project Tracker Build",
-      "domain": "SYSTEM",
-      "category": "SYSTEM_MAINTENANCE",
-      "project": "Newey",
-      "resume": true,
-      "cost": 2.4,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Hamilton vs Leclerc Corner Speed Analysis",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": false,
-      "cost": 0.48,
-      "team": "team"
     }
   ]
 }
