@@ -1,22 +1,22 @@
 {
-  "generated": "2026-03-17T00:18:10.342Z",
-  "totalEntries": 24,
-  "totalCost": 103.81,
-  "resumeCount": 19,
-  "teamCount": 5,
-  "soloCount": 19,
+  "generated": "2026-03-17T00:20:04.735Z",
+  "totalEntries": 29,
+  "totalCost": 122.29,
+  "resumeCount": 24,
+  "teamCount": 8,
+  "soloCount": 21,
   "projects": [
     {
       "name": "Newey",
-      "entries": 9,
-      "cost": 62.6,
+      "entries": 13,
+      "cost": 79.16,
       "domain": "SYSTEM",
       "color": "166,107,255"
     },
     {
       "name": "F1 Intelligence",
-      "entries": 10,
-      "cost": 17.69,
+      "entries": 11,
+      "cost": 19.61,
       "domain": "WORK",
       "color": "52,209,231"
     },
@@ -52,14 +52,14 @@
   "lanes": [
     {
       "name": "SYSTEM",
-      "cost": 61.9,
-      "entries": 8,
+      "cost": 78.46,
+      "entries": 12,
       "color": "166,107,255"
     },
     {
       "name": "WORK",
-      "cost": 40.49,
-      "entries": 14,
+      "cost": 42.41,
+      "entries": 15,
       "color": "52,209,231"
     },
     {
@@ -70,6 +70,56 @@
     }
   ],
   "recentEntries": [
+    {
+      "date": "2026-03-16",
+      "title": "Visual Doctrine + Design System",
+      "domain": "SYSTEM",
+      "category": "COB",
+      "project": "Newey",
+      "resume": true,
+      "cost": 0.96,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "SOL Wick Analysis + BSOL Options",
+      "domain": "WORK",
+      "category": "PROJECT",
+      "project": "F1 Intelligence",
+      "resume": true,
+      "cost": 1.92,
+      "team": "team"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "Dark Tab — A4 Styling",
+      "domain": "SYSTEM",
+      "category": "PROJECT",
+      "project": "Newey",
+      "resume": true,
+      "cost": 1.2,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "Token Tab + Guide Updates",
+      "domain": "SYSTEM",
+      "category": "PROJECT",
+      "project": "Newey",
+      "resume": true,
+      "cost": 2.4,
+      "team": "solo"
+    },
+    {
+      "date": "2026-03-16",
+      "title": "Newey 2.0 Visual — A4v1 to A4v5",
+      "domain": "SYSTEM",
+      "category": "PROJECT",
+      "project": "Newey",
+      "resume": true,
+      "cost": 12,
+      "team": "team"
+    },
     {
       "date": "2026-03-15",
       "title": "Instagram Interests — Category Expansion + Collection Mapping",
@@ -119,56 +169,6 @@
       "resume": false,
       "cost": 0.48,
       "team": "team"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Security Audit",
-      "domain": "SYSTEM",
-      "category": "SYSTEM_MAINTENANCE",
-      "project": "Newey",
-      "resume": false,
-      "cost": 0.24,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "OpenClaw Update 2026.3.12 to 2026.3.13",
-      "domain": "SYSTEM",
-      "category": "SYSTEM_MAINTENANCE",
-      "project": "Newey",
-      "resume": false,
-      "cost": 0.24,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "Overview Format Improvement",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": true,
-      "cost": 0.72,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "vercel.json Fix — Catch-All Rewrite",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": true,
-      "cost": 0.48,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-15",
-      "title": "F1 Japan GP Round 3 Preview",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": true,
-      "cost": 2.88,
-      "team": "solo"
     }
   ]
 }
