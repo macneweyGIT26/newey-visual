@@ -1,21 +1,14 @@
 {
-  "generated": "2026-03-16T20:00:00Z",
-  "note": "Animation state for A4 visualization. Updated by gen-data.js or live agent.",
+  "generated": "2026-03-17T00:18:10.342Z",
   "activity": {
-    "sessionActive": false,
-    "lastSessionMs": 0,
-    "scheduledWorkActive": false,
-    "currentDomain": null
-  },
-  "pacing": {
-    "reasonSpawnRate": 5,
-    "motionSpawnRate": 6,
-    "memoryDriftSpeed": 1.0,
-    "substationBrightness": 1.0
+    "score": 0.4,
+    "todayEntries": 0,
+    "recentMemoryLines": 100,
+    "cronJobs": 0,
+    "label": "working"
   },
   "timeOfDay": {
     "hour": 20,
-    "mode": "evening",
     "autoTheme": "dark"
   }
 }

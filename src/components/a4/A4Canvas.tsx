@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import liveData from '@/data/live.json'
+import vizState from '@/data/viz-state.json'
 
 // A4v4 — Real data + time-of-day pacing
 // Built on Mashup rendering engine (proven stable)
@@ -34,14 +35,12 @@ const TOTAL_COST = data.lanes.reduce((s, l) => s + l.cost, 0)
 
 const ORB_COLORS = data.projects.map(p => p.color)
 
-// Time-of-day pacing: returns 0.0 (dead) to 1.0 (full speed)
+const state = vizState as { activity: { score: number; label: string }; timeOfDay: { hour: number } }
+
+// Activity from real data (gen-data.js calculates from tracker + memory + cron)
+// Minimum 0.05 so the viz is never fully dead
 function getActivityLevel(): number {
-  const h = new Date().getHours()
-  if (h >= 3 && h < 8) return 0.05       // sleep: near zero
-  if (h >= 8 && h < 10) return 0.3       // ramp up
-  if (h >= 10 && h < 18) return 1.0      // active work
-  if (h >= 18 && h < 22) return 0.6      // wind down
-  return 0.15                            // late night / early morning
+  return Math.max(0.05, state.activity.score)
 }
 
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number }
@@ -363,8 +362,7 @@ export default function A4Canvas() {
 
       // Data timestamp + activity indicator
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.textAlign = 'right'
-      const actLabel = act >= 0.8 ? 'active' : act >= 0.3 ? 'ramping' : act >= 0.1 ? 'idle' : 'sleep'
-      ctx.fillText(`${data.generated.split('T')[0]} · ${data.totalEntries} entries · ${actLabel}`, w - 12, 15)
+      ctx.fillText(`${data.generated.split('T')[0]} · ${data.totalEntries} entries · ${state.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
 
       // Rose synthesis pulse (rare)
       if (t % 1000 > 970) {
