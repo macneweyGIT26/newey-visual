@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-18T14:29:13.386Z",
-  "timestamp_edt": "3/18/2026, 10:29:13 AM EDT",
+  "timestamp": "2026-03-18T15:29:03.939Z",
+  "timestamp_edt": "3/18/2026, 11:29:03 AM EDT",
   "activity_score": 0,
   "regime": "BEAR",
   "regime_confidence": 0.8,
   "prices": {
-    "btc": 71880,
-    "btc_change": -2.66,
-    "eth": 2221.45,
-    "eth_change": -4.78,
-    "sol": 89.87,
-    "sol_change": -4.5,
+    "btc": 71313,
+    "btc_change": -3.75,
+    "eth": 2182.94,
+    "eth_change": -6.13,
+    "sol": 89.14,
+    "sol_change": -5.15,
     "usdt_d": 1,
     "usdt_d_strength": false
   },
@@ -30,12 +30,12 @@
   },
   "next_action": "MONITOR",
   "action_rationale": "Regime BEAR (80% conf) | Waiting for confirmation",
-  "last_regime_run": "2026-03-18T14:29:13.386Z",
+  "last_regime_run": "2026-03-18T15:29:03.939Z",
   "tracker_entries": 5,
   "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T14:29:13.386Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T15:29:03.939Z)"
 }
