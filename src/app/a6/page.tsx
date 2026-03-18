@@ -41,7 +41,10 @@ export default function A6Page() {
             <a href="/a4" className="text-slate-400 hover:text-amber-500 transition-colors">A4</a>
             <a href="/a5" className="text-slate-400 hover:text-green-500 transition-colors">A5</a>
             <a href="/a6" className="text-blue-500 font-bold">A6</a>
-            <a href="/" className="text-slate-400 hover:text-slate-300 transition-colors ml-auto">Home</a>
+            <a href="/" className="text-slate-400 hover:text-slate-300 transition-colors ml-auto">Light</a>
+            <a href="/dark" className="text-slate-400 hover:text-slate-300 transition-colors">Dark</a>
+            <a href="/mashup" className="text-slate-400 hover:text-slate-300 transition-colors">Mashup</a>
+            <a href="/guide" className="text-slate-400 hover:text-slate-300 transition-colors">Guide</a>
           </nav>
         </div>
       </div>
