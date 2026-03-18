@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function A6Page() {
-  const [agents, setAgents] = useState([
+  const [agents] = useState([
     {
       name: 'Horner',
       role: 'audit',
@@ -33,8 +33,20 @@ export default function A6Page() {
   ]);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
+      {/* Tab Bar */}
+      <div className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-8 py-3">
+          <nav className="flex gap-6 text-sm tracking-wider uppercase">
+            <a href="/a4" className="text-slate-400 hover:text-amber-500 transition-colors">A4</a>
+            <a href="/a5" className="text-slate-400 hover:text-green-500 transition-colors">A5</a>
+            <a href="/a6" className="text-green-500 font-bold border-b-2 border-green-500 pb-3">A6</a>
+            <a href="/" className="text-slate-400 hover:text-slate-300 transition-colors ml-auto">Home</a>
+          </nav>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto p-8">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-2">A6 — Agent Intelligence</h1>
