@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-18T08:29:00.000Z",
-  "timestamp_edt": "3/18/2026, 04:29:00 AM EDT",
+  "timestamp": "2026-03-18T09:29:11.021Z",
+  "timestamp_edt": "3/18/2026, 05:29:11 AM EDT",
   "activity_score": 0,
   "regime": "SIDEWAYS",
   "regime_confidence": 0.6,
   "prices": {
-    "btc": 74049,
-    "btc_change": -0.34,
-    "eth": 2321.48,
-    "eth_change": -0.2,
-    "sol": 94.17,
-    "sol_change": -0.43,
+    "btc": 74165,
+    "btc_change": -0.15,
+    "eth": 2329.9,
+    "eth_change": 0.28,
+    "sol": 94.31,
+    "sol_change": -0.37,
     "usdt_d": 1,
     "usdt_d_strength": false
   },
@@ -29,13 +29,13 @@
     "wallet_integration": true
   },
   "next_action": "MONITOR",
-  "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for trend confirmation",
-  "last_regime_run": "2026-03-18T08:29:00.000Z",
-  "tracker_entries": 141,
-  "memory_lines": 985,
+  "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for confirmation",
+  "last_regime_run": "2026-03-18T09:29:11.021Z",
+  "tracker_entries": 5,
+  "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18 04:29 EDT)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T09:29:11.021Z)"
 }
