@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-03-18T06:29:08.574Z",
-  "timestamp_edt": "3/18/2026, 02:29:08 AM EDT",
+  "timestamp": "2026-03-18T06:29:51.485Z",
+  "timestamp_edt": "3/18/2026, 02:29:51 AM EDT",
   "activity_score": 0,
   "regime": "SIDEWAYS",
   "regime_confidence": 0.6,
@@ -30,12 +30,12 @@
   },
   "next_action": "MONITOR",
   "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for confirmation",
-  "last_regime_run": "2026-03-18T06:29:08.574Z",
+  "last_regime_run": "2026-03-18T06:29:51.485Z",
   "tracker_entries": 5,
   "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T06:29:08.574Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T06:29:51.485Z)"
 }
