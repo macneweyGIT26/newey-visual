@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-03-18T05:31:18.708Z",
-  "timestamp_edt": "3/18/2026, 01:31:18 AM EDT",
+  "timestamp": "2026-03-18T05:31:41.995Z",
+  "timestamp_edt": "3/18/2026, 01:31:41 AM EDT",
   "activity_score": 0,
   "regime": "SIDEWAYS",
   "regime_confidence": 0.6,
@@ -28,14 +28,14 @@
     "csv_logging": true,
     "wallet_integration": true
   },
-  "next_action": "ERROR",
-  "action_rationale": "Price data fetch failed — cannot determine action",
-  "last_regime_run": "2026-03-18T05:31:18.708Z",
+  "next_action": "MONITOR",
+  "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for confirmation",
+  "last_regime_run": "2026-03-18T05:31:41.995Z",
   "tracker_entries": 5,
   "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T05:31:18.708Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T05:31:41.995Z)"
 }
