@@ -1,188 +1,35 @@
 {
-  "generated": "2026-03-17T04:13:39.845Z",
-  "totalEntries": 35,
-  "totalCost": 128.41,
-  "resumeCount": 29,
-  "teamCount": 13,
-  "soloCount": 22,
-  "projects": [
-    {
-      "name": "Newey",
-      "entries": 15,
-      "cost": 82.52,
-      "domain": "SYSTEM",
-      "color": "166,107,255"
-    },
-    {
-      "name": "F1 Intelligence",
-      "entries": 12,
-      "cost": 21.53,
-      "domain": "WORK",
-      "color": "52,209,231"
-    },
-    {
-      "name": "Media Library",
-      "entries": 1,
-      "cost": 12,
-      "domain": "WORK",
-      "color": "255,154,60"
-    },
-    {
-      "name": "Instagram Interests",
-      "entries": 3,
-      "cost": 8.52,
-      "domain": "WORK",
-      "color": "255,154,60"
-    },
-    {
-      "name": "Asset Index",
-      "entries": 1,
-      "cost": 2.4,
-      "domain": "WORK",
-      "color": "52,209,231"
-    },
-    {
-      "name": "Grocery List",
-      "entries": 1,
-      "cost": 0.72,
-      "domain": "PERSONAL",
-      "color": "255,154,60"
-    },
-    {
-      "name": "CABO",
-      "entries": 1,
-      "cost": 0.48,
-      "domain": "WORK",
-      "color": "52,209,231"
-    },
-    {
-      "name": "Peanut",
-      "entries": 1,
-      "cost": 0.24,
-      "domain": "WORK",
-      "color": "52,209,231"
-    }
+  "timestamp": "2026-03-17T21:14:00Z",
+  "activity_score": 0.85,
+  "work_state": "TRADING_BOT_BUILD",
+  "tracker_entries": 45,
+  "memory_lines": 850,
+  "cron_jobs": 0,
+  "current_focus": "GMX V2 Order Execution",
+  "regime": "BEAR",
+  "regime_confidence": 0.8,
+  "prices": {
+    "BTC": 73933,
+    "ETH": 2325,
+    "SOL": 94.58
+  },
+  "wallet_status": {
+    "usdc": 80.23,
+    "eth": 0.012,
+    "nav": 109.81
+  },
+  "modules_complete": [
+    "regime.js",
+    "trade.js",
+    "prices.js",
+    "orders.js",
+    "journal.md",
+    "trades.csv"
   ],
-  "lanes": [
-    {
-      "name": "SYSTEM",
-      "cost": 81.82,
-      "entries": 14,
-      "color": "166,107,255"
-    },
-    {
-      "name": "WORK",
-      "cost": 45.05,
-      "entries": 18,
-      "color": "52,209,231"
-    },
-    {
-      "name": "PERSONAL",
-      "cost": 1.54,
-      "entries": 3,
-      "color": "255,154,60"
-    }
-  ],
-  "recentEntries": [
-    {
-      "date": "2026-03-16",
-      "title": "Instagram Interests — Cooking Search",
-      "domain": "PERSONAL",
-      "category": "COB",
-      "project": "Instagram Interests",
-      "resume": false,
-      "cost": 0.12,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "PM Skill — SOL Wick Analysis (first use)",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": true,
-      "cost": 1.92,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Company Analysis Skill — Build",
-      "domain": "SYSTEM",
-      "category": "PROJECT",
-      "project": "Newey",
-      "resume": true,
-      "cost": 1.92,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "PM Chart Analysis Skill — Build",
-      "domain": "SYSTEM",
-      "category": "PROJECT",
-      "project": "Newey",
-      "resume": true,
-      "cost": 1.44,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "CABO Analysis — Recovery + Review",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "CABO",
-      "resume": true,
-      "cost": 0.48,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Project Peanut — Recovery + Tracker Entry",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "Peanut",
-      "resume": true,
-      "cost": 0.24,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Visual Doctrine + Design System",
-      "domain": "SYSTEM",
-      "category": "COB",
-      "project": "Newey",
-      "resume": true,
-      "cost": 0.96,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "SOL Wick Analysis + BSOL Options",
-      "domain": "WORK",
-      "category": "PROJECT",
-      "project": "F1 Intelligence",
-      "resume": true,
-      "cost": 1.92,
-      "team": "team"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Dark Tab — A4 Styling",
-      "domain": "SYSTEM",
-      "category": "PROJECT",
-      "project": "Newey",
-      "resume": true,
-      "cost": 1.2,
-      "team": "solo"
-    },
-    {
-      "date": "2026-03-16",
-      "title": "Token Tab + Guide Updates",
-      "domain": "SYSTEM",
-      "category": "PROJECT",
-      "project": "Newey",
-      "resume": true,
-      "cost": 2.4,
-      "team": "solo"
-    }
-  ]
+  "next_action": "Execute first trade (ETH SHORT)",
+  "activity_breakdown": {
+    "trading_infrastructure": 0.5,
+    "order_execution": 0.25,
+    "price_redundancy": 0.1
+  }
 }
