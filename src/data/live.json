@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-18T03:30:42.359Z",
-  "timestamp_edt": "3/17/2026, 11:30:42 PM EDT",
-  "activity_score": 1,
-  "regime": "SIDEWAYS",
-  "regime_confidence": 0.6,
+  "timestamp": "2026-03-18T04:28:00.000Z",
+  "timestamp_edt": "3/18/2026, 12:28:00 AM EDT",
+  "activity_score": 2,
+  "regime": "BULL",
+  "regime_confidence": 0.72,
   "prices": {
-    "btc": 74567,
-    "btc_change": -0.39,
-    "eth": 2341,
-    "eth_change": 0.12,
-    "sol": 95.26,
-    "sol_change": 0.5,
-    "usdt_d": 1,
+    "btc": 74304,
+    "btc_change": -0.13,
+    "eth": 2334,
+    "eth_change": 0.94,
+    "sol": 94.64,
+    "sol_change": 0.94,
+    "usdt_d": 1.0,
     "usdt_d_strength": false
   },
   "wallet_status": {
@@ -29,11 +29,13 @@
     "wallet_integration": true
   },
   "next_action": "MONITOR",
-  "action_rationale": "BEAR regime shifted to SIDEWAYS, no position open, waiting for confirmation",
-  "last_regime_run": "2026-03-18T02:57:00Z",
-  "tracker_entries": 45,
-  "memory_lines": 200,
+  "action_rationale": "Regime shifted SIDEWAYS→BULL (ETH +0.94%, SOL +0.94%), no position open. USDT.D stable ($1.00, no strength). Wait for 2h confirmation before entry.",
+  "last_regime_run": "2026-03-18T04:28:00Z",
+  "tracker_entries": 50,
+  "memory_lines": 972,
   "trades_executed": 0,
   "position_open": false,
-  "mandate_status": "All constraints satisfied"
+  "mandate_status": "All constraints satisfied",
+  "last_exit_timestamp": null,
+  "data_freshness": "Live (regime.js fetch 2026-03-18T04:28Z)"
 }
