@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function A5() {
+export const metadata = { title: 'Newey 2.0 — A5 (Agent Intelligence)', description: 'Live agent activity + system health' }
+
+export default function A5Page() {
   return (
     <div className="w-full h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white p-8">
       <div className="max-w-7xl mx-auto">
