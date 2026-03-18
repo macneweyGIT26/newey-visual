@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-03-17T21:14:00Z",
-  "activity_score": 0.85,
-  "work_state": "TRADING_BOT_BUILD",
-  "tracker_entries": 45,
-  "memory_lines": 850,
-  "cron_jobs": 0,
-  "current_focus": "GMX V2 Order Execution",
+  "timestamp": "2026-03-18T02:28:00Z",
+  "activity_score": 0.78,
+  "work_state": "TRADING_BOT_OPERATIONS",
+  "tracker_entries": 42,
+  "memory_lines": 200,
+  "cron_jobs": 1,
+  "current_focus": "Regime Monitoring & Capital Preservation",
   "regime": "BEAR",
-  "regime_confidence": 0.8,
+  "regime_confidence": 0.72,
   "prices": {
-    "BTC": 73933,
-    "ETH": 2325,
-    "SOL": 94.58
+    "BTC": 74204,
+    "ETH": 2331,
+    "SOL": 94.79
   },
   "wallet_status": {
     "usdc": 80.23,
-    "eth": 0.012,
-    "nav": 109.81
+    "eth": 0.012127,
+    "nav": 108.50
   },
   "modules_complete": [
     "regime.js",
@@ -26,10 +26,14 @@
     "journal.md",
     "trades.csv"
   ],
-  "next_action": "Execute first trade (ETH SHORT)",
+  "next_action": "Hold position — Wait for regime confirmation or bullish signal",
   "activity_breakdown": {
-    "trading_infrastructure": 0.5,
-    "order_execution": 0.25,
-    "price_redundancy": 0.1
-  }
+    "trading_infrastructure": 0.45,
+    "regime_monitoring": 0.20,
+    "order_readiness": 0.13
+  },
+  "last_trade_exit": null,
+  "regime_shift_detected": false,
+  "pnl_current": -1.31,
+  "pnl_pct": -1.19
 }
