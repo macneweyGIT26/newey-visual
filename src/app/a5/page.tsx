@@ -1,4 +1,4 @@
-import React from 'react';
+'use client'
 
 export const metadata = { title: 'Newey 2.0 — A5 (Agent Intelligence)', description: 'Live agent activity + system health' }
 
