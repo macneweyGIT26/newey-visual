@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-18T09:29:42.886Z",
-  "timestamp_edt": "3/18/2026, 05:29:42 AM EDT",
+  "timestamp": "2026-03-18T10:29:11.117Z",
+  "timestamp_edt": "3/18/2026, 06:29:11 AM EDT",
   "activity_score": 0,
-  "regime": "SIDEWAYS",
-  "regime_confidence": 0.6,
+  "regime": "BULL",
+  "regime_confidence": 0.8,
   "prices": {
-    "btc": 74165,
-    "btc_change": -0.15,
-    "eth": 2329.9,
-    "eth_change": 0.28,
-    "sol": 94.31,
-    "sol_change": -0.37,
+    "btc": 74194,
+    "btc_change": 0.56,
+    "eth": 2329.59,
+    "eth_change": 0.68,
+    "sol": 94.33,
+    "sol_change": 0.65,
     "usdt_d": 1,
     "usdt_d_strength": false
   },
@@ -28,14 +28,14 @@
     "csv_logging": true,
     "wallet_integration": true
   },
-  "next_action": "MONITOR",
-  "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for confirmation",
-  "last_regime_run": "2026-03-18T09:29:42.886Z",
+  "next_action": "PREPARE_ENTRY",
+  "action_rationale": "Regime BULL (80% conf) | No position | Ready for long setup entry",
+  "last_regime_run": "2026-03-18T10:29:11.117Z",
   "tracker_entries": 5,
   "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T09:29:42.886Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T10:29:11.117Z)"
 }
