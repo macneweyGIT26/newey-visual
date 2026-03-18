@@ -281,16 +281,35 @@ export default function A5Canvas() {
       })
       if (t % 30 === 0) trafficRef.current = trafficRef.current.filter(d => d.x < w + 20)
 
-      // ═══ AGENT PARTICLES (Motion section) ═══
+      // ═══ AGENT PARTICLES (Motion section) — wandering behavior ═══
       agentRef.current.forEach(agent => {
+        // Random target seeking — agents wander toward random points
+        if (!agent.targetX || Math.random() < 0.002) {
+          agent.targetX = Math.random() * w * 0.8 + w * 0.1
+          agent.targetY = S.streetY + Math.random() * S.streetH
+        }
+        
+        // Gradual approach to target
+        const dx = agent.targetX - agent.x
+        const dy = agent.targetY - agent.y
+        const dist = Math.hypot(dx, dy)
+        
+        if (dist > 5) {
+          agent.vx = (dx / dist) * 0.05 * act
+          agent.vy = (dy / dist) * 0.05 * act
+        } else {
+          agent.vx *= 0.9
+          agent.vy *= 0.9
+        }
+        
         agent.x += agent.vx
         agent.y += agent.vy
-        agent.vx *= 0.96
-        agent.vy *= 0.96
         
-        // Boundary wrap
-        if (agent.x < 0 || agent.x > w) agent.vx *= -0.5
-        if (agent.y < S.streetY || agent.y > S.soulY) agent.vy *= -0.5
+        // Soft boundary containment (no hard bounce)
+        if (agent.x < w * 0.05) agent.x = w * 0.05
+        if (agent.x > w * 0.95) agent.x = w * 0.95
+        if (agent.y < S.streetY + 10) agent.y = S.streetY + 10
+        if (agent.y > S.soulY - 10) agent.y = S.soulY - 10
         
         // Pulse phase
         agent.phase += agent.pulseSpeed

@@ -40,7 +40,7 @@ export default function A6Page() {
           <nav className="flex gap-6 text-sm tracking-wider uppercase">
             <a href="/a4" className="text-slate-400 hover:text-amber-500 transition-colors">A4</a>
             <a href="/a5" className="text-slate-400 hover:text-green-500 transition-colors">A5</a>
-            <a href="/a6" className="text-blue-500 font-bold border-b-2 border-blue-500 pb-3">A6</a>
+            <a href="/a6" className="text-blue-500 font-bold">A6</a>
             <a href="/" className="text-slate-400 hover:text-slate-300 transition-colors ml-auto">Home</a>
           </nav>
         </div>
@@ -56,7 +56,7 @@ export default function A6Page() {
         {/* System Health */}
         <div className="border border-slate-700 rounded-lg p-8 bg-slate-900/50 backdrop-blur mb-12">
           <h3 className="text-xl font-bold mb-6">System Health</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             <div>
               <p className="text-sm text-slate-400">Cron Jobs</p>
               <p className="text-3xl font-bold text-blue-400">7</p>
@@ -76,6 +76,11 @@ export default function A6Page() {
               <p className="text-sm text-slate-400">Tracking</p>
               <p className="text-2xl font-bold text-green-400">✓</p>
               <p className="text-xs text-slate-500">Enabled</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Total Cost</p>
+              <p className="text-2xl font-bold text-green-400">$365.58</p>
+              <p className="text-xs text-slate-500">YTD</p>
             </div>
           </div>
         </div>
