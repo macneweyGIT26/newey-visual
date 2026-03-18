@@ -295,8 +295,8 @@ export default function A5Canvas() {
         const dist = Math.hypot(dx, dy)
         
         if (dist > 5) {
-          agent.vx = (dx / dist) * 0.05 * act
-          agent.vy = (dy / dist) * 0.05 * act
+          agent.vx = (dx / dist) * 0.05
+          agent.vy = (dy / dist) * 0.05
         } else {
           agent.vx *= 0.9
           agent.vy *= 0.9
