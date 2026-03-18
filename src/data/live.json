@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-18T16:31:39.863Z",
-  "timestamp_edt": "3/18/2026, 12:31 PM EDT",
-  "activity_score": 95,
+  "timestamp": "2026-03-18T17:29:35.438Z",
+  "timestamp_edt": "3/18/2026, 01:29:35 PM EDT",
+  "activity_score": 0,
   "regime": "BEAR",
-  "regime_confidence": 0.95,
+  "regime_confidence": 0.8,
   "prices": {
-    "btc": 71260,
-    "btc_change": -3.99,
-    "eth": 2175.59,
-    "eth_change": -6.73,
-    "sol": 88.91,
-    "sol_change": -5.96,
-    "usdt_d": 1.0,
+    "btc": 71471,
+    "btc_change": -3.81,
+    "eth": 2195.7,
+    "eth_change": -5.75,
+    "sol": 89.38,
+    "sol_change": -5.43,
+    "usdt_d": 1,
     "usdt_d_strength": false
   },
   "wallet_status": {
@@ -28,22 +28,14 @@
     "csv_logging": true,
     "wallet_integration": true
   },
-  "next_action": "MONITOR_CONSOLIDATION",
-  "action_rationale": "Strong BEAR regime (95% confidence) | 4-hour sharp reversal from BULL → BEAR at 11:27 AM | All majors -3% to -6% | Wait for regime stabilization before entry | Monitor 60m candles for reversal signals",
-  "last_regime_run": "2026-03-18T16:31:39.863Z",
-  "tracker_entries": 12,
-  "memory_lines": 972,
+  "next_action": "MONITOR",
+  "action_rationale": "Regime BEAR (80% conf) | Waiting for confirmation",
+  "last_regime_run": "2026-03-18T17:29:35.438Z",
+  "tracker_entries": 5,
+  "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
-  "mandate_status": "All constraints satisfied | Capital ready (80.23 USDC + 0.012127 ETH) | No liquidation risk",
+  "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "regime_shifts_today": 5,
-  "last_shift": {
-    "from": "BULL",
-    "to": "BEAR",
-    "timestamp": "2026-03-18T15:27:00Z",
-    "shift_reason": "Sharp reversal | BTC -3.78%, ETH -6.18%, SOL -5.23%"
-  },
-  "data_freshness": "Live (regime.js fresh fetch 2026-03-18T16:31:39.863Z)",
-  "monitor_alert": "⚠️ BEAR regime at 0.95 confidence | Sharp 4-hour move | Wait for stabilization confirmation before entry"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T17:29:35.438Z)"
 }
