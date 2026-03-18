@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-03-18T04:28:00.000Z",
-  "timestamp_edt": "3/18/2026, 12:28:00 AM EDT",
-  "activity_score": 2,
-  "regime": "BULL",
-  "regime_confidence": 0.72,
+  "timestamp": "2026-03-18T05:31:18.708Z",
+  "timestamp_edt": "3/18/2026, 01:31:18 AM EDT",
+  "activity_score": 0,
+  "regime": "SIDEWAYS",
+  "regime_confidence": 0.6,
   "prices": {
-    "btc": 74304,
-    "btc_change": -0.13,
-    "eth": 2334,
-    "eth_change": 0.94,
-    "sol": 94.64,
-    "sol_change": 0.94,
-    "usdt_d": 1.0,
+    "btc": 74093,
+    "btc_change": -0.45,
+    "eth": 2327.14,
+    "eth_change": 0.48,
+    "sol": 94.2,
+    "sol_change": 0.24,
+    "usdt_d": 1,
     "usdt_d_strength": false
   },
   "wallet_status": {
     "usdc_available": 80.23,
-    "eth_balance": 0.012093,
+    "eth_balance": 0.012127,
     "margin": 0,
     "liquidation_risk": false
   },
@@ -28,14 +28,14 @@
     "csv_logging": true,
     "wallet_integration": true
   },
-  "next_action": "MONITOR",
-  "action_rationale": "Regime shifted SIDEWAYS→BULL (ETH +0.94%, SOL +0.94%), no position open. USDT.D stable ($1.00, no strength). Wait for 2h confirmation before entry.",
-  "last_regime_run": "2026-03-18T04:28:00Z",
-  "tracker_entries": 50,
-  "memory_lines": 972,
+  "next_action": "ERROR",
+  "action_rationale": "Price data fetch failed — cannot determine action",
+  "last_regime_run": "2026-03-18T05:31:18.708Z",
+  "tracker_entries": 5,
+  "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T04:28Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-18T05:31:18.708Z)"
 }
