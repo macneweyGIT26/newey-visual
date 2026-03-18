@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-18T10:29:00.000Z",
-  "timestamp_edt": "3/18/2026, 06:29:00 AM EDT",
+  "timestamp": "2026-03-18T11:29:06.911Z",
+  "timestamp_edt": "3/18/2026, 07:29:06 AM EDT",
   "activity_score": 0,
-  "regime": "BULL",
-  "regime_confidence": 0.8,
+  "regime": "UNCERTAIN",
+  "regime_confidence": 0.5,
   "prices": {
-    "btc": 74199,
-    "btc_change": 0.727343757270836,
-    "eth": 2330.91,
-    "eth_change": 0.8247043145292275,
-    "sol": 94.34,
-    "sol_change": 0.6562626146659299,
+    "btc": 73805,
+    "btc_change": -0.29,
+    "eth": 2308.1,
+    "eth_change": -0.9,
+    "sol": 93.84,
+    "sol_change": 0.11,
     "usdt_d": 1,
     "usdt_d_strength": false
   },
@@ -28,26 +28,14 @@
     "csv_logging": true,
     "wallet_integration": true
   },
-  "next_action": "PREPARE_ENTRY",
-  "action_rationale": "Regime BULL (80% conf) | No position | All major assets +0.6-0.8% | Ready for long setup entry",
-  "last_regime_run": "2026-03-18T10:29:00.000Z",
-  "tracker_entries": 9,
-  "memory_lines": 972,
+  "next_action": "MONITOR",
+  "action_rationale": "Regime UNCERTAIN (50% conf) | Waiting for setup",
+  "last_regime_run": "2026-03-18T11:29:06.911Z",
+  "tracker_entries": 5,
+  "memory_lines": 980,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-18T10:29:00.000Z)",
-  "live_update": {
-    "time_utc": "2026-03-18T10:29:00Z",
-    "time_edt": "06:29:00 AM",
-    "cron_job_id": "67518a65-bd34-4dc3-b4c5-7df8ea327d72",
-    "components_updated": [
-      "prices (CoinGecko live fetch)",
-      "regime (fresh classification)",
-      "tracker_entries (file line count)",
-      "memory_lines (workspace sum)",
-      "timestamp (now)"
-    ]
-  }
+  "data_freshness": "Live (regime.js fetch 2026-03-18T11:29:06.911Z)"
 }
