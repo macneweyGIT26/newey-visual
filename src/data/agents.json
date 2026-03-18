@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-03-18T14:54:00Z",
+  "agents": [
+    {
+      "name": "Horner",
+      "role": "audit",
+      "status": "complete",
+      "last_run": "2026-03-17T20:02:00Z",
+      "issues_found": 11,
+      "issues_critical": 3,
+      "cost": 0.24
+    },
+    {
+      "name": "Zack",
+      "role": "watchdog",
+      "status": "ready",
+      "last_run": null,
+      "checks_total": 12,
+      "checks_enabled": true,
+      "triggers": ["session_gap_5d", "user_request", "before_horner", "monthly"]
+    }
+  ],
+  "active_agents": [],
+  "tier_1_jobs": 7,
+  "tier_1_status": "running",
+  "next_zack_run_trigger": "session_gap_5d | user_request",
+  "system_health": {
+    "cron_jobs_running": 7,
+    "mutex_implemented": true,
+    "pre_flight_checks": true,
+    "tracking_active": true
+  }
+}
