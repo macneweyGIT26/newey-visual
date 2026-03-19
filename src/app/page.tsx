@@ -14,22 +14,15 @@ export default function Home() {
             </h1>
             <p className="text-xs text-stone-400 mt-0.5">Visual System — Concept Prototype</p>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="flex gap-6 text-[10px] text-stone-400 tracking-wider uppercase">
-              <span>Reason</span>
-              <span className="text-stone-300">·</span>
-              <span>Motion</span>
-              <span className="text-stone-300">·</span>
-              <span>Soul</span>
-            </div>
-            <nav className="flex gap-2">
-              <a href="/a4" className="text-stone-600 hover:text-stone-300 transition-colors">A4</a>
-            <a href="/" className="text-[10px] text-amber-600 font-bold border border-stone-300 px-3 py-1 rounded">Light</a>
-              <a href="/dark" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Dark</a>
-              <a href="/mashup" className="text-[10px] text-stone-400 border border-stone-300 px-3 py-1 rounded hover:bg-stone-800 hover:text-white transition-all">Mashup</a>
+          <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
+            <a href="/a4" className="text-amber-500 hover:text-amber-300 transition-colors">A4</a>
+            <a href="/a5" className="text-green-500 hover:text-green-300 transition-colors">A5</a>
+            <a href="/a6" className="text-blue-500 hover:text-blue-300 transition-colors">A6</a>
+            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors ml-auto">Light</a>
+            <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>
+            <a href="/mashup" className="text-stone-600 hover:text-stone-300 transition-colors">Mashup</a>
             <a href="/guide" className="text-stone-600 hover:text-stone-300 transition-colors">Guide</a>
-            </nav>
-          </div>
+          </nav>
         </div>
       </header>
 

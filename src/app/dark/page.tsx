@@ -14,8 +14,10 @@ export default function DarkPage() {
             <p className="text-xs text-stone-600 mt-0.5">A4 Dark — Separated Layers</p>
           </div>
           <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
-            <a href="/a4" className="text-stone-600 hover:text-stone-300 transition-colors">A4</a>
-            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors">Light</a>
+            <a href="/a4" className="text-amber-500 hover:text-amber-300 transition-colors">A4</a>
+            <a href="/a5" className="text-green-500 hover:text-green-300 transition-colors">A5</a>
+            <a href="/a6" className="text-blue-500 hover:text-blue-300 transition-colors">A6</a>
+            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors ml-auto">Light</a>
             <a href="/dark" className="text-amber-500 font-bold">Dark</a>
             <a href="/mashup" className="text-stone-600 hover:text-stone-300 transition-colors">Mashup</a>
             <a href="/guide" className="text-stone-600 hover:text-stone-300 transition-colors">Guide</a>
