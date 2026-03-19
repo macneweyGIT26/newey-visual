@@ -45,7 +45,7 @@ function getActivityLevel(): number {
 
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number }
 interface TrafficP { x:number;y:number;vx:number;vy:number;color:string;size:number;trail:{x:number;y:number}[] }
-interface AgentP { x:number;y:number;vx:number;vy:number;color:string;size:number;phase:number;name:string;pulseSpeed:number }
+interface AgentP { x:number;y:number;vx:number;vy:number;color:string;size:number;phase:number;name:string;pulseSpeed:number;targetX?:number;targetY?:number }
 interface Orb { x:number;y:number;vx:number;vy:number;r:number;color:string;alpha:number;phase:number;speed:number;baseSpeed:number }
 interface Flash { x:number;y:number;age:number }
 
