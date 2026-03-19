@@ -59,7 +59,7 @@ export default function A6Page() {
         {/* System Health */}
         <div className="border border-slate-700 rounded-lg p-8 bg-slate-900/50 backdrop-blur mb-12">
           <h3 className="text-xl font-bold mb-6">System Health</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
               <p className="text-sm text-slate-400">Cron Jobs</p>
               <p className="text-3xl font-bold text-blue-400">7</p>
@@ -79,11 +79,6 @@ export default function A6Page() {
               <p className="text-sm text-slate-400">Tracking</p>
               <p className="text-2xl font-bold text-green-400">✓</p>
               <p className="text-xs text-slate-500">Enabled</p>
-            </div>
-            <div>
-              <p className="text-sm text-slate-400">Total Cost</p>
-              <p className="text-2xl font-bold text-green-400">$365.58</p>
-              <p className="text-xs text-slate-500">YTD</p>
             </div>
           </div>
         </div>
