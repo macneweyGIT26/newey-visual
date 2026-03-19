@@ -37,14 +37,14 @@ export default function A6Page() {
       {/* Tab Bar */}
       <div className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-8 py-3">
-          <nav className="flex gap-6 text-sm tracking-wider uppercase">
-            <a href="/a4" className="text-slate-400 hover:text-amber-500 transition-colors">A4</a>
-            <a href="/a5" className="text-slate-400 hover:text-green-500 transition-colors">A5</a>
+          <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
+            <a href="/a4" className="text-amber-500 hover:text-amber-300 transition-colors">A4</a>
+            <a href="/a5" className="text-green-500 hover:text-green-300 transition-colors">A5</a>
             <a href="/a6" className="text-blue-500 font-bold">A6</a>
-            <a href="/" className="text-slate-400 hover:text-slate-300 transition-colors ml-auto">Light</a>
-            <a href="/dark" className="text-slate-400 hover:text-slate-300 transition-colors">Dark</a>
-            <a href="/mashup" className="text-slate-400 hover:text-slate-300 transition-colors">Mashup</a>
-            <a href="/guide" className="text-slate-400 hover:text-slate-300 transition-colors">Guide</a>
+            <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors ml-auto">Light</a>
+            <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>
+            <a href="/mashup" className="text-stone-600 hover:text-stone-300 transition-colors">Mashup</a>
+            <a href="/guide" className="text-stone-600 hover:text-stone-300 transition-colors">Guide</a>
           </nav>
         </div>
       </div>
