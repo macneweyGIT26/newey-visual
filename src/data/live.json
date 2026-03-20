@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-20T07:29:10.793Z",
-  "timestamp_edt": "3/20/2026, 03:29:10 AM EDT",
+  "timestamp": "2026-03-20T08:29:06.696Z",
+  "timestamp_edt": "3/20/2026, 04:29:06 AM EDT",
   "activity_score": 0,
-  "regime": "UNCERTAIN",
-  "regime_confidence": 0.5,
+  "regime": "BULL",
+  "regime_confidence": 0.72,
   "prices": {
-    "btc": 70487,
-    "btc_change": 0.96,
-    "eth": 2139.87,
-    "eth_change": -0.72,
-    "sol": 88.86,
-    "sol_change": -0.2,
+    "btc": 71258,
+    "btc_change": 1.67,
+    "eth": 2166.27,
+    "eth_change": 0.31,
+    "sol": 89.97,
+    "sol_change": 0.74,
     "usdt_d": 1,
     "usdt_d_strength": false
   },
@@ -29,13 +29,13 @@
     "wallet_integration": true
   },
   "next_action": "MONITOR",
-  "action_rationale": "Regime UNCERTAIN (50% conf) | Waiting for setup",
-  "last_regime_run": "2026-03-20T07:29:10.793Z",
+  "action_rationale": "Regime BULL (72% conf) | Waiting for setup",
+  "last_regime_run": "2026-03-20T08:29:06.696Z",
   "tracker_entries": 5,
   "memory_lines": 1403,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-03-20T07:29:10.793Z)"
+  "data_freshness": "Live (regime.js fetch 2026-03-20T08:29:06.696Z)"
 }
