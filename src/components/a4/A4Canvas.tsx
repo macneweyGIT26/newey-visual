@@ -368,12 +368,9 @@ export default function A4Canvas() {
       ctx.font = '7px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.05)'
       ctx.fillText('white flash = boundary crossing cost · color = domain work', w - 12, h - 8)
 
-      // Data timestamp — now shows live fetch date, not build date
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.textAlign = 'right'
-      // generated = timestamp_edt like "3/20/2026, 11:29:05 AM EDT" — no ISO T separator, display as-is
       const displayDate = generated || new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York' })
-      const hour = new Date().getHours()
-      ctx.fillText(`${displayDate} · ${hour}:00 · ${totalEntries} entries · ${vizStateTyped.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
+      ctx.fillText(`${displayDate} · V5 · ${totalEntries} entries · ${vizStateTyped.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
 
       if (t % 1000 > 970) {
         const p = (t % 1000 - 970) / 30, r = p * Math.max(w, h) * 0.15

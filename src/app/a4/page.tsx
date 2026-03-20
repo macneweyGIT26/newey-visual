@@ -13,7 +13,7 @@ export default function A4Page() {
           </div>
           <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
             <a href="/a4" className="text-amber-500 font-bold">A4</a>
-            <a href="/a5" className="text-green-500 hover:text-green-300 transition-colors">A5</a>
+            <span className="text-stone-700 cursor-default" title="Lab — not stable">A5</span>
             <a href="/a6" className="text-blue-500 hover:text-blue-300 transition-colors">A6</a>
             <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors ml-auto">Light</a>
             <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>

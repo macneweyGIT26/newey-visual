@@ -34,12 +34,16 @@ export default function A6Page() {
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
-      {/* Tab Bar */}
-      <div className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-8 py-3">
+      {/* Tab Bar — matches A4 nav exactly */}
+      <div className="border-b border-white/5 bg-[#080c18] sticky top-0 z-40">
+        <div className="flex items-baseline justify-between max-w-[1800px] mx-auto px-8 py-5">
+          <div>
+            <h1 className="text-sm font-semibold tracking-[0.3em] uppercase text-stone-400">Newey 2.0</h1>
+            <p className="text-xs text-stone-600 mt-0.5">A6 — Agent Intelligence</p>
+          </div>
           <nav className="flex gap-3 text-[10px] tracking-wider uppercase">
             <a href="/a4" className="text-amber-500 hover:text-amber-300 transition-colors">A4</a>
-            <a href="/a5" className="text-green-500 hover:text-green-300 transition-colors">A5</a>
+            <span className="text-stone-700 cursor-default" title="Lab — not stable">A5</span>
             <a href="/a6" className="text-blue-500 font-bold">A6</a>
             <a href="/" className="text-stone-600 hover:text-stone-300 transition-colors ml-auto">Light</a>
             <a href="/dark" className="text-stone-600 hover:text-stone-300 transition-colors">Dark</a>
@@ -54,6 +58,7 @@ export default function A6Page() {
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-2">A6 — Agent Intelligence</h1>
           <p className="text-slate-400">Live agent activity + system health</p>
+          <p className="text-xs text-stone-600 mt-1">V5 · agent dashboard</p>
         </div>
 
         {/* System Health */}
