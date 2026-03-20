@@ -178,3 +178,22 @@ A canvas pane fix is NOT complete until:
 | A5 agent motion visible >10s | ⏳ Pending |
 | Mashup setTransform patch (latent bug) | ⏳ Not yet applied |
 | Multi-browser test (Chrome + Safari) | ⏳ Pending |
+
+---
+
+## Canon Build Order — A-Series Motion Pages (2026-03-20)
+
+1. Copy Mashup render core first
+2. Confirm baseline motion works immediately on mount
+3. Add labels / naming / formatting
+4. Add version line
+5. Add live data as non-blocking fetch into refs only — never gate first render on fetch
+6. Add agent layer only in a new version branch
+
+**Guardrail:** Page must render and animate before any fetch resolves.
+
+**Route rule:** Experimental pages must not remain half-live. If unstable: remove from nav, redirect route, keep off production path.
+
+**Version rule:** Every visual release must show timestamp · version · key snapshot stats.
+
+**Rollback rule:** Every new version must have explicit rollback target + last known-good commit + one-sentence change note.
