@@ -94,7 +94,8 @@ export default function A4Canvas() {
     ]
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth*2; canvas.height = canvas.offsetHeight*2; ctx.scale(2,2)
+      canvas.width = canvas.offsetWidth*2; canvas.height = canvas.offsetHeight*2
+      ctx.setTransform(2, 0, 0, 2, 0, 0) // reset to exactly 2x — prevents accumulation on repeated resize
       const h = H()
       sectionsRef.current = { reasonH: h*0.33, streetY: h*0.33, streetH: h*0.34, soulY: h*0.67, soulH: h*0.33 }
       if (!initRef.current) initAll()
