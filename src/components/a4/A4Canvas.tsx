@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import liveDataStatic from '@/data/live.json'
 import vizState from '@/data/viz-state.json'
 
@@ -48,22 +48,6 @@ export default function A4Canvas() {
   const activityRef = useRef(Math.max(0.05, vizStateTyped.activity.score))
   const liveRef = useRef<LiveData>(liveDataStatic as LiveData)
 
-  // Fetch live.json at runtime — never stale regardless of build date
-  const [liveLoaded, setLiveLoaded] = useState(false)
-  useEffect(() => {
-    fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
-      .then(r => r.json())
-      .then((d: LiveData) => {
-        liveRef.current = d
-        // Recalculate activity from tracker_entries if available
-        if (d.tracker_entries != null) {
-          activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
-        }
-        setLiveLoaded(true)
-      })
-      .catch(() => { /* keep static fallback */ setLiveLoaded(true) })
-  }, [])
-
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -71,7 +55,15 @@ export default function A4Canvas() {
     let animId: number
     const W = () => canvas.offsetWidth, H = () => canvas.offsetHeight
 
-    // Refresh live.json every 5 minutes
+    // Fetch on mount, refresh every 5 minutes — non-blocking, canvas starts immediately
+    fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
+      .then(r => r.json())
+      .then((d: LiveData) => {
+        liveRef.current = d
+        if (d.tracker_entries != null) activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
+      })
+      .catch(() => {})
+
     const liveInterval = setInterval(() => {
       fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
         .then(r => r.json())
@@ -391,7 +383,7 @@ export default function A4Canvas() {
     }
     draw()
     return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); clearInterval(liveInterval) }
-  }, [liveLoaded])
+  }, [])
 
   return (
     <section className="relative w-full" style={{ height: '100vh', minHeight: 800 }}>

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import liveDataStatic from '@/data/live.json'
 import vizState from '@/data/viz-state.json'
 
@@ -52,26 +52,21 @@ export default function A5Canvas() {
   const activityRef = useRef(Math.max(0.05, vizStateTyped.activity.score))
   const liveRef = useRef<LiveData>(liveDataStatic as LiveData)
 
-  const [liveLoaded, setLiveLoaded] = useState(false)
-  useEffect(() => {
-    fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
-      .then(r => r.json())
-      .then((d: LiveData) => {
-        liveRef.current = d
-        if (d.tracker_entries != null) {
-          activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
-        }
-        setLiveLoaded(true)
-      })
-      .catch(() => setLiveLoaded(true))
-  }, [])
-
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')!
     let animId: number
     const W = () => canvas.offsetWidth, H = () => canvas.offsetHeight
+
+    // Fetch on mount, refresh every 5 minutes — non-blocking
+    fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
+      .then(r => r.json())
+      .then((d: LiveData) => {
+        liveRef.current = d
+        if (d.tracker_entries != null) activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
+      })
+      .catch(() => {})
 
     const liveInterval = setInterval(() => {
       fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
@@ -473,7 +468,7 @@ export default function A5Canvas() {
     }
     draw()
     return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); clearInterval(liveInterval) }
-  }, [liveLoaded])
+  }, [])
 
   return (
     <section className="relative w-full" style={{ height: '100vh', minHeight: 800 }}>
