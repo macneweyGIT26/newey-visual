@@ -1,19 +1,13 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import liveData from '@/data/live.json'
+import { useEffect, useRef, useState } from 'react'
+import liveDataStatic from '@/data/live.json'
 import vizState from '@/data/viz-state.json'
 
 // A4v4 — Real data + time-of-day pacing
-// Built on Mashup rendering engine (proven stable)
-// Data: live.json from tracker (projects, costs, domains)
+// Data: live.json fetched at runtime from GitHub (raw), falls back to static build copy
 // Pacing: reads system clock, slows all layers during idle hours
 
-const data = liveData as {
-  generated: string; totalEntries: number; totalCost: number
-  projects: { name: string; entries: number; cost: number; domain: string; color: string }[]
-  lanes: { name: string; cost: number; entries: number; color: string }[]
-  recentEntries: { date: string; title: string; domain: string; project: string; resume: boolean; cost: number; team: string }[]
-}
+const LIVE_JSON_URL = 'https://raw.githubusercontent.com/macneweyGIT26/newey-visual/main/src/data/live.json'
 
 // A4 color palette
 const COLORS = {
@@ -21,27 +15,21 @@ const COLORS = {
   SYNTHESIS: '255,95,162', ATTRITION: '204,34,68',
 }
 
-const LANES = [
-  { name: 'SYSTEM', color: COLORS.SYSTEM, frac: 0.30, cost: 0 },
-  { name: 'WORK', color: COLORS.WORK, frac: 0.55, cost: 0 },
-  { name: 'PERSONAL', color: COLORS.PERSONAL, frac: 0.80, cost: 0 },
-]
-// Populate costs from real data
-data.lanes.forEach(dl => {
-  const l = LANES.find(l => l.name === dl.name)
-  if (l) l.cost = dl.cost
-})
-const TOTAL_COST = data.lanes.reduce((s, l) => s + l.cost, 0)
-
-const ORB_COLORS = data.projects.map(p => p.color)
-
-const state = vizState as { activity: { score: number; label: string }; timeOfDay: { hour: number } }
-
-// Activity from real data (gen-data.js calculates from tracker + memory + cron)
-// Minimum 0.05 so the viz is never fully dead
-function getActivityLevel(): number {
-  return Math.max(0.05, state.activity.score)
+interface LiveData {
+  timestamp_edt?: string
+  tracker_entries?: number
+  token_spend_today?: number | null
+  regime?: string
+  regime_confidence?: number
+  // legacy fields used by canvas viz
+  generated?: string
+  totalEntries?: number
+  totalCost?: number
+  projects?: { name: string; entries: number; cost: number; domain: string; color: string }[]
+  lanes?: { name: string; cost: number; entries: number; color: string }[]
 }
+
+const vizStateTyped = vizState as { activity: { score: number; label: string }; timeOfDay: { hour: number } }
 
 interface FlowP { x:number;y:number;vx:number;vy:number;band:number;alpha:number;alive:boolean;color:string;width:number;glow:number }
 interface TrafficP { x:number;y:number;vx:number;vy:number;color:string;size:number;trail:{x:number;y:number}[] }
@@ -57,7 +45,24 @@ export default function A4Canvas() {
   const frameRef = useRef(0)
   const initRef = useRef(false)
   const sectionsRef = useRef({reasonH:0,streetY:0,streetH:0,soulY:0,soulH:0})
-  const activityRef = useRef(getActivityLevel())
+  const activityRef = useRef(Math.max(0.05, vizStateTyped.activity.score))
+  const liveRef = useRef<LiveData>(liveDataStatic as LiveData)
+
+  // Fetch live.json at runtime — never stale regardless of build date
+  const [liveLoaded, setLiveLoaded] = useState(false)
+  useEffect(() => {
+    fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
+      .then(r => r.json())
+      .then((d: LiveData) => {
+        liveRef.current = d
+        // Recalculate activity from tracker_entries if available
+        if (d.tracker_entries != null) {
+          activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
+        }
+        setLiveLoaded(true)
+      })
+      .catch(() => { /* keep static fallback */ setLiveLoaded(true) })
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -66,8 +71,35 @@ export default function A4Canvas() {
     let animId: number
     const W = () => canvas.offsetWidth, H = () => canvas.offsetHeight
 
-    // Update activity level every 60 seconds
-    const actInterval = setInterval(() => { activityRef.current = getActivityLevel() }, 60000)
+    // Refresh live.json every 5 minutes
+    const liveInterval = setInterval(() => {
+      fetch(`${LIVE_JSON_URL}?t=${Date.now()}`)
+        .then(r => r.json())
+        .then((d: LiveData) => {
+          liveRef.current = d
+          if (d.tracker_entries != null) {
+            activityRef.current = Math.max(0.05, Math.min(1.0, d.tracker_entries / 100))
+          }
+        })
+        .catch(() => {})
+    }, 5 * 60 * 1000)
+
+    // Derive viz data from liveRef at draw time
+    const getData = () => {
+      const d = liveRef.current
+      const projects = d.projects ?? (liveDataStatic as LiveData).projects ?? []
+      const lanes = d.lanes ?? (liveDataStatic as LiveData).lanes ?? []
+      const totalEntries = d.tracker_entries ?? d.totalEntries ?? 0
+      const totalCost = d.totalCost ?? 0
+      const generated = d.timestamp_edt ?? d.generated ?? ''
+      return { projects, lanes, totalEntries, totalCost, generated }
+    }
+
+    const LANES_BASE = [
+      { name: 'SYSTEM', color: COLORS.SYSTEM, frac: 0.30, cost: 0 },
+      { name: 'WORK', color: COLORS.WORK, frac: 0.55, cost: 0 },
+      { name: 'PERSONAL', color: COLORS.PERSONAL, frac: 0.80, cost: 0 },
+    ]
 
     const resize = () => {
       canvas.width = canvas.offsetWidth*2; canvas.height = canvas.offsetHeight*2; ctx.scale(2,2)
@@ -79,8 +111,8 @@ export default function A4Canvas() {
     const initAll = () => {
       initRef.current = true
       const w = W(), h = H()
-      // Real project orbs — sized by cost, colored by project
-      data.projects.forEach(proj => {
+      const { projects } = getData()
+      projects.forEach(proj => {
         for (let i = 0; i < Math.max(2, proj.entries); i++) {
           const baseSpd = 0.002 + Math.random() * 0.005
           orbsRef.current.push({
@@ -101,7 +133,14 @@ export default function A4Canvas() {
       frameRef.current++
       const w = W(), h = H(), t = frameRef.current
       const S = sectionsRef.current
-      const act = activityRef.current // 0.0 to 1.0
+      const act = activityRef.current
+      const { projects, lanes, totalEntries, totalCost, generated } = getData()
+
+      // Rebuild LANES costs from live data each frame (cheap)
+      const LANES = LANES_BASE.map(l => ({ ...l }))
+      lanes.forEach(dl => { const l = LANES.find(l => l.name === dl.name); if (l) l.cost = dl.cost })
+      const TOTAL_COST = Math.max(1, LANES.reduce((s, l) => s + l.cost, 0))
+      const ORB_COLORS = projects.map(p => p.color)
 
       ctx.fillStyle = 'rgba(8,12,24,0.06)'
       ctx.fillRect(0, 0, w, h)
@@ -113,7 +152,6 @@ export default function A4Canvas() {
       const STG_N = ['Prompt', 'Router', 'Agent Swarm', 'Tool Calls', 'Output']
       const BAND_W = [140, 110, 70, 45, 20]
 
-      // Flow band (amber)
       STG_X.forEach((sx, i) => {
         if (i >= STG_X.length - 1) return
         const x1 = w * sx, x2 = w * STG_X[i + 1], bw1 = BAND_W[i], bw2 = BAND_W[i + 1]
@@ -126,7 +164,6 @@ export default function A4Canvas() {
         ctx.fillStyle = 'rgba(245,178,50,0.018)'; ctx.fill()
       })
 
-      // Stage labels
       ctx.font = '9px -apple-system, sans-serif'; ctx.textAlign = 'center'
       STG_N.forEach((s, i) => {
         const sx = w * STG_X[i]
@@ -142,13 +179,11 @@ export default function A4Canvas() {
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.15)'
       ctx.fillText('routing · judgment · pruning', 15, 54)
 
-      // Reason particles — spawn rate scaled by activity + data
-      const reasonRate = Math.max(3, Math.floor(12 - data.totalEntries / 5)) / act
+      const reasonRate = Math.max(3, Math.floor(12 - totalEntries / 5)) / act
       if (t % Math.max(1, Math.round(reasonRate)) === 0) {
-        // Weighted by real project entries
-        const totalE = data.projects.reduce((s, p) => s + p.entries, 0)
-        let r = Math.random() * totalE, proj = data.projects[0]
-        for (const p of data.projects) { r -= p.entries; if (r <= 0) { proj = p; break } }
+        const totalE = projects.reduce((s, p) => s + p.entries, 0) || 1
+        let r = Math.random() * totalE, proj = projects[0] ?? { domain: 'SYSTEM', color: COLORS.SYSTEM }
+        for (const p of projects) { r -= p.entries; if (r <= 0) { proj = p; break } }
         const band = Math.random()
         flowRef.current.push({
           x: w * 0.06, y: flowMidY + (band - 0.5) * BAND_W[0],
@@ -167,7 +202,6 @@ export default function A4Canvas() {
         const tBand = BAND_W[Math.min(si, BAND_W.length - 1)]
         const tY = flowMidY + (p.band - 0.5) * tBand
         p.y += (tY - p.y) * 0.02; p.y += p.vy
-
         if (si >= 2 && Math.random() < 0.001) {
           p.alive = false
           const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 10)
@@ -175,7 +209,6 @@ export default function A4Canvas() {
           ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill(); return
         }
         if (p.x > w * 0.95) { p.alpha -= 0.02; if (p.alpha <= 0) p.alive = false }
-
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.glow)
         g.addColorStop(0, `rgba(${p.color},${p.alpha * 0.5})`); g.addColorStop(1, `rgba(${p.color},0)`)
         ctx.beginPath(); ctx.arc(p.x, p.y, p.glow, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill()
@@ -194,24 +227,20 @@ export default function A4Canvas() {
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.15)'
       ctx.fillText('token burn · agents · tools', 15, S.streetY + 52)
 
-      // Domain lanes
       LANES.forEach(lane => {
         const ly = S.streetY + S.streetH * lane.frac
         ctx.strokeStyle = `rgba(${lane.color},0.1)`; ctx.lineWidth = 0.5
         ctx.beginPath(); ctx.moveTo(w * 0.03, ly); ctx.lineTo(w * 0.97, ly); ctx.stroke()
       })
 
-      // Cross-streets
       for (let x = w * 0.1; x < w * 0.95; x += w * 0.1) {
         ctx.strokeStyle = 'rgba(255,255,255,0.015)'; ctx.lineWidth = 0.5
         ctx.beginPath(); ctx.moveTo(x, S.streetY + 55); ctx.lineTo(x, S.soulY - 5); ctx.stroke()
       }
 
-      // Traffic — weighted by real domain costs, paced by activity
       const motionRate = Math.max(2, Math.round(6 / act))
       const maxTraffic = Math.round(90 * act)
       if (t % motionRate === 0 && trafficRef.current.length < Math.max(5, maxTraffic)) {
-        // Weighted lane pick
         let r2 = Math.random() * TOTAL_COST, laneIdx = 0
         for (let i = 0; i < LANES.length; i++) { r2 -= LANES[i].cost; if (r2 <= 0) { laneIdx = i; break } }
         const lane = LANES[laneIdx]
@@ -226,8 +255,6 @@ export default function A4Canvas() {
       trafficRef.current.forEach(dot => {
         dot.x += dot.vx; dot.y += dot.vy; dot.vy *= 0.98
         dot.trail.push({ x: dot.x, y: dot.y }); if (dot.trail.length > 25) dot.trail.shift()
-
-        // Crossing behavior — bleed into Reason or Memory
         if (Math.random() < 0.004) {
           const targets = [
             ...LANES.map(l => S.streetY + S.streetH * l.frac),
@@ -238,18 +265,14 @@ export default function A4Canvas() {
           dot.vy = (target - dot.y) * 0.04
           if (target < S.streetY || target > S.soulY) flashRef.current.push({ x: dot.x, y: dot.y, age: 0 })
           if (target < S.streetY) dot.color = COLORS.SYNTHESIS
-          else if (target > S.soulY) dot.color = ORB_COLORS[Math.floor(Math.random() * ORB_COLORS.length)]
+          else if (target > S.soulY) dot.color = ORB_COLORS[Math.floor(Math.random() * Math.max(1, ORB_COLORS.length))]
           else { const nl = LANES[Math.floor(Math.random() * LANES.length)]; dot.color = nl.color }
         }
-
-        // Trail
         dot.trail.forEach((tr, ti) => {
           const a = (ti / dot.trail.length) * 0.4
           ctx.beginPath(); ctx.arc(tr.x, tr.y, dot.size * 0.4, 0, Math.PI * 2)
           ctx.fillStyle = `rgba(${dot.color},${a})`; ctx.fill()
         })
-
-        // Glow + dot
         const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, dot.size + 8)
         g.addColorStop(0, `rgba(${dot.color},0.7)`); g.addColorStop(1, `rgba(${dot.color},0)`)
         ctx.beginPath(); ctx.arc(dot.x, dot.y, dot.size + 8, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill()
@@ -258,7 +281,6 @@ export default function A4Canvas() {
       })
       if (t % 30 === 0) trafficRef.current = trafficRef.current.filter(d => d.x < w + 20)
 
-      // Substations — brightness scaled by activity
       LANES.forEach(lane => {
         const ly = S.streetY + S.streetH * lane.frac
         for (let x = w * 0.14; x < w * 0.92; x += w * 0.14) {
@@ -283,12 +305,10 @@ export default function A4Canvas() {
       ctx.fillText('identity · memory · pattern', 15, S.soulY + 52)
 
       const orbs = orbsRef.current
-      // Clustering centers drift slower during low activity
       const cx1 = w * 0.35 + Math.sin(t * 0.001 * act) * 50, cy1 = S.soulY + S.soulH * 0.4 + Math.cos(t * 0.0012 * act) * 25
       const cx2 = w * 0.65 + Math.cos(t * 0.0008 * act) * 40, cy2 = S.soulY + S.soulH * 0.7 + Math.sin(t * 0.001 * act) * 20
 
       orbs.forEach(orb => {
-        // Speed scaled by activity
         orb.speed = orb.baseSpeed * (0.3 + act * 0.7)
         orb.phase += orb.speed
         const bloom = 1 + Math.sin(orb.phase) * 0.2
@@ -299,7 +319,6 @@ export default function A4Canvas() {
         orb.vx *= 0.998; orb.vy *= 0.998; orb.x += orb.vx; orb.y += orb.vy
         if (orb.x < -orb.r) orb.x = w + orb.r; if (orb.x > w + orb.r) orb.x = -orb.r
         if (orb.y < S.soulY - 20) orb.y = h + orb.r; if (orb.y > h + orb.r) orb.y = S.soulY
-
         const r = orb.r * bloom, alpha = orb.alpha * (0.7 + Math.sin(orb.phase * 0.5) * 0.3)
         const g = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, r)
         g.addColorStop(0, `rgba(${orb.color},${alpha * 2.5})`)
@@ -309,7 +328,6 @@ export default function A4Canvas() {
         ctx.beginPath(); ctx.arc(orb.x, orb.y, r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill()
       })
 
-      // Memory threads
       for (let i = 0; i < orbs.length; i++) {
         for (let j = i + 1; j < Math.min(orbs.length, i + 8); j++) {
           const d = Math.hypot(orbs[i].x - orbs[j].x, orbs[i].y - orbs[j].y)
@@ -320,7 +338,6 @@ export default function A4Canvas() {
         }
       }
 
-      // Crossing flashes
       for (let i = flashRef.current.length - 1; i >= 0; i--) {
         const f = flashRef.current[i]; f.age++
         if (f.age > 25) { flashRef.current.splice(i, 1); continue }
@@ -330,12 +347,11 @@ export default function A4Canvas() {
         ctx.beginPath(); ctx.arc(f.x, f.y, 10 * life, 0, Math.PI * 2); ctx.fillStyle = fg; ctx.fill()
       }
 
-      // Section dividers
       ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = 0.5
       ctx.beginPath(); ctx.moveTo(0, S.streetY); ctx.lineTo(w, S.streetY); ctx.stroke()
       ctx.beginPath(); ctx.moveTo(0, S.soulY); ctx.lineTo(w, S.soulY); ctx.stroke()
 
-      // ═══ LEGEND (bottom) ═══
+      // ═══ LEGEND ═══
       const legY = h - 42
       ctx.font = '9px -apple-system, sans-serif'; ctx.textAlign = 'left'
       const allLegs = [
@@ -356,16 +372,15 @@ export default function A4Canvas() {
 
       ctx.font = '8px -apple-system, sans-serif'; ctx.textAlign = 'right'; ctx.fillStyle = 'rgba(255,255,255,0.08)'
       ctx.fillText('M→R escalation · R→M decision · M→S complete · S→R recall', w - 12, legY + 3)
-
-      ctx.font = '7px -apple-system, sans-serif'; ctx.textAlign = 'right'; ctx.fillStyle = 'rgba(255,255,255,0.05)'
+      ctx.font = '7px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.05)'
       ctx.fillText('white flash = boundary crossing cost · color = domain work', w - 12, h - 8)
 
-      // Data timestamp + activity indicator
+      // Data timestamp — now shows live fetch date, not build date
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.textAlign = 'right'
+      const displayDate = generated ? generated.split('T')[0] ?? generated.slice(0, 10) : new Date().toISOString().slice(0, 10)
       const hour = new Date().getHours()
-      ctx.fillText(`${data.generated.split('T')[0]} · ${hour}:00 · ${data.totalEntries} entries · ${state.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
+      ctx.fillText(`${displayDate} · ${hour}:00 · ${totalEntries} entries · ${vizStateTyped.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
 
-      // Rose synthesis pulse (rare)
       if (t % 1000 > 970) {
         const p = (t % 1000 - 970) / 30, r = p * Math.max(w, h) * 0.15
         ctx.beginPath(); ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2)
@@ -375,8 +390,8 @@ export default function A4Canvas() {
       animId = requestAnimationFrame(draw)
     }
     draw()
-    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); clearInterval(actInterval) }
-  }, [])
+    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); clearInterval(liveInterval) }
+  }, [liveLoaded])
 
   return (
     <section className="relative w-full" style={{ height: '100vh', minHeight: 800 }}>
