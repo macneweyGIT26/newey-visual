@@ -49,7 +49,7 @@ export default function A5Canvas() {
   const frameRef = useRef(0)
   const initRef = useRef(false)
   const sectionsRef = useRef({reasonH:0,streetY:0,streetH:0,soulY:0,soulH:0})
-  const activityRef = useRef(Math.max(0.05, vizStateTyped.activity.score))
+  const activityRef = useRef(0.5) // start at 50% — viz-state.json is always stale (score=0); fetch updates this
   const liveRef = useRef<LiveData>(liveDataStatic as LiveData)
 
   useEffect(() => {
@@ -455,7 +455,7 @@ export default function A5Canvas() {
       ctx.fillText('white flash = boundary crossing cost · color = domain work', w - 12, h - 8)
 
       ctx.font = '8px -apple-system, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.textAlign = 'right'
-      const displayDate = generated ? generated.split('T')[0] ?? generated.slice(0, 10) : new Date().toISOString().slice(0, 10)
+      const displayDate = generated || new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York' })
       const hour = new Date().getHours()
       ctx.fillText(`${displayDate} · ${hour}:00 · ${totalEntries} entries · ${vizStateTyped.activity.label} (${Math.round(act*100)}%)`, w - 12, 15)
 
