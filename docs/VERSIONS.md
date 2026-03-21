@@ -27,29 +27,39 @@
 
 ---
 
-## V6 — A4 + Agent Layer (planned)
-**Status:** NOT started
-**Target pages:** A4 only (A6 gets updated separately)
+## V5 — LOCKED
+**Tag:** `v5-locked` (commit `e5fc744`)
+**Status:** Frozen. Do not modify.
+**Purpose:** Safe visual anchor. Revert target if V6 regresses.
 
-### What V6 adds
-- Horner (purple) and Zack (green) agent particles in Motion pane
-- Visible wandering with trail
-- Named labels above agents
-- Speed: Horner 1.2px/frame, Zack 0.9px/frame
+---
 
-### Prerequisites before V6 deploy
-- [ ] V5 confirmed stable in production (30s+ motion, no freeze, correct timestamp)
-- [ ] V5 confirmed stable after resize
-- [ ] V5 confirmed stable on Safari (second browser)
+## V6 — Visual Refinement (experimental)
+**Status:** Not started
+**Branch:** `v6-experiment` (create when ready)
+**Target:** A4 only
+
+### Allowed in V6
+- Slightly stronger Reason band visibility
+- Irregular / elliptical Memory orbs
+- Scheduled-vs-idle differentiation refinement
+- Masked labels / abstraction refinements
+- Stage-based attrition (if tested later)
+
+### NOT allowed in V6
+- Token gumball on A4
+- Literal dashboard widgets
+- Anything exposing sensitive operational detail
+- Major architecture changes
+- Agent particles (deferred beyond V6)
 
 ### Rollback from V6
-If V6 breaks motion or data: revert to `05be13d` immediately.
-Revert command: `git revert HEAD` or `git reset --hard 05be13d && git push --force`
+If V6 feels worse: `git checkout v5-locked -- src/components/a4/A4Canvas.tsx` and redeploy.
 
-### Versioning rule for V6
-- Create V6 branch: `git checkout -b v6-agents`
+### V6 workflow
+- Branch from main: `git checkout -b v6-experiment`
 - Test on preview URL only
-- Do NOT merge to main until V5 stability confirmed
+- Do NOT merge to main without R approval
 - Version label on deploy: V6
 
 ---
