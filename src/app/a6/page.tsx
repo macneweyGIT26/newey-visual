@@ -7,17 +7,17 @@ export default function A6Page() {
     {
       name: 'Horner',
       role: 'audit',
-      checks: 11,
-      issuesFound: 11,
-      critical: 3,
+      checks: 7,
+      issuesFound: 3,
+      critical: 0,
       cost: 0.24,
       color: '#8B5CF6',
     },
     {
       name: 'Zack',
       role: 'watchdog',
-      checks: 12,
-      issuesFound: 0,
+      checks: 10,
+      issuesFound: 2,
       critical: 0,
       cost: 0.10,
       color: '#22C55E',
@@ -25,11 +25,11 @@ export default function A6Page() {
   ];
 
   const projects = [
-    { name: 'CRON_JOBS.md', lastChecked: '2026-03-18 22:02', agent: 'Horner', status: 'complete' },
-    { name: 'Regime Monitor', lastChecked: '2026-03-18 15:29', agent: 'Zack', status: 'running' },
-    { name: 'Trade Executor', lastChecked: '2026-03-18 14:40', agent: 'Horner', status: 'eligible' },
-    { name: 'A4 Activity Update', lastChecked: '2026-03-18 15:00', agent: 'Zack', status: 'active' },
-    { name: 'Position Monitor', lastChecked: '2026-03-17 12:00', agent: 'Zack', status: 'disabled' },
+    { name: 'Code Red Triage', lastChecked: '2026-03-21 22:50', agent: 'Horner', status: 'complete' },
+    { name: 'Regime Monitor', lastChecked: '2026-03-21 22:27', agent: 'Zack', status: 'running' },
+    { name: 'Backup Fix', lastChecked: '2026-03-21 22:53', agent: 'Horner', status: 'complete' },
+    { name: 'A4 Live JSON', lastChecked: '2026-03-21 22:29', agent: 'Zack', status: 'active' },
+    { name: 'Frick Phase 1', lastChecked: '2026-03-21 19:37', agent: 'Horner', status: 'complete' },
   ];
 
   return (
