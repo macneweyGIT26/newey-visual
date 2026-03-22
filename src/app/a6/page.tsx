@@ -88,6 +88,129 @@ export default function A6Page() {
           </div>
         </div>
 
+        {/* Scheduled Jobs Health */}
+        <div className="border border-slate-700 rounded-lg p-8 bg-slate-900/50 backdrop-blur mb-12">
+          <h3 className="text-xl font-bold mb-6">Scheduled Jobs Health</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-700">
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold">Job</th>
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold">Frequency</th>
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold">Last Success</th>
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold">Status</th>
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold hidden md:table-cell">Canonical Path</th>
+                  <th className="text-left py-3 px-4 text-slate-400 font-semibold hidden lg:table-cell">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  {
+                    name: 'Regime Monitor',
+                    frequency: 'Every 30 min',
+                    lastSuccess: '2026-03-21 22:27 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/.openclaw/workspace/tracker/regime_monitor.log',
+                    notes: 'Do not check legacy path /Users/newey/newey/tracker/',
+                  },
+                  {
+                    name: 'A4 Live JSON',
+                    frequency: 'Hourly @ :29',
+                    lastSuccess: '2026-03-21 22:29 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/.openclaw/workspace/projects/newey-visual/src/data/live.json',
+                    notes: '',
+                  },
+                  {
+                    name: 'Nightly Backup',
+                    frequency: 'Daily 1:00 AM',
+                    lastSuccess: '2026-03-21 22:53 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/QBranch/Backups/',
+                    notes: 'Size gate: >1MB = full, <1MB = PARTIAL',
+                  },
+                  {
+                    name: 'Session Handoff',
+                    frequency: 'Daily 2:59 AM',
+                    lastSuccess: '2026-03-21 02:59 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/.openclaw/workspace/memory/YYYY-MM-DD.md',
+                    notes: '',
+                  },
+                  {
+                    name: 'Token Ledger',
+                    frequency: 'Friday 5:00 PM',
+                    lastSuccess: '2026-03-20 17:00 EDT',
+                    status: 'warn',
+                    canonicalPath: '~/newey/token_ledger.md',
+                    notes: 'Ran ok but no visible output — path mismatch suspected',
+                  },
+                  {
+                    name: 'Security Audit',
+                    frequency: 'Sunday 9:00 AM',
+                    lastSuccess: '2026-03-16 09:00 EDT',
+                    status: 'warn',
+                    canonicalPath: '~/newey/tracker/audits.log',
+                    notes: 'Baseline building',
+                  },
+
+                  {
+                    name: 'MEMORY.md Refresh',
+                    frequency: 'Daily/manual',
+                    lastSuccess: '2026-03-21 22:50 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/.openclaw/workspace/MEMORY.md',
+                    notes: '',
+                  },
+                  {
+                    name: 'STATE.md Refresh',
+                    frequency: 'Daily/manual',
+                    lastSuccess: '2026-03-21 22:50 EDT',
+                    status: 'healthy',
+                    canonicalPath: '~/.openclaw/workspace/STATE.md',
+                    notes: '',
+                  },
+                ].map((job, idx) => {
+                  const statusColorMap: Record<string, { bg: string; text: string }> = {
+                    healthy: { bg: 'rgba(34, 197, 94, 0.1)', text: '#4ade80' },
+                    warn: { bg: 'rgba(251, 146, 60, 0.1)', text: '#fb923c' },
+                    disabled: { bg: 'rgba(100, 116, 139, 0.1)', text: '#94a3b8' },
+                    stale: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444' },
+                    not_due: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6' },
+                  };
+
+                  const colors = statusColorMap[job.status] || statusColorMap.healthy;
+
+                  return (
+                    <tr key={idx} className="border-b border-slate-800 hover:bg-slate-800/30 transition-colors">
+                      <td className="py-3 px-4 text-slate-200 font-medium">{job.name}</td>
+                      <td className="py-3 px-4 text-slate-400 text-xs">{job.frequency}</td>
+                      <td className="py-3 px-4 text-slate-400 text-xs">{job.lastSuccess}</td>
+                      <td className="py-3 px-4">
+                        <span
+                          className="px-2 py-1 rounded text-xs font-semibold capitalize"
+                          style={{
+                            background: colors.bg,
+                            color: colors.text,
+                          }}
+                        >
+                          {job.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-slate-500 text-xs font-mono hidden md:table-cell truncate max-w-xs">
+                        {job.canonicalPath}
+                      </td>
+                      <td className="py-3 px-4 text-slate-600 text-xs hidden lg:table-cell">
+                        {job.notes}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Agent KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {agents.map((agent) => (
