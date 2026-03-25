@@ -3,30 +3,30 @@
 import React from 'react';
 
 export default function A6Page() {
-  const lastUpdated = '2026-03-22 21:24 EDT';
+  const lastUpdated = '2026-03-25 10:38 EDT';
 
   const agents = [
     {
       name: 'Horner',
       role: 'audit',
       checks: 7,
-      issuesFound: 4,
-      critical: 0,
-      cost: 0.24,
+      issuesFound: 6,
+      critical: 2,
+      tokens: '5.7k',
       color: '#8B5CF6',
-      lastRun: '2026-03-22 20:49 EDT',
-      summary: '0 CRITICAL · 2 WARN · 2 INFO — trading architecture validated',
+      lastRun: '2026-03-25 10:11 EDT',
+      summary: '2 CRITICAL · 2 WARN · 2 INFO — ops/ refs missing, path drift',
     },
     {
       name: 'Zack',
       role: 'watchdog',
       checks: 9,
-      issuesFound: 0,
+      issuesFound: 2,
       critical: 0,
-      cost: 0.10,
+      tokens: '3.3k',
       color: '#22C55E',
-      lastRun: '2026-03-22 21:00 EDT',
-      summary: '5 PASS · 4 WARN · 0 FAIL — healthy after token ledger fix',
+      lastRun: '2026-03-25 10:11 EDT',
+      summary: '6 PASS · 2 WARN · 2 SKIP · 0 FAIL — healthy',
     },
   ];
 
@@ -34,23 +34,15 @@ export default function A6Page() {
     {
       name: 'Regime Monitor',
       frequency: 'Every 30 min',
-      lastSuccess: '2026-03-22 21:00 EDT',
+      lastSuccess: '2026-03-25 09:47 EDT',
       status: 'healthy',
       canonicalPath: '~/.openclaw/workspace/tracker/regime_monitor.log',
       notes: 'Silent mode. Alerts on shift only.',
     },
     {
-      name: 'Trade Executor',
-      frequency: 'Every 4 hours',
-      lastSuccess: '2026-03-22 18:40 EDT',
-      status: 'healthy',
-      canonicalPath: 'journal/trades.csv',
-      notes: 'Stage C — PingPong live, Core monitoring',
-    },
-    {
       name: 'A4 Live JSON',
       frequency: 'Hourly @ :29',
-      lastSuccess: '2026-03-22 20:29 EDT',
+      lastSuccess: '2026-03-25 09:29 EDT',
       status: 'healthy',
       canonicalPath: '~/.openclaw/workspace/projects/newey-visual/src/data/live.json',
       notes: '',
@@ -58,7 +50,7 @@ export default function A6Page() {
     {
       name: 'Nightly Backup',
       frequency: 'Daily 1:00 AM',
-      lastSuccess: '2026-03-22 01:00 EDT',
+      lastSuccess: '2026-03-25 01:00 EDT',
       status: 'healthy',
       canonicalPath: '~/QBranch/Backups/',
       notes: '70 MB, nominal',
@@ -66,57 +58,79 @@ export default function A6Page() {
     {
       name: 'Session Handoff',
       frequency: 'Daily 2:59 AM',
-      lastSuccess: '2026-03-22 02:59 EDT',
+      lastSuccess: '2026-03-25 02:59 EDT',
       status: 'healthy',
-      canonicalPath: '~/.openclaw/workspace/memory/YYYY-MM-DD.md',
-      notes: '',
+      canonicalPath: 'Telegram delivery (announce)',
+      notes: 'Fixed Mar 24: systemEvent→agentTurn',
     },
     {
       name: 'Token Ledger',
       frequency: 'Friday 5:00 PM',
-      lastSuccess: '2026-03-22 20:58 EDT',
+      lastSuccess: '2026-03-21 17:00 EDT',
       status: 'healthy',
       canonicalPath: '~/newey/token_ledger.md',
-      notes: 'Manual reconciliation cleared FAIL',
+      notes: 'Next: Mar 28',
     },
     {
       name: 'Security Audit',
       frequency: 'Sunday 9:00 AM',
-      lastSuccess: '2026-03-22 09:00 EDT',
+      lastSuccess: '2026-03-23 09:00 EDT',
       status: 'healthy',
       canonicalPath: '~/.openclaw/workspace/tracker/audits.log',
-      notes: '',
+      notes: 'Next: Mar 30',
+    },
+    {
+      name: 'Gift Reminder (Casey)',
+      frequency: 'May 1',
+      lastSuccess: '—',
+      status: 'healthy',
+      canonicalPath: 'Main session systemEvent',
+      notes: 'Scheduled',
     },
   ];
 
   const activeItems = [
     {
-      name: 'CASE-001: Reset Memory Path',
-      status: 'monitor',
+      name: 'Step 3B: Testnet validation',
+      status: 'blocked',
+      agent: 'Trading',
+      nextAction: 'Fund Arbitrum Sepolia wallet',
+      lastChecked: '2026-03-25 10:11 EDT',
+    },
+    {
+      name: 'Gordon Controller re-enable',
+      status: 'blocked',
+      agent: 'Trading',
+      nextAction: 'Awaiting Step 3B + Gate D approval',
+      lastChecked: '2026-03-25 10:11 EDT',
+    },
+    {
+      name: 'Newey cleanup / archive',
+      status: 'open',
       agent: 'System',
-      nextAction: 'Await 03:00 AM scheduled proof (2026-03-23)',
-      lastChecked: '2026-03-22 08:30 EDT',
+      nextAction: 'Archive old material, unify paths',
+      lastChecked: '2026-03-25 10:38 EDT',
+    },
+    {
+      name: 'CASE-001: Reset memory path',
+      status: 'closed',
+      agent: 'System',
+      nextAction: '—',
+      lastChecked: '2026-03-23 03:28 EDT',
+    },
+    {
+      name: 'CASE-001.1: Handoff delivery',
+      status: 'fixed',
+      agent: 'System',
+      nextAction: '—',
+      lastChecked: '2026-03-24 07:21 EDT',
     },
     {
       name: 'PP-001: ETH SHORT',
-      status: 'open',
+      status: 'closed',
       agent: 'PingPong',
-      nextAction: 'Set TP/SL after Monday volume assessment',
-      lastChecked: '2026-03-22 20:49 EDT',
-    },
-    {
-      name: 'Gateway operator.read scope',
-      status: 'blocked',
-      agent: 'System',
-      nextAction: 'Regenerate auth token or grant scope',
-      lastChecked: '2026-03-22 09:00 EDT',
-    },
-    {
-      name: 'Trading Architecture Migration',
-      status: 'complete',
-      agent: 'Horner',
-      nextAction: 'Monitor Stage C operations',
-      lastChecked: '2026-03-22 20:49 EDT',
+      nextAction: '—',
+      lastChecked: '2026-03-23 20:48 EDT',
     },
   ];
 
@@ -159,24 +173,24 @@ export default function A6Page() {
               <p className="text-xs text-green-400 mt-1">Active</p>
             </div>
             <div>
-              <p className="text-sm text-slate-400">Strategies</p>
-              <p className="text-3xl font-bold text-purple-400">2</p>
-              <p className="text-xs text-slate-400 mt-1">Core + PingPong</p>
+              <p className="text-sm text-slate-400">Trading</p>
+              <p className="text-3xl font-bold text-amber-400">⏸</p>
+              <p className="text-xs text-amber-400 mt-1">Paused</p>
             </div>
             <div>
-              <p className="text-sm text-slate-400">Stage</p>
-              <p className="text-3xl font-bold text-amber-400">C</p>
-              <p className="text-xs text-slate-400 mt-1">PP live · Core monitor</p>
+              <p className="text-sm text-slate-400">Recovery</p>
+              <p className="text-3xl font-bold text-amber-400">3B</p>
+              <p className="text-xs text-red-400 mt-1">Blocked (testnet)</p>
             </div>
             <div>
-              <p className="text-sm text-slate-400">Reserve</p>
-              <p className="text-3xl font-bold text-green-400">81%</p>
-              <p className="text-xs text-green-400 mt-1">Above 75% min</p>
+              <p className="text-sm text-slate-400">Cases</p>
+              <p className="text-3xl font-bold text-green-400">0</p>
+              <p className="text-xs text-green-400 mt-1">Open</p>
             </div>
             <div>
               <p className="text-sm text-slate-400">Watchdog</p>
-              <p className="text-3xl font-bold text-green-400">9/9</p>
-              <p className="text-xs text-green-400 mt-1">No FAIL</p>
+              <p className="text-3xl font-bold text-green-400">6/9</p>
+              <p className="text-xs text-green-400 mt-1">0 FAIL · 2 SKIP</p>
             </div>
           </div>
         </div>
@@ -202,6 +216,8 @@ export default function A6Page() {
                     open: { bg: 'rgba(59, 130, 246, 0.15)', text: '#93C5FD' },
                     blocked: { bg: 'rgba(239, 68, 68, 0.15)', text: '#ef4444' },
                     complete: { bg: 'rgba(34, 197, 94, 0.15)', text: '#86EFAC' },
+                    closed: { bg: 'rgba(34, 197, 94, 0.1)', text: '#6B7280' },
+                    fixed: { bg: 'rgba(34, 197, 94, 0.1)', text: '#6B7280' },
                   };
                   const colors = statusColorMap[item.status] || statusColorMap.monitor;
 
@@ -306,8 +322,8 @@ export default function A6Page() {
                   <p className="text-2xl font-bold text-red-500">{agent.critical}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-400">Cost</p>
-                  <p className="text-xl font-bold text-green-400">${agent.cost.toFixed(2)}</p>
+                  <p className="text-xs text-slate-400">Tokens</p>
+                  <p className="text-xl font-bold text-green-400">{agent.tokens}</p>
                 </div>
               </div>
             </div>
