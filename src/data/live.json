@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-04-02T01:33:33.603Z",
-  "timestamp_edt": "4/1/2026, 09:33:33 PM EDT",
-  "activity_score": 2,
+  "timestamp": "2026-04-03T13:40:57.358Z",
+  "timestamp_edt": "4/3/2026, 9:40:57 AM EDT",
+  "activity_score": 3,
   "regime": "BEAR",
   "regime_confidence": 0.72,
   "prices": {
-    "btc": 67364,
-    "btc_change": -0.93,
-    "eth": 2100.96,
-    "eth_change": 0.1,
-    "sol": 79.67,
-    "sol_change": -3.97,
-    "usdt_d": 1,
+    "btc": 66616,
+    "btc_change": 1.12,
+    "eth": 2047.39,
+    "eth_change": 1.29,
+    "sol": 79.45,
+    "sol_change": 2.77,
+    "usdt_d": 1.0,
     "usdt_d_strength": false
   },
   "wallet_status": {
@@ -29,15 +29,16 @@
     "wallet_integration": true
   },
   "next_action": "MONITOR",
-  "action_rationale": "Regime BEAR (72% conf) | Waiting for confirmation",
-  "last_regime_run": "2026-04-02T01:33:33.603Z",
-  "tracker_entries": 28,
-  "memory_lines": 5316,
+  "action_rationale": "Regime BEAR (72% conf) | 1 trade executed, position closed | Waiting for regime confirmation before next entry",
+  "last_regime_run": "2026-04-03T13:40:57.358Z",
+  "tracker_entries": 32,
+  "memory_lines": 5847,
   "trades_executed": 1,
-  "position_open": true,
+  "position_open": false,
   "mandate_status": "All constraints satisfied",
-  "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-04-02T01:33:33.603Z)",
-  "token_spend_today": 14.1665,
-  "token_spend_date": "2026-03-30"
+  "last_exit_timestamp": "2026-03-23T20:48:00-04:00",
+  "data_freshness": "Live (CoinGecko fetch 2026-04-03T13:40:57.358Z)",
+  "token_spend_today": null,
+  "token_spend_date": "2026-03-30",
+  "token_spend_last_7d": 14.17
 }
