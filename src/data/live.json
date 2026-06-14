@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-06-14T01:29:14.177Z",
-  "timestamp_edt": "6/13/2026, 09:29:14 PM EDT",
+  "timestamp": "2026-06-14T01:30:04.787Z",
+  "timestamp_edt": "6/13/2026, 09:30:04 PM EDT",
   "activity_score": 2,
   "regime": "BULL",
   "regime_confidence": 0.8,
@@ -30,14 +30,14 @@
   },
   "next_action": "MONITOR_POSITION",
   "action_rationale": "1 trade(s) active | Monitor for exit signals",
-  "last_regime_run": "2026-06-14T01:29:14.177Z",
+  "last_regime_run": "2026-06-14T01:30:04.787Z",
   "tracker_entries": 28,
   "memory_lines": 5791,
   "trades_executed": 1,
   "position_open": true,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-06-14T01:29:14.177Z)",
+  "data_freshness": "Live (regime.js fetch 2026-06-14T01:30:04.787Z)",
   "token_spend_today": 28.9185,
   "token_spend_date": "2026-04-03"
 }
