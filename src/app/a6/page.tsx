@@ -3,134 +3,109 @@
 import React from 'react';
 
 export default function A6Page() {
-  const lastUpdated = '2026-03-27 18:20 EDT';
+  const lastUpdated = '2026-06-23 22:55 EDT';
 
   const agents = [
     {
-      name: 'Horner',
-      role: 'audit',
-      checks: 8,
-      issuesFound: 3,
-      critical: 3,
-      tokens: '7.8k',
-      color: '#8B5CF6',
-      lastRun: '2026-03-27 17:46 EDT',
-      summary: '3 CRITICAL/WARN — DWC trademark legal case unconfirmed, Scrapehero sources, signal log example entry',
-    },
-    {
-      name: 'Zack',
-      role: 'watchdog',
-      checks: 9,
-      issuesFound: 3,
+      name: 'Newey',
+      role: 'operator',
+      checks: 10,
+      issuesFound: 0,
       critical: 0,
-      tokens: '3.3k',
-      color: '#22C55E',
-      lastRun: '2026-03-27 17:45 EDT',
-      summary: '6 PASS · 3 FAIL — token ledger stale, prompt_log stale (now FIXED), prompt_log automation missing',
+      tokens: '—',
+      color: '#22D3EE',
+      lastRun: '2026-06-23 22:55 EDT',
+      summary: 'All cron jobs healthy · Memory system operational · Visual dashboard updated',
     },
   ];
 
   const scheduledJobs = [
     {
-      name: 'Regime Monitor',
-      frequency: 'Every 30 min',
-      lastSuccess: '2026-03-27 17:57 EDT',
+      name: 'Memory Initializer',
+      frequency: 'Daily 2:35 AM',
+      lastSuccess: '2026-06-23 02:35 EDT',
       status: 'healthy',
-      canonicalPath: '~/.openclaw/workspace/tracker/regime_monitor.log',
-      notes: 'Silent mode. Alerts on shift only.',
+      canonicalPath: 'memory/YYYY-MM-DD.md',
+      notes: 'Creates daily file if missing',
     },
     {
-      name: 'A4 Live JSON',
-      frequency: 'Hourly @ :29',
-      lastSuccess: '2026-03-27 17:29 EDT',
+      name: 'Daily Learning Reflection',
+      frequency: 'Daily 2:40 AM',
+      lastSuccess: '2026-06-23 02:40 EDT',
       status: 'healthy',
-      canonicalPath: '~/.openclaw/workspace/projects/newey-visual/src/data/live.json',
-      notes: '',
-    },
-    {
-      name: 'Nightly Backup',
-      frequency: 'Daily 1:00 AM',
-      lastSuccess: '2026-03-27 01:00 EDT',
-      status: 'healthy',
-      canonicalPath: '~/QBranch/Backups/',
-      notes: '70 MB, nominal',
+      canonicalPath: 'memory/YYYY-MM-DD.md (append)',
+      notes: 'Kimi K2.6 model',
     },
     {
       name: 'Session Handoff',
-      frequency: 'Daily 2:59 AM',
-      lastSuccess: '2026-03-27 02:59 EDT',
+      frequency: 'Daily 2:55 AM',
+      lastSuccess: '2026-06-23 02:55 EDT',
       status: 'healthy',
-      canonicalPath: 'Telegram delivery (announce)',
-      notes: 'Fixed Mar 24: systemEvent→agentTurn',
+      canonicalPath: 'Telegram delivery',
+      notes: '',
     },
     {
-      name: 'Token Ledger',
-      frequency: 'Friday 6:00 PM',
-      lastSuccess: '2026-03-27 18:18 EDT',
+      name: 'Memory Dreaming Promotion',
+      frequency: 'Daily 3:00 AM',
+      lastSuccess: '2026-06-23 03:00 EDT',
       status: 'healthy',
-      canonicalPath: '~/.openclaw/workspace/ops/token_ledger.md',
-      notes: 'Time moved to 6 PM; 227.5M tokens, $160.91 cost this week',
+      canonicalPath: 'MEMORY.md',
+      notes: 'Promotes short-term recalls',
     },
     {
-      name: 'Security Audit',
-      frequency: 'Sunday 9:00 AM',
-      lastSuccess: '2026-03-24 09:00 EDT',
+      name: 'Morning Greeting',
+      frequency: 'Daily 3:01 AM',
+      lastSuccess: '2026-06-23 03:01 EDT',
       status: 'healthy',
-      canonicalPath: '~/.openclaw/workspace/tracker/audits.log',
-      notes: 'Next: Mar 30',
+      canonicalPath: 'Telegram delivery',
+      notes: '',
     },
     {
-      name: 'Weekly Reset',
-      frequency: 'Friday 6:00 PM',
-      lastSuccess: '2026-03-27 18:20 EDT',
+      name: 'F1 Race Email (Fri)',
+      frequency: 'Friday 9:00 AM',
+      lastSuccess: '2026-06-19 09:00 EDT',
       status: 'healthy',
-      canonicalPath: 'R + Newey weekly sync',
-      notes: 'DWC Phase 2 Tier 1 + system audits + token reconciliation',
+      canonicalPath: 'projects/f1-intelligence/the_race_email_digest.md',
+      notes: '',
+    },
+    {
+      name: 'F1 Race Email (Tue)',
+      frequency: 'Tuesday 9:00 AM',
+      lastSuccess: '2026-06-23 09:00 EDT',
+      status: 'healthy',
+      canonicalPath: 'projects/f1-intelligence/the_race_email_digest.md',
+      notes: '',
     },
   ];
 
   const activeItems = [
     {
-      name: 'Step 3B: Testnet validation',
-      status: 'blocked',
-      agent: 'Trading',
-      nextAction: 'Fund Arbitrum Sepolia wallet',
-      lastChecked: '2026-03-27 17:45 EDT',
-    },
-    {
-      name: 'Gordon Controller re-enable',
-      status: 'blocked',
-      agent: 'Trading',
-      nextAction: 'Awaiting Step 3B + Gate D approval',
-      lastChecked: '2026-03-27 17:45 EDT',
-    },
-    {
-      name: 'DWC Phase 2 Tier 1 monitoring',
-      status: 'open',
-      agent: 'Analysis',
-      nextAction: 'Start April 1: weekly signal log + pricing tracker',
-      lastChecked: '2026-03-27 18:08 EDT',
-    },
-    {
-      name: 'prompt_log.md stale + manual logging',
-      status: 'fixed',
+      name: 'Daily Reflections cron (Kimi)',
+      status: 'monitor',
       agent: 'System',
-      nextAction: 'Backfilled + locked Friday 18:00 EDT rule',
-      lastChecked: '2026-03-27 18:08 EDT',
+      nextAction: 'Prompt fix deployed; observing output quality',
+      lastChecked: '2026-06-23 18:50 EDT',
     },
     {
-      name: 'Nancy CLI restore + B Loop',
+      name: 'A4/A6 visual data pipeline',
+      status: 'complete',
+      agent: 'System',
+      nextAction: 'Crypto removed; gen-data.js updated',
+      lastChecked: '2026-06-23 22:00 EDT',
+    },
+    {
+      name: 'Nancy memory system',
       status: 'complete',
       agent: 'Infrastructure',
-      nextAction: 'Operational; awaiting autonomous test (Mar 28 02:59 AM)',
-      lastChecked: '2026-03-27 18:06 EDT',
+      nextAction: 'Operational since Jun 19',
+      lastChecked: '2026-06-19 09:27 EDT',
     },
     {
-      name: 'Handoff rules documentation',
+      name: 'Instagram Interests index',
       status: 'complete',
-      agent: 'System',
-      nextAction: '—',
-      lastChecked: '2026-03-27 17:49 EDT',
+      agent: 'Work',
+      nextAction: '7,915 accounts indexed; add_interest.py active',
+      lastChecked: '2026-06-23 21:02 EDT',
     },
   ];
 
@@ -169,18 +144,18 @@ export default function A6Page() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             <div>
               <p className="text-sm text-slate-400">Cron Jobs</p>
-              <p className="text-3xl font-bold text-blue-400">7</p>
+              <p className="text-3xl font-bold text-blue-400">10</p>
               <p className="text-xs text-green-400 mt-1">Active</p>
             </div>
             <div>
-              <p className="text-sm text-slate-400">Trading</p>
-              <p className="text-3xl font-bold text-amber-400">⏸</p>
-              <p className="text-xs text-amber-400 mt-1">Paused</p>
+              <p className="text-sm text-slate-400">Memory</p>
+              <p className="text-3xl font-bold text-purple-400">●</p>
+              <p className="text-xs text-green-400 mt-1">Active</p>
             </div>
             <div>
-              <p className="text-sm text-slate-400">Recovery</p>
-              <p className="text-3xl font-bold text-amber-400">3B</p>
-              <p className="text-xs text-red-400 mt-1">Blocked (testnet)</p>
+              <p className="text-sm text-slate-400">Session</p>
+              <p className="text-3xl font-bold text-cyan-400">●</p>
+              <p className="text-xs text-green-400 mt-1">Online</p>
             </div>
             <div>
               <p className="text-sm text-slate-400">Cases</p>
