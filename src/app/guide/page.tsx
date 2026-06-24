@@ -44,7 +44,7 @@ export default function GuidePage() {
               <p className="text-xs text-stone-600 mb-3">Execution · Traffic · Domain Lanes</p>
               <div className="text-sm leading-relaxed text-stone-400 space-y-2">
                 <p><strong>Current:</strong> Colored dots move across 3 domain lanes. Traffic spawn rate and max count scale with activity. Substations pulse at intersections — brighter when busy. Dots that cross layer boundaries represent escalation (up to Reason) or completion (down to Memory). Crossing frequency increases with workload.</p>
-                <p className="text-stone-600"><strong>Planned:</strong> Lane density proportional to real domain costs. Agent particles (Horner, Zack) added in V6.</p>
+                <p className="text-stone-600"><strong>Planned:</strong> Lane density proportional to real domain costs. Agent particles added in V6.</p>
               </div>
             </div>
 
@@ -105,7 +105,7 @@ export default function GuidePage() {
         <div className="mb-20 pt-10 border-t border-white/5">
           <h2 className="text-xl font-light text-stone-100 mb-6">Abstraction</h2>
           <p className="text-sm text-stone-400 mb-4 leading-relaxed">
-            A4 shows that work exists, not what the work is. Domain lanes represent broad categories (system, work, personal) without exposing specific operations. Execution-sensitive activity appears as abstract domain traffic — never as explicit trade details, positions, or instrument names.
+            A4 shows that work exists, not what the work is. Domain lanes represent broad categories (system, work, personal) without exposing specific operations. Execution-sensitive activity appears as abstract domain traffic — never as explicit task details, project names, or personal data.
           </p>
           <p className="text-xs text-stone-500 italic">
             The viz is expressive, not operational. For operational truth, see State (A7).
@@ -160,7 +160,7 @@ export default function GuidePage() {
             Reason = thinking · Motion = execution · Memory = learning
           </p>
           <p className="text-[10px] text-stone-700 mt-1">
-            Newey 2.0 — V5 — March 2026
+            Newey 2.0 — V5 — June 2026
           </p>
         </div>
 

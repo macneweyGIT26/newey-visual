@@ -29,7 +29,7 @@ function getHeartbeatLabel(act: number): string {
 
 interface LiveData {
   timestamp_edt?: string; tracker_entries?: number; activity_score?: number
-  token_spend_today?: number | null; regime?: string; regime_confidence?: number
+  token_spend_today?: number | null; session_state?: string; cron_status?: string
   lanes?: { name: string; cost: number; entries: number; color: string }[]
 }
 
@@ -120,7 +120,7 @@ export default function A4Canvas() {
       const live = liveRef.current
       const timestamp = live.timestamp_edt ?? ''
       const entries = live.tracker_entries ?? 0
-      const regime = live.regime ?? '—'
+      const sessionState = live.session_state ?? 'idle'
       const hbLabel = getHeartbeatLabel(act)
 
       // === ACTIVITY-DRIVEN PARAMETERS ===
@@ -212,7 +212,7 @@ export default function A4Canvas() {
       ctx.font='20px -apple-system, sans-serif'; ctx.fillStyle=`rgba(255,255,255,${0.08 + act * 0.15})`
       ctx.fillText('Motion',15,S.streetY+40)
       ctx.font='8px -apple-system, sans-serif'; ctx.fillStyle=`rgba(255,255,255,${0.06 + act * 0.08})`
-      ctx.fillText(`${hbLabel} · ${regime}`,15,S.streetY+54)
+      ctx.fillText(`${hbLabel}`,15,S.streetY+54)
 
       LANES.forEach(lane => {
         const ly = S.streetY + S.streetH * lane.frac
