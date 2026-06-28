@@ -1,31 +1,43 @@
 {
-  "timestamp": "2026-06-24T01:58:38.172Z",
-  "timestamp_edt": "6/23/2026, 21:58:38 PM EDT",
-  "activity_score": 4,
-  "tracker_entries": 0,
-  "memory_lines": 407,
-  "token_spend_today": 0,
-  "token_spend_date": "2026-06-23",
-  "session_state": "sleep",
-  "cron_status": "healthy",
-  "lanes": [
-    {
-      "name": "SYSTEM",
-      "cost": 40,
-      "entries": 2,
-      "color": "168,85,247"
-    },
-    {
-      "name": "WORK",
-      "cost": 45,
-      "entries": 5,
-      "color": "34,211,238"
-    },
-    {
-      "name": "PERSONAL",
-      "cost": 15,
-      "entries": 3,
-      "color": "251,146,60"
-    }
-  ]
+  "timestamp": "2026-06-28T01:37:09.205Z",
+  "timestamp_edt": "6/27/2026, 09:37:09 PM EDT",
+  "activity_score": 2,
+  "regime": "SIDEWAYS",
+  "regime_confidence": 0.6,
+  "prices": {
+    "btc": 60154,
+    "btc_change": 0.46,
+    "eth": 1573.82,
+    "eth_change": 0.01,
+    "sol": 70.7,
+    "sol_change": -1.13,
+    "usdt_d": 1,
+    "usdt_d_strength": false
+  },
+  "wallet_status": {
+    "usdc_available": 80.23,
+    "eth_balance": 0.012127,
+    "margin": 0,
+    "liquidation_risk": false
+  },
+  "modules_complete": {
+    "regime_monitor": true,
+    "price_redundancy": true,
+    "order_execution": true,
+    "journal": true,
+    "csv_logging": true,
+    "wallet_integration": true
+  },
+  "next_action": "MONITOR",
+  "action_rationale": "Regime SIDEWAYS (60% conf) | Waiting for confirmation",
+  "last_regime_run": "2026-06-28T01:37:09.205Z",
+  "tracker_entries": 28,
+  "memory_lines": 6979,
+  "trades_executed": 1,
+  "position_open": true,
+  "mandate_status": "All constraints satisfied",
+  "last_exit_timestamp": null,
+  "data_freshness": "Live (regime.js fetch 2026-06-28T01:37:09.205Z)",
+  "token_spend_today": 28.9185,
+  "token_spend_date": "2026-04-03"
 }
