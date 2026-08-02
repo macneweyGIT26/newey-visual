@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-26T01:36:57.011Z",
-  "timestamp_edt": "7/25/2026, 09:36:57 PM EDT",
+  "timestamp": "2026-08-02T01:30:48.650Z",
+  "timestamp_edt": "8/1/2026, 09:30:48 PM EDT",
   "activity_score": 2,
   "regime": "ERROR",
   "regime_confidence": 0,
@@ -30,14 +30,14 @@
   },
   "next_action": "MONITOR",
   "action_rationale": "Price data fetch — determining action",
-  "last_regime_run": "2026-07-26T01:36:57.011Z",
+  "last_regime_run": "2026-08-02T01:30:48.650Z",
   "tracker_entries": 28,
-  "memory_lines": 8718,
+  "memory_lines": 9007,
   "trades_executed": 0,
   "position_open": false,
   "mandate_status": "All constraints satisfied",
   "last_exit_timestamp": null,
-  "data_freshness": "Live (regime.js fetch 2026-07-26T01:36:57.011Z)",
+  "data_freshness": "Live (regime.js fetch 2026-08-02T01:30:48.650Z)",
   "token_spend_today": 28.9185,
   "token_spend_date": "2026-04-03"
 }
